@@ -1,0 +1,149 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgres"
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum FileType {
+  VIDEO
+  FILE
+}
+
+model UserAuth {
+  id           String @id @default(uuid())
+  publicId     String @unique @default(uuid())
+  googleUserId String @unique
+
+  email          String @unique
+  profilePicture String
+
+  roles   Role[]   @default(value: [STUDENT])
+  student Student?
+  teacher Teacher?
+
+  loginHistory Log[]
+  loginRequest LoginRequest[]
+}
+
+// Log contains what is this person doing right now
+model Log {
+  id         String   @id @default(cuid())
+  userAuth   UserAuth @relation(fields: [userAuthId], references: [publicId])
+  userAuthId String   @unique
+
+  timestamp DateTime @default(now())
+  route     String
+}
+
+model Student {
+  id         String   @id @default(uuid())
+  userAuth   UserAuth @relation(fields: [userAuthId], references: [publicId])
+  userAuthId String   @unique
+
+  studentId String @unique
+  firstname String
+  lastname  String
+  nickname  String
+
+  telephoneNumber         String
+  guardianTelephoneNumber String
+
+  assignment Assignment[]
+  Score      Score[]
+}
+
+model Teacher {
+  id         String   @id @default(uuid())
+  userAuth   UserAuth @relation(fields: [userAuthId], references: [publicId])
+  userAuthId String   @unique
+
+  firstname String
+  lastname  String
+  nickname  String?
+
+  lessons Lesson[]
+}
+
+model File {
+  id String @id @default(cuid()) @map("_id")
+
+  name     String
+  type     FileType
+  location String
+
+  lessons Lesson[]
+}
+
+model Lesson {
+  id String @id @default(cuid())
+
+  title       String
+  description String?
+  lastUpdated DateTime @default(now())
+
+  materials  File[]
+  assignment Assignment[]
+
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId String
+}
+
+model Assignment {
+  id String @id @default(cuid())
+
+  assignDate DateTime  @default(now())
+  expireDate DateTime?
+
+  isFinished Boolean @default(false)
+
+  assignTo Student[]
+
+  lesson   Lesson @relation(fields: [lessonId], references: [id])
+  lessonId String
+}
+
+model Config {
+  key   String  @id @unique
+  value String?
+}
+
+model Score {
+  scoreboard   Scoreboard @relation(fields: [scoreboardId], references: [id])
+  scoreboardId String
+
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String
+
+  score Int
+
+  @@id([scoreboardId, studentId])
+}
+
+model Scoreboard {
+  id        String   @id @default(cuid())
+  timestamp DateTime @default(now())
+  name      String
+
+  scores     Score[]
+  totalScore Int
+}
+
+model LoginRequest {
+  id String @id @default(cuid())
+
+  userAuth   UserAuth @relation(fields: [userAuthId], references: [publicId])
+  userAuthId String
+
+  timestamp DateTime @default(now())
+  approved  Boolean  @default(false)
+}

@@ -1,0 +1,24 @@
+<script>
+  import CourseCard from "$lib/components/CourseCard.svelte";
+
+  const coursePrice = 1499;
+  const courseGrade = 3;
+</script>
+
+<CourseCard title="ติวเตรียมเข้าม.4 (คณิตศาสตร์)">
+  <svelte:fragment slot="grade">
+    <p>มัธยมศึกษาปีที่ {courseGrade}</p>
+  </svelte:fragment>
+
+  <svelte:fragment slot="subject">
+    <p>คณิตศาสตร์</p>
+  </svelte:fragment>
+
+  <svelte:fragment slot="schedule">
+    <p>เรียน 2 วัน/สัปดาห์ (วันละ 3-4 ชั่วโมง)</p>
+  </svelte:fragment>
+
+  <svelte:fragment slot="price">
+    <p class="font-medium">{coursePrice.toLocaleString()} บาท/เดือน</p>
+  </svelte:fragment>
+</CourseCard>
