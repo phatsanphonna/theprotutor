@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { FileType } from '@prisma/client';
+import { FileType } from 'database';
 import {
   IconCheck,
 } from '@tabler/icons-react';
@@ -166,7 +166,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
 }) => {
   const { data, status } = await ServerAxios<IResponseData>(
-    `/admin/file/${params.id}`,
+    `/admin/file/${params?.id}`,
     {
       method: 'GET',
       withCredentials: true,

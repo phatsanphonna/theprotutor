@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { File, FileType, Teacher } from '@prisma/client';
+import { File, FileType, Teacher } from 'database';
 import {
   IconBrandVimeo,
   IconCheck,
@@ -28,10 +28,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 interface IResponseData {
-  id: string;
   title: string;
   description: string;
-  lastUpdated: string;
   materialsId: string[];
   teacherId: string;
   teacher: IResponseTeacher;
@@ -68,7 +66,7 @@ const NewLessonPage: NextPage<Props> = ({ teachers }) => {
       materials: [],
       materialsId: [],
       teacherId: '',
-      teacher: {}
+      teacher: {} as Teacher
     } as IResponseData,
     validateInputOnChange: true,
     validate: {},

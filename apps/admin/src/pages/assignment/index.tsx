@@ -80,7 +80,7 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
 
   const rows = data.map((d, index) => {
     const assignDateObj = new Date(d.assignDate);
-    const expireDateObj = new Date(d.expireDate);
+    const expireDateObj = new Date(d.expireDate!);
 
     const assignDate = new Intl.DateTimeFormat('th-TH', {
       month: '2-digit',

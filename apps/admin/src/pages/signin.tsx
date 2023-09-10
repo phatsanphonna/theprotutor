@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-react';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import { AxiosError } from 'axios';
 
 const SignInPage: NextPage = () => {
   const handleSignIn = async () => {
@@ -65,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-  } catch ({ response }) {
+  } catch (err) {
     return {
       props: {},
     };

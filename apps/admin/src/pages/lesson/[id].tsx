@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { File, FileType, Teacher } from '@prisma/client';
+import { File, FileType, Teacher } from 'database';
 import {
   IconBrandVimeo,
   IconCheck,
@@ -235,7 +235,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
 }) => {
   const { data, status } = await ServerAxios<IResponseData>(
-    `/admin/lesson/${params.id}`,
+    `/admin/lesson/${params?.id}`,
     {
       method: 'GET',
       withCredentials: true,

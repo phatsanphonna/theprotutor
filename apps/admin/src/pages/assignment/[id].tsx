@@ -74,8 +74,8 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
   const form = useForm({
     initialValues: {
       ...data,
-      assignDate: new Date(),
-      expireDate: new Date(),
+      assignDate: new Date() as Date | null,
+      expireDate: new Date() as Date | null,
     },
     validateInputOnChange: true,
     validate: {},
@@ -217,7 +217,7 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
                     placeholder="ไม่มีวันหมดอายุ"
                     disabled={expired}
                     onChange={(e) => (form.values.expireDate = e)}
-                    defaultValue={new Date(data.expireDate)}
+                    defaultValue={new Date(data.expireDate!)}
                     value={form.values.expireDate}
                     w="100%"
                   />
@@ -242,7 +242,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
 }) => {
   const { data, status } = await ServerAxios<IResponseData>(
-    `/admin/assignment/${params.id}`,
+    `/admin/assignment/${params?.id}`,
     {
       method: 'GET',
       withCredentials: true,
