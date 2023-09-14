@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Avatar } from "@skeletonlabs/skeleton";
   import type { User } from "$lib/types";
+  import { Avatar } from "@skeletonlabs/skeleton";
   import { IconQrcode } from "@tabler/icons-svelte";
 
   export let user: User | undefined;

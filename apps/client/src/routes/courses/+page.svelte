@@ -34,7 +34,10 @@
 <div class="container mx-auto px-4 py-8 min-h-screen">
   <h2 class="font-bold text-6xl mb-4">คอร์สเรียน</h2>
 
-  <TabGroup>
+  <TabGroup
+    active="variant-filled-primary"
+    hover="hover:variant-soft-primary"
+  >
     <Tab bind:group={tabSet} name="tab1" value={0}>ทั้งหมด</Tab>
     <Tab bind:group={tabSet} name="tab2" value={1}>ประถม</Tab>
     <Tab bind:group={tabSet} name="tab3" value={2}>มัธยมต้น</Tab>
@@ -63,6 +66,8 @@
               <PREPRO3 />
             </div>
           </div>
+
+          <hr />
         {/if}
 
         {#if tabSet === 2 || tabSet === 0}
@@ -78,6 +83,8 @@
               <M4ENG />
             </div>
           </div>
+
+          <hr />
         {/if}
 
         {#if tabSet === 3 || tabSet === 0}
