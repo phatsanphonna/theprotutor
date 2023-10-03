@@ -35,6 +35,10 @@
   "type": "module",
   "dependencies": {
     "@tabler/icons-svelte": "2.31.0",
+    "@trpc/client": "^10.38.2",
+    "@trpc/server": "^10.38.2",
+    "trpc-sveltekit": "^3.5.20",
+    "zod": "^3.22.2"
     "@vime/core": "^5.4.1",
     "@vime/svelte": "^5.4.1"
   }
