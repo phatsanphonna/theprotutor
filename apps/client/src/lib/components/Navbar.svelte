@@ -1,16 +1,14 @@
 <script lang="ts">
-  import type { User } from "$lib/types";
   import {
     AppBar,
     getDrawerStore,
     type DrawerSettings,
+    LightSwitch,
   } from "@skeletonlabs/skeleton";
   import { IconMenu2 } from "@tabler/icons-svelte";
   import AuthButton from "./AuthButton.svelte";
 
   const drawerStore = getDrawerStore();
-
-  export let user: User | undefined = undefined;
 
   const toggleDrawer = () => {
     const settings: DrawerSettings = {
@@ -53,7 +51,7 @@
 
   <svelte:fragment slot="trail">
     <div class="hidden md:block">
-      <AuthButton {user} />
+      <AuthButton />
     </div>
 
     <button class="block md:hidden" on:click={toggleDrawer}>

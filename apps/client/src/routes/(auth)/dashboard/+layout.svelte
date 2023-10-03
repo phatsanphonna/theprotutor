@@ -6,6 +6,10 @@
   export let data: LayoutData;
 </script>
 
+<svelte:head>
+  <title>Dashboard | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+</svelte:head>
+
 <div class="container mx-auto px-4 py-8 min-h-screen">
   <div class="w-4/5 mx-auto">
     <div class="flex flex-col gap-4">
@@ -14,7 +18,6 @@
       </h2>
 
       <StudentCard user={data.user} />
-
       <NavigationBar />
     </div>
     <slot />

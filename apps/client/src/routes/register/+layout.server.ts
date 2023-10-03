@@ -5,6 +5,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
   const { user } = locals;
 
   if (user) {
-    throw redirect(304, '/dashboard')
+    throw redirect(304, '/')
   }
 };

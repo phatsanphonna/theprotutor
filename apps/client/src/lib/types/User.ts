@@ -13,5 +13,4 @@ export interface User {
   telephoneNumber: string
   guardianTelephoneNumber: string
   userAuth: UserAuth
-  assignment: any[]
 }

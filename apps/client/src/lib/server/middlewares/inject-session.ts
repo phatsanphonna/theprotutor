@@ -1,5 +1,5 @@
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
-import type { User } from '$lib/types/User';
+import type { User } from '$lib/types';
 import type { Handle } from '@sveltejs/kit';
 
 export const injectSession: Handle = async ({ event, resolve }) => {
@@ -11,10 +11,9 @@ export const injectSession: Handle = async ({ event, resolve }) => {
       method: 'GET',
       credentials: 'include',
     })
-    const user = await response.json() satisfies User
+    const user = await response.json() as User
     event.locals.user = user
   }
 
-  const response = await resolve(event)
-  return response
+  return await resolve(event)
 }

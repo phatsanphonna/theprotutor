@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { FileType } from '@prisma/client';
+import { FileType } from 'database';
 import {
   IconCheck,
 } from '@tabler/icons-react';
@@ -43,7 +43,7 @@ const NewFilePage: NextPage = () => {
   const handleUpdateData = async (values: typeof form.values) => {
     const formData = new FormData()
 
-    formData.append('file', values.file)
+    formData.append('file', values.file!)
     formData.append('name', values.name)
     formData.append('type', values.type)
 

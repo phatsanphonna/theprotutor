@@ -272,7 +272,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
 }) => {
   const { data, status } = await ServerAxios<IResponse>(
-    `/admin/student/${params.id}`,
+    `/admin/student/${params?.id}`,
     {
       method: 'GET',
       withCredentials: true,

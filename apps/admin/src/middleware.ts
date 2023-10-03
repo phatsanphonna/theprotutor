@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client';
+import { Role } from 'database';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 

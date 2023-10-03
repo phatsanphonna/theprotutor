@@ -6,7 +6,9 @@
   import {
     AppShell,
     Drawer,
+    Modal,
     getDrawerStore,
+    getModalStore,
     initializeStores,
   } from "@skeletonlabs/skeleton";
   import "../app.css";
@@ -22,6 +24,7 @@
   }
 
   const drawerStore = getDrawerStore();
+  const modalStore = getModalStore()
 </script>
 
 <svelte:head>
@@ -44,15 +47,19 @@
 
 <Drawer>
   {#if $drawerStore.id === "navbar"}
-    <MobileNavbar user={data.user} />
+    <MobileNavbar />
   {:else if $drawerStore.id === "auth-sidebar"}
-    <AuthSidebar user={data.user} />
+    <AuthSidebar />
   {/if}
 </Drawer>
 
+<Modal>
+  <p>OK</p>
+</Modal>
+
 <AppShell>
   <svelte:fragment slot="header">
-    <Navbar user={data.user} />
+    <Navbar />
   </svelte:fragment>
 
   <slot />

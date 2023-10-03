@@ -1,11 +1,8 @@
 <script lang="ts">
   import AuthButton from "./AuthButton.svelte";
-  import type { User } from "$lib/types";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
 
   const drawerStore = getDrawerStore();
-
-  export let user: User | undefined = undefined;
 
   const disableDrawer = () => {
     drawerStore.close();
@@ -25,6 +22,6 @@
   <hr class="!border-t-2" />
 
   <div>
-    <AuthButton {user} />
+    <AuthButton />
   </div>
 </div>

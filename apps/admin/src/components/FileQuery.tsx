@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import { File } from '@prisma/client';
+import { File } from 'database';
 import { IconFile, IconVideo } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 
