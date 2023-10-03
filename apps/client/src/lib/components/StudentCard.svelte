@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { User } from "$lib/types";
   import { Avatar } from "@skeletonlabs/skeleton";
-  import { IconQrcode } from "@tabler/icons-svelte";
 
   export let user: User | undefined;
 </script>
@@ -11,7 +10,7 @@
     <div class="flex gap-4 items-center">
       <Avatar
         src={user?.userAuth.profilePicture}
-        width="w-20 md:w-32"
+        width="w-20"
         rounded="rounded-full"
       />
 
@@ -21,8 +20,8 @@
       </div>
     </div>
 
-    <button class="transition-all hidden md:block variant-filled-surface bg-white rounded hover:scale-105">
-      <IconQrcode size={120} />
-    </button>
+    <!-- <button class="transition-all hidden md:block variant-filled-surface bg-white rounded hover:scale-105">
+      <IconQrcode size={80} />
+    </button> -->
   </section>
 </div>

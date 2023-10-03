@@ -42,7 +42,7 @@
   <ul>
     <li>
       <a
-        href="/dashboard"
+        href="/dashboard/assignment"
         class="flex gap-2 items-center"
         on:click={toggleDrawer}
       >
