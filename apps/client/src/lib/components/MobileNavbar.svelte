@@ -1,6 +1,5 @@
 <script lang="ts">
   import AuthButton from "./AuthButton.svelte";
-  import type { User } from "$lib/types";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
 
   const drawerStore = getDrawerStore();

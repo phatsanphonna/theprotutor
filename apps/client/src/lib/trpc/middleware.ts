@@ -4,7 +4,7 @@ import { t } from './t';
 export const trpcAuthMiddleware = t.middleware(({ next, ctx }) => {
   const { user } = ctx;
 
-  if (user) {
+  if (!user) {
     throw new TRPCError({ code: 'UNAUTHORIZED' })
   }
 

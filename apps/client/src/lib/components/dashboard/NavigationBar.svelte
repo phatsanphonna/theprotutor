@@ -5,8 +5,8 @@
 
 <TabGroup justify="justify-center">
   <TabAnchor href="/dashboard/assignment" selected={$page.url.pathname === "/dashboard/assignment"}>บทเรียน</TabAnchor>
-  <TabAnchor href="/dashboard/reserved-computer" selected={$page.url.pathname === "/dashboard/reserved-computer"}>
-    การจองคอม
+  <TabAnchor href="/dashboard/appointments" selected={$page.url.pathname === "/dashboard/appointments"}>
+    เรียนชดเชย
   </TabAnchor>
   <TabAnchor href="/dashboard/payment" selected={$page.url.pathname === "/dashboard/payment"}>ชำระเงิน</TabAnchor>
 </TabGroup>

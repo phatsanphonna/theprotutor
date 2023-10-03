@@ -6,7 +6,9 @@
   import {
     AppShell,
     Drawer,
+    Modal,
     getDrawerStore,
+    getModalStore,
     initializeStores,
   } from "@skeletonlabs/skeleton";
   import "../app.css";
@@ -22,6 +24,7 @@
   }
 
   const drawerStore = getDrawerStore();
+  const modalStore = getModalStore()
 </script>
 
 <svelte:head>
@@ -49,6 +52,10 @@
     <AuthSidebar />
   {/if}
 </Drawer>
+
+<Modal>
+  <p>OK</p>
+</Modal>
 
 <AppShell>
   <svelte:fragment slot="header">

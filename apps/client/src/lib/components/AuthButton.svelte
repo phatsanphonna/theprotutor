@@ -7,7 +7,7 @@
     type DrawerSettings,
     getDrawerStore,
   } from "@skeletonlabs/skeleton";
-  import { IconChevronDown } from "@tabler/icons-svelte";
+  import { IconChevronLeftPipe } from "@tabler/icons-svelte";
 
   const drawerStore = getDrawerStore();
 
@@ -35,7 +35,7 @@
       rounded="rounded-full"
     />
     <p>{$page.data.user?.firstname}</p>
-    <IconChevronDown />
+    <IconChevronLeftPipe />
   </button>
 {:else}
   <button class="btn variant-filled-primary" on:click={googleSignIn}>

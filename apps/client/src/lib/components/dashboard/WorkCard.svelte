@@ -1,19 +1,21 @@
 <script lang="ts">
   export let name: string;
-  export let expireDate: Date | null;
+  export let expireDate: string | null;
   export let totalFiles: number = 0;
   export let id: string;
 
-  const isExpired = expireDate && expireDate.getTime() <= new Date().getTime();
+  const parsedExpireDate = new Date(expireDate!)
+
+  const isExpired = expireDate && parsedExpireDate.getTime() <= new Date().getTime();
   const formatExpireDate = expireDate && new Intl.DateTimeFormat('th-TH', {
     month: '2-digit',
     day: '2-digit',
     year: 'numeric'
   })
-    .format(expireDate)
+    .format(parsedExpireDate)
 </script>
 
-{#if !isExpired}
+{#if isExpired}
   <div class="card variant-filled-surface">
     <header class="card-header">
       <h4 class="font-medium text-2xl">{name}</h4>
@@ -28,7 +30,7 @@
   <a href={`/assignments/${id}`}>
     <div class="card variant-outline-surface hover:variant-filled-secondary transition-all">
       <header class="card-header">
-        <h4 class="font-medium text-2xl">{name}</h4>
+        <h4 class="font-medium text-lg md:text-2xl">{name}</h4>
       </header>
 
       <footer class="card-footer">

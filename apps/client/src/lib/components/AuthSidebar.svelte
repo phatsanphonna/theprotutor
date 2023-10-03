@@ -3,8 +3,13 @@
   import { PUBLIC_BACKEND_AUTH_URL } from "$env/static/public";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
   import { Avatar, getDrawerStore } from "@skeletonlabs/skeleton";
-  import { IconLayoutDashboard, IconUser } from "@tabler/icons-svelte";
-  import { page } from '$app/stores';
+  import {
+    IconCalendar,
+    IconCalendarPlus,
+    IconLayoutDashboard,
+    IconUser,
+  } from "@tabler/icons-svelte";
+  import { page } from "$app/stores";
 
   const drawerStore = getDrawerStore();
   const { data } = $page;
@@ -39,7 +44,7 @@
 
   <hr class="!border-t-2" />
 
-  <ul>
+  <ul class="flex flex-col gap-1">
     <li>
       <a
         href="/dashboard/assignment"
@@ -50,9 +55,18 @@
         Dashboard
       </a>
     </li>
-  </ul>
 
-  <ul>
+    <li>
+      <a
+        href="/appointments"
+        class="flex gap-2 items-center"
+        on:click={toggleDrawer}
+      >
+        <IconCalendar />
+        ตารางการเรียนชดเชย
+      </a>
+    </li>
+
     <li>
       <a href="/me" class="flex gap-2 items-center" on:click={toggleDrawer}>
         <IconUser />

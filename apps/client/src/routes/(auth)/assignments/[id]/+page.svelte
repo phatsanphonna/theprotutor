@@ -1,5 +1,8 @@
 <script lang="ts">
-    import type { PageData } from './$types';
-    
+    import VideoPlayer from "$lib/components/VideoPlayer.svelte";
+    import type { PageData } from "./$types";
+
     export let data: PageData;
 </script>
+
+<VideoPlayer />

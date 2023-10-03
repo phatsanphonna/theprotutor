@@ -1,8 +1,8 @@
-import { greetingRoute } from './routes/greeting';
+import { meRoutes } from './routes/me';
 import { t } from './t';
 
 export const router = t.router({
-  greeting: greetingRoute
+  me: meRoutes,
 });
 
 export type Router = typeof router;

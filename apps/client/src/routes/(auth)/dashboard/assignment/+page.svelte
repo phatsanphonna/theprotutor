@@ -9,9 +9,9 @@
   <h2 class="font-bold text-4xl mb-4">บทเรียน</h2>
   {#each data.assignments as assignment}
     <WorkCard
+      id={assignment.id}
       name={assignment.lesson.title}
       expireDate={assignment.expireDate}
-      id={assignment.id}
       totalFiles={assignment.lesson.materials.length}
     />
   {/each}

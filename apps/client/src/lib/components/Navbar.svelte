@@ -3,6 +3,7 @@
     AppBar,
     getDrawerStore,
     type DrawerSettings,
+    LightSwitch,
   } from "@skeletonlabs/skeleton";
   import { IconMenu2 } from "@tabler/icons-svelte";
   import AuthButton from "./AuthButton.svelte";

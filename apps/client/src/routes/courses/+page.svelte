@@ -32,16 +32,24 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
-  <h2 class="font-bold text-6xl mb-4">คอร์สเรียน</h2>
-
-  <TabGroup
-    active="variant-filled-primary"
-    hover="hover:variant-soft-primary"
-  >
-    <Tab bind:group={tabSet} name="tab1" value={0}>ทั้งหมด</Tab>
-    <Tab bind:group={tabSet} name="tab2" value={1}>ประถม</Tab>
-    <Tab bind:group={tabSet} name="tab3" value={2}>มัธยมต้น</Tab>
-    <Tab bind:group={tabSet} name="tab3" value={3}>มัธยมปลาย</Tab>
+  <div class="flex justify-between items-center">
+    <h2 class="font-bold text-4xl md:text-6xl mb-4">คอร์สเรียน</h2>
+    <div>
+      <a
+        href="https://lin.ee/BdFh3Km"
+        target="_blank"
+        rel="noreferrer"
+        class="btn variant-filled-success mb-4 text-white"
+      >
+        สมัครเรียน
+      </a>
+    </div>
+  </div>
+  <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+    <Tab bind:group={tabSet} name="all" value={0}>ทั้งหมด</Tab>
+    <Tab bind:group={tabSet} name="primary" value={1}>ประถม</Tab>
+    <Tab bind:group={tabSet} name="secondary" value={2}>มัธยมต้น</Tab>
+    <Tab bind:group={tabSet} name="high" value={3}>มัธยมปลาย</Tab>
 
     <svelte:fragment slot="panel">
       <div class="flex flex-col gap-8">
