@@ -5,8 +5,6 @@
 
   const drawerStore = getDrawerStore();
 
-  export let user: User | undefined = undefined;
-
   const disableDrawer = () => {
     drawerStore.close();
   };
@@ -25,6 +23,6 @@
   <hr class="!border-t-2" />
 
   <div>
-    <AuthButton {user} />
+    <AuthButton />
   </div>
 </div>

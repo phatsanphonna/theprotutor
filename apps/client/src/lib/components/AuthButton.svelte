@@ -1,7 +1,7 @@
 <script lang="ts">
   import { PUBLIC_BACKEND_AUTH_URL } from "$env/static/public";
-    import { isAuthenticated } from '$lib/stores/is-authenticated';
-  import type { User } from "$lib/types";
+  import { isAuthenticated } from "$lib/stores/is-authenticated";
+  import { page } from "$app/stores";
   import {
     Avatar,
     type DrawerSettings,
@@ -11,8 +11,6 @@
 
   const drawerStore = getDrawerStore();
 
-  export let user: User | undefined = undefined;
-
   const googleSignIn = async () => {
     window.open(PUBLIC_BACKEND_AUTH_URL + "/signin/google", "_self");
   };
@@ -21,7 +19,7 @@
     drawerStore.close();
 
     const settings: DrawerSettings = {
-      id: 'auth-sidebar',
+      id: "auth-sidebar",
       position: "right",
       width: "w-[280px]",
     };
@@ -29,14 +27,14 @@
   };
 </script>
 
-{#if $isAuthenticated && user}
+{#if $isAuthenticated && $page.data.user}
   <button class="btn variant-filled-secondary" on:click={toggleDrawer}>
     <Avatar
-      src={user?.userAuth.profilePicture}
+      src={$page.data.user?.userAuth.profilePicture}
       width="w-5"
       rounded="rounded-full"
     />
-    <p>{user?.firstname}</p>
+    <p>{$page.data.user?.firstname}</p>
     <IconChevronDown />
   </button>
 {:else}

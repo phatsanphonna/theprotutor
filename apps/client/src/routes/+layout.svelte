@@ -44,15 +44,15 @@
 
 <Drawer>
   {#if $drawerStore.id === "navbar"}
-    <MobileNavbar user={data.user} />
+    <MobileNavbar />
   {:else if $drawerStore.id === "auth-sidebar"}
-    <AuthSidebar user={data.user} />
+    <AuthSidebar />
   {/if}
 </Drawer>
 
 <AppShell>
   <svelte:fragment slot="header">
-    <Navbar user={data.user} />
+    <Navbar />
   </svelte:fragment>
 
   <slot />

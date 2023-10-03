@@ -47,7 +47,7 @@
       <div class="flex flex-col gap-8">
         {#if tabSet === 1 || tabSet === 0}
           <div class="flex flex-col gap-4">
-            <h3 class="font-bold text-4xl">PRO KIDS</h3>
+            <h3 class="font-bold text-4xl">👶🏻 PRO KIDS</h3>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <PROKIDS1 />
@@ -72,7 +72,7 @@
 
         {#if tabSet === 2 || tabSet === 0}
           <div class="flex flex-col gap-4">
-            <h3 class="font-bold text-4xl">PRO TEEN</h3>
+            <h3 class="font-bold text-4xl">🧒🏻 PRO TEEN</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <PROMATH />
@@ -89,7 +89,7 @@
 
         {#if tabSet === 3 || tabSet === 0}
           <div class="flex flex-col gap-4">
-            <h3 class="font-bold text-4xl">PRO HIGH</h3>
+            <h3 class="font-bold text-4xl">🧑🏻‍🎓 PRO HIGH</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <PROMATHBYKPPM />
@@ -103,7 +103,7 @@
 
         {#if tabSet === 3 || tabSet === 0}
           <div class="flex flex-col gap-4">
-            <h3 class="font-bold text-4xl">สอบเข้ามหาวิทยาลัย</h3>
+            <h3 class="font-bold text-4xl">📘 สอบเข้ามหาวิทยาลัย</h3>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <PROTGAT />
