@@ -6,6 +6,17 @@
   import { getToastStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
 
+  const times = [
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+  ];
+
   const toastStore = getToastStore();
 
   export let data: PageData;
@@ -27,23 +38,31 @@
     validAppointment = false;
     isLoading = true;
 
-    const { payload } = await trpc(
-      $page
-    ).appointment.checkValidAppointment.query({
-      appointmentTime: `${appointmentDate} ${startTime}`,
-      endTime: totalHours,
-    });
+    try {
+      const { payload } = await trpc(
+        $page
+      ).appointment.checkValidAppointment.query({
+        appointmentTime: `${appointmentDate} ${startTime}`,
+        endTime: totalHours,
+      });
 
-    if (payload) {
-      validAppointment = true;
-      messageType = "variant-ghost-success";
-      message = "โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการจอง";
-    } else {
-      messageType = "variant-ghost-error";
-      message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
+      if (payload) {
+        validAppointment = true;
+        messageType = "variant-ghost-success";
+        message =
+          "เวลาที่คุณเลือกมานั้นสามารถจองได้ โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการจอง";
+      } else {
+        messageType = "variant-ghost-error";
+        message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
+      }
+    } catch (err: any) {
+      toastStore.trigger({
+        background: 'variant-filled-error',
+        message: err.message
+      })
+    } finally {
+      isLoading = false;
     }
-
-    isLoading = false;
   };
 
   const submitAppointment = async () => {
@@ -155,14 +174,15 @@
       <div class="grid grid-cols-2 gap-2">
         <label class="label">
           <span>เวลาเริ่มต้น<span class="text-red-500">*</span></span>
-          <input
-            class="input px-4 py-2"
-            type="time"
-            required
-            on:change={setUnvalidAppointment}
+          <select
+            class="select"
             bind:value={startTime}
-            placeholder="เวลาเริ่มต้น"
-          />
+            on:change={setUnvalidAppointment}
+          >
+            {#each times as time}
+              <option value={time}>{time}</option>
+            {/each}
+          </select>
         </label>
 
         <label class="label">
@@ -180,19 +200,19 @@
       </div>
     </div>
 
-    <Button
-      class="variant-filled-surface"
-      on:click={checkValidAppointment}
-      {isLoading}>ตรวจสอบข้อมูล</Button
-    >
+    <div class="grid grid-cols-2 gap-2">
+      <Button
+        class="variant-filled-surface"
+        on:click={checkValidAppointment}
+        {isLoading}>ตรวจสอบข้อมูล</Button
+      >
 
-    <hr class="!border-t-2" />
-
-    <Button
-      class="variant-filled-primary"
-      {isLoading}
-      type="submit"
-      disabled={!validAppointment}>จองเรียนชดเชย</Button
-    >
+      <Button
+        class="variant-filled-primary"
+        {isLoading}
+        type="submit"
+        disabled={!validAppointment}>นัดเรียนชดเชย</Button
+      >
+    </div>
   </form>
 </div>

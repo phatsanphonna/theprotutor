@@ -31,7 +31,7 @@
 </script>
 
 <button on:click={displayAppointment} class="w-full">
-  <div class="card card-hover p-4">
+  <div class="card card-hover p-4 variant-ghost-primary">
     <ul>
       <li class="flex flex-col md:flex-row md:gap-2">
         <span class="flex gap-1 font-medium"><IconClock /> เวลานัด:</span>

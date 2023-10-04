@@ -78,10 +78,10 @@
 </script>
 
 {#if $modalStore[0]}
-  <div class="card md:w-2/5 p-4 flex flex-col gap-4">
+  <div class="card md:w-1/5 p-4 flex flex-col gap-4">
     {#if busy}
       <div class="grid place-items-center">
-        <IconLoader2 class="animate-spin" />
+        <IconLoader2 size={64} class="animate-spin" />
       </div>
     {:else}
       <h4 class="font-bold text-2xl">
@@ -104,7 +104,7 @@
         <Button
           on:click={cancelAppointment}
           {isLoading}
-          class="variant-filled-warning"
+          class="variant-ghost-warning"
         >
           ยกเลิกการจอง
         </Button>

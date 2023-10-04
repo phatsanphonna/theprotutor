@@ -29,7 +29,7 @@
   </div>
 
   {#if data.appointments}
-    <div class="grid grid-cols-1 md:grid-cols-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       {#each data.appointments as { appointmentTime, endTime, id }}
         <AppointmentCard
           {id}
