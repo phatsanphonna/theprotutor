@@ -6,6 +6,7 @@
   "pipeline": {
     "build": {
       "dependsOn": [
+        "^db:push",
         "^build"
       ],
       "outputs": [
@@ -18,7 +19,10 @@
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "dependsOn": [
+        "^db:generate"
+      ]
     },
     "db:push": {
       "cache": false
