@@ -1,14 +1,72 @@
 <script lang="ts">
+  import { trpc } from "$lib/trpc/client";
   import type { PageData } from "./$types";
+  import { page } from "$app/stores";
+  import Button from "$lib/components/Button.svelte";
+  import { getToastStore } from "@skeletonlabs/skeleton";
+  import { goto } from "$app/navigation";
+
+  const toastStore = getToastStore();
 
   export let data: PageData;
+  let isLoading = false;
+  let validAppointment = false;
+  let message = "";
+  let messageType: "variant-ghost-error" | "variant-ghost-success" =
+    "variant-ghost-success";
 
   let appointmentDate = "";
   let startTime = "";
   let totalHours = 1;
 
-  const submitAppointment = () => {
-    alert(`${appointmentDate}, ${startTime}, ${totalHours}`);
+  const setUnvalidAppointment = () => {
+    validAppointment = false;
+  };
+
+  const checkValidAppointment = async () => {
+    validAppointment = false;
+    isLoading = true;
+
+    const { payload } = await trpc(
+      $page
+    ).appointment.checkValidAppointment.query({
+      appointmentTime: `${appointmentDate} ${startTime}`,
+      endTime: totalHours,
+    });
+
+    if (payload) {
+      validAppointment = true;
+      messageType = "variant-ghost-success";
+      message = "โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการจอง";
+    } else {
+      messageType = "variant-ghost-error";
+      message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
+    }
+
+    isLoading = false;
+  };
+
+  const submitAppointment = async () => {
+    isLoading = true;
+    try {
+      await trpc($page).appointment.createAppointment.mutate({
+        appointmentTime: `${appointmentDate} ${startTime}`,
+        endTime: totalHours,
+      });
+
+      toastStore.trigger({
+        background: "variant-filled-success",
+        message: `จองเรียนชดเชยสำเร็จ`,
+      });
+      goto("/appointments");
+    } catch (err: any) {
+      toastStore.trigger({
+        background: "variant-filled-error",
+        message: err.message,
+      });
+    } finally {
+      isLoading = false;
+    }
   };
 </script>
 
@@ -29,6 +87,14 @@
 
   <hr class="!border-t-2 mb-4" />
 
+  {#if message}
+    <aside class={`alert mb-4 ${messageType}`}>
+      <div class="alert-message">
+        <p>{message}</p>
+      </div>
+    </aside>
+  {/if}
+
   <form
     class="flex flex-col gap-2"
     on:submit|preventDefault={submitAppointment}
@@ -47,7 +113,7 @@
       </label>
 
       <label class="label">
-        <span>ชื่อจริง</span>
+        <span>นามสกุล</span>
         <input
           class="input px-4 py-2"
           type="text"
@@ -81,6 +147,7 @@
           type="date"
           bind:value={appointmentDate}
           required
+          on:change={setUnvalidAppointment}
           placeholder="วันที่ต้องการจองเรียนชดเชย"
         />
       </label>
@@ -92,6 +159,7 @@
             class="input px-4 py-2"
             type="time"
             required
+            on:change={setUnvalidAppointment}
             bind:value={startTime}
             placeholder="เวลาเริ่มต้น"
           />
@@ -99,7 +167,11 @@
 
         <label class="label">
           <span>จำนวนชั่วโมง<span class="text-red-500">*</span></span>
-          <select class="select" bind:value={totalHours}>
+          <select
+            class="select"
+            bind:value={totalHours}
+            on:change={setUnvalidAppointment}
+          >
             <option value={1}>1 ชั่วโมง</option>
             <option value={2}>2 ชั่วโมง</option>
             <option value={3}>3 ชั่วโมง</option>
@@ -108,10 +180,19 @@
       </div>
     </div>
 
-    <div>สถานะ : ว่าง</div>
+    <Button
+      class="variant-filled-surface"
+      on:click={checkValidAppointment}
+      {isLoading}>ตรวจสอบข้อมูล</Button
+    >
 
-    <button class="btn variant-filled-primary" type="submit"
-      >จองเรียนชดเชย</button
+    <hr class="!border-t-2" />
+
+    <Button
+      class="variant-filled-primary"
+      {isLoading}
+      type="submit"
+      disabled={!validAppointment}>จองเรียนชดเชย</Button
     >
   </form>
 </div>

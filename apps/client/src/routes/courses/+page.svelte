@@ -45,6 +45,7 @@
       </a>
     </div>
   </div>
+
   <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
     <Tab bind:group={tabSet} name="all" value={0}>ทั้งหมด</Tab>
     <Tab bind:group={tabSet} name="primary" value={1}>ประถม</Tab>
@@ -52,6 +53,18 @@
     <Tab bind:group={tabSet} name="high" value={3}>มัธยมปลาย</Tab>
 
     <svelte:fragment slot="panel">
+      <div class="mb-4 p-4 card variant-filled-primary">
+        <h4 class="text-lg font-medium underline">รายละเอียดเบื้องต้น</h4>
+        <ul>
+          <li>- ทุกคอร์สเรียนสอนสดที่เดอะโปรติวเตอร์เท่านั้น</li>
+          <li>- รับนักเรียนจำนวนจำกัด</li>
+          <li>- ทุกคอร์สเรียนหยุดเทศกาลสงกรานต์และปีใหม่</li>
+          <li>
+            - การขอชดเชย จะเป็นการชดเชยด้วยคลิปวิดีโอสอน ในวันที่ขาดเรียน
+            (กรุณาแจ้งครูผู้สอน เพื่อขอชดเชย ทุกครั้งที่ขาด)
+          </li>
+        </ul>
+      </div>
       <div class="flex flex-col gap-8">
         {#if tabSet === 1 || tabSet === 0}
           <div class="flex flex-col gap-4">

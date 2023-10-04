@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { page } from "$app/stores";
   import { PUBLIC_BACKEND_AUTH_URL } from "$env/static/public";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
-  import { page } from "$app/stores";
   import {
     Avatar,
-    type DrawerSettings,
     getDrawerStore,
+    type DrawerSettings,
   } from "@skeletonlabs/skeleton";
-  import { IconChevronLeftPipe } from "@tabler/icons-svelte";
+  import { IconArrowBarLeft } from "@tabler/icons-svelte";
 
   const drawerStore = getDrawerStore();
 
@@ -35,7 +35,7 @@
       rounded="rounded-full"
     />
     <p>{$page.data.user?.firstname}</p>
-    <IconChevronLeftPipe />
+    <IconArrowBarLeft />
   </button>
 {:else}
   <button class="btn variant-filled-primary" on:click={googleSignIn}>

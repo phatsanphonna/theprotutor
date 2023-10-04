@@ -1,15 +1,36 @@
 <script lang="ts">
-  import FullCalendar, { type CalendarOptions } from "svelte-fullcalendar";
+  import FullCalendar, {
+    type CalendarOptions,
+    type EventClickArg,
+  } from "svelte-fullcalendar";
   import daygridPlugin from "@fullcalendar/daygrid";
-  import interactionPlugin from "@fullcalendar/interaction";
+  import interactionPlugin, {
+  } from "@fullcalendar/interaction";
+  import { getModalStore } from "@skeletonlabs/skeleton";
+  import type { PageData } from "./$types";
+
+  export let data: PageData;
+
+  const modalStore = getModalStore();
+
+  const handleEventClick = (arg: EventClickArg) => {
+    modalStore.trigger({
+      type: "component",
+      component: "appointmentInfo",
+      value: {
+        id: arg.event.id
+      }
+    });
+  };
 
   let options: CalendarOptions = {
-    dateClick: (event) => alert("date click! " + event.dateStr),
-    eventClick: ({ event }) => alert(event.title),
-    events: [
-      { title: "event 1", date: "2024-04-01",allDay: true },
-      { title: "event 2", date: "2024-04-02" },
-    ],
+    eventClick: handleEventClick,
+    events: data.appointments.map(({ appointmentTime, student, id }) => ({
+      date: appointmentTime,
+      title: `${student.firstname} ${student.lastname}`,
+      id: id + '',
+      backgroundColor: '#86C556'
+    })),
     plugins: [daygridPlugin, interactionPlugin],
     locale: {
       code: "th-TH",

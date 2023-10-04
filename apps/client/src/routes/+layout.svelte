@@ -7,6 +7,7 @@
     AppShell,
     Drawer,
     Modal,
+    Toast,
     getDrawerStore,
     getModalStore,
     initializeStores,
@@ -14,17 +15,16 @@
   import "../app.css";
   import type { LayoutServerData } from "./$types";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
+  import { modalComponentRegistry } from "$lib/components/modals/modal-registry";
 
   initializeStores();
+  const drawerStore = getDrawerStore();
 
   export let data: LayoutServerData;
 
   if (data.user) {
     isAuthenticated.set(true);
   }
-
-  const drawerStore = getDrawerStore();
-  const modalStore = getModalStore()
 </script>
 
 <svelte:head>
@@ -53,9 +53,9 @@
   {/if}
 </Drawer>
 
-<Modal>
-  <p>OK</p>
-</Modal>
+<Toast />
+
+<Modal components={modalComponentRegistry} />
 
 <AppShell>
   <svelte:fragment slot="header">

@@ -22,7 +22,6 @@
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "autoprefixer": "^10.4.14",
-    "database": "workspace:*",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.28.0",
     "eslint-plugin-svelte": "^2.30.0",
@@ -38,6 +37,7 @@
   },
   "type": "module",
   "dependencies": {
+    "database": "workspace:*",
     "@tabler/icons-svelte": "2.31.0",
     "@trpc/client": "^10.38.2",
     "@trpc/server": "^10.38.2",
