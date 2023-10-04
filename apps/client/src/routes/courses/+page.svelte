@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+  <TabGroup active="variant-ghost-primary" hover="hover:variant-soft-primary">
     <Tab bind:group={tabSet} name="all" value={0}>ทั้งหมด</Tab>
     <Tab bind:group={tabSet} name="primary" value={1}>ประถม</Tab>
     <Tab bind:group={tabSet} name="secondary" value={2}>มัธยมต้น</Tab>

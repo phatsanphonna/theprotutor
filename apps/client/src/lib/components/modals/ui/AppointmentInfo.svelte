@@ -84,7 +84,11 @@
         <IconLoader2 size={64} class="animate-spin" />
       </div>
     {:else}
-      <h4 class="font-bold text-2xl">
+      <p class="text-2xl">รายละเอียดการนัดเรียนชดเชย</p>
+
+      <hr class="!border-t-2" />
+
+      <h4 class="font-medium text-xl">
         {info?.student.firstname}
         {info?.student.lastname}
       </h4>

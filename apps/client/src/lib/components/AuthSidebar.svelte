@@ -63,7 +63,7 @@
         on:click={toggleDrawer}
       >
         <IconCalendar />
-        ตารางการเรียนชดเชย
+        ตารางการนัดเรียนชดเชย
       </a>
     </li>
 

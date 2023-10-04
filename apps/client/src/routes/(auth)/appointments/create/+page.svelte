@@ -23,8 +23,8 @@
   let isLoading = false;
   let validAppointment = false;
   let message = "";
-  let messageType: "variant-ghost-error" | "variant-ghost-success" =
-    "variant-ghost-success";
+  let messageType: "variant-soft-error" | "variant-soft-success" =
+    "variant-soft-success";
 
   let appointmentDate = "";
   let startTime = "";
@@ -32,6 +32,7 @@
 
   const setUnvalidAppointment = () => {
     validAppointment = false;
+    message = "";
   };
 
   const checkValidAppointment = async () => {
@@ -39,27 +40,33 @@
     isLoading = true;
 
     try {
-      const { payload } = await trpc(
+      const { success, payload } = await trpc(
         $page
       ).appointment.checkValidAppointment.query({
         appointmentTime: `${appointmentDate} ${startTime}`,
         endTime: totalHours,
       });
 
+      if (!success) {
+        messageType = "variant-soft-error";
+        message = "ไม่สามารถนัดเรียนชดเชยได้ในวันนี้";
+        return;
+      }
+
       if (payload) {
         validAppointment = true;
-        messageType = "variant-ghost-success";
+        messageType = "variant-soft-success";
         message =
-          "เวลาที่คุณเลือกมานั้นสามารถจองได้ โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการจอง";
+          "เวลาที่คุณเลือกมานั้นสามารถนัดเรียนชดเชยได้ โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการนัดเรียนชดเชย";
       } else {
-        messageType = "variant-ghost-error";
+        messageType = "variant-soft-error";
         message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
       }
     } catch (err: any) {
       toastStore.trigger({
-        background: 'variant-filled-error',
-        message: err.message
-      })
+        background: "variant-filled-error",
+        message: err.message,
+      });
     } finally {
       isLoading = false;
     }
