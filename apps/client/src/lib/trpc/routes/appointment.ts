@@ -43,6 +43,30 @@ export const appointmentRoutes = t.router({
 
     return { success: true, payload: appointments }
   }),
+  checkValidAppointment: authProcedure.input(z.object({
+    appointmentTime: z.string(),
+    endTime: z.number()
+  }))
+    .query(async ({ ctx, input }) => {
+      const { db } = ctx;
+      const { appointmentTime, endTime } = input;
+
+      const parsedAppointmentTime = new Date(appointmentTime);
+      const parsedEndTime = new Date(parsedAppointmentTime.getTime() + endTime * 60 * 60 * 1000);
+
+      const appointments = await db.appointment.findMany({
+        where: {
+          appointmentTime: {
+            lte: parsedEndTime
+          },
+          endTime: {
+            gte: parsedAppointmentTime
+          }
+        }
+      });
+
+      return { success: true, payload: appointments.length === 0 }
+    }),
   deleteAppointmentById: authProcedure.input(z.number())
     .mutation(async ({ ctx, input }) => {
       const { db } = ctx;
