@@ -1,14 +1,43 @@
 <script lang="ts">
+  import { trpc } from "$lib/trpc/client";
   import type { PageData } from "./$types";
+  import { page } from "$app/stores";
+  import Button from "$lib/components/Button.svelte";
+  import { getToastStore } from "@skeletonlabs/skeleton";
+  import { goto } from "$app/navigation";
+
+  const toastStore = getToastStore();
 
   export let data: PageData;
+  let isLoading = false;
 
   let appointmentDate = "";
   let startTime = "";
   let totalHours = 1;
 
-  const submitAppointment = () => {
-    alert(`${appointmentDate}, ${startTime}, ${totalHours}`);
+  const submitAppointment = async () => {
+    isLoading = true;
+    try {
+      await trpc(
+        $page
+      ).appointment.createAppointment.mutate({
+        appointmentTime: `${appointmentDate} ${startTime}`,
+        endTime: totalHours,
+      });
+
+      toastStore.trigger({
+        background: "variant-filled-success",
+        message: `จองเรียนชดเชยสำเร็จ`,
+      });
+      goto("/appointments");
+    } catch (err: any) {
+      toastStore.trigger({
+        background: "variant-filled-error",
+        message: err.message,
+      });
+    } finally {
+      isLoading = false;
+    }
   };
 </script>
 
@@ -109,9 +138,6 @@
     </div>
 
     <div>สถานะ : ว่าง</div>
-
-    <button class="btn variant-filled-primary" type="submit"
-      >จองเรียนชดเชย</button
-    >
+    <Button class="variant-filled-primary" {isLoading}>จองเรียนชดเชย</Button>
   </form>
 </div>

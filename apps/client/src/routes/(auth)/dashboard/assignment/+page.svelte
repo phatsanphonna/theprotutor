@@ -8,11 +8,11 @@
 <div class="pt-4">
   <h2 class="font-bold text-4xl mb-4">บทเรียน</h2>
   {#each data.assignments as assignment}
-    <WorkCard
-      id={assignment.id}
-      name={assignment.lesson.title}
-      expireDate={assignment.expireDate}
-      totalFiles={assignment.lesson.materials.length}
-    />
+      <WorkCard
+        id={assignment.id}
+        name={assignment.lesson.title}
+        expireDate={assignment.expireDate}
+        totalFiles={assignment.lesson.materials.length}
+      />
   {/each}
 </div>

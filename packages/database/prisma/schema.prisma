@@ -58,8 +58,9 @@ model Student {
   telephoneNumber         String
   guardianTelephoneNumber String
 
-  assignment Assignment[]
-  Score      Score[]
+  assignment  Assignment[]
+  Score       Score[]
+  Appointment Appointment[]
 }
 
 model Teacher {
@@ -146,4 +147,15 @@ model LoginRequest {
 
   timestamp DateTime @default(now())
   approved  Boolean  @default(false)
+}
+
+model Appointment {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String
+
+  createdAt DateTime @default(now())
+
+  appointmentTime DateTime
+  endTime         DateTime
 }

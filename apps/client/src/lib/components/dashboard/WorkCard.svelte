@@ -28,7 +28,7 @@
   </div>
 {:else}
   <a href={`/assignments/${id}`}>
-    <div class="card variant-outline-surface hover:variant-filled-secondary transition-all">
+    <div class="card variant-outline-surface card-hover transition-all">
       <header class="card-header">
         <h4 class="font-medium text-lg md:text-2xl">{name}</h4>
       </header>
