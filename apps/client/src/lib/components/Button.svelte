@@ -2,8 +2,9 @@
   import { IconLoader2 } from "@tabler/icons-svelte";
 
   export let isLoading: boolean = false;
-  $: isLoading = false;
   export let disabled: boolean = false;
+  export let type: "button" | "reset" | "submit" = 'button'
+  $: isLoading = false;
 
   let className: string | undefined | null = undefined;
   export { className as class };
@@ -11,7 +12,6 @@
 
 <button
   class={`btn ${className}`}
-  type="submit"
   disabled={disabled || isLoading}
   on:click
   on:change
@@ -19,6 +19,7 @@
   on:keyup
   on:mouseenter
   on:mouseleave
+  {type}
   {...$$restProps}
 >
   {#if isLoading}
