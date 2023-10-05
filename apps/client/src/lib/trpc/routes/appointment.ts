@@ -95,7 +95,7 @@ export const appointmentRoutes = t.router({
       endTime: z.number()
     })
   ).mutation(async ({ ctx, input }) => {
-    const { db, user } = ctx;
+    const { db, student } = ctx;
     const { appointmentTime, endTime } = input;
 
     const parsedAppointmentTime = new Date(appointmentTime);
@@ -105,7 +105,7 @@ export const appointmentRoutes = t.router({
       data: {
         appointmentTime: parsedAppointmentTime,
         endTime: parsedEndTime,
-        studentId: user!.id,
+        studentId: student!.id,
       }
     })
 

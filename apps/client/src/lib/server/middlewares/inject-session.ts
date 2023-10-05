@@ -11,6 +11,14 @@ export const injectSession: Handle = async ({ event, resolve }) => {
 		});
 
 		event.locals.user = user;
+    
+    const student = await event.locals.db.student.findUnique({
+      where: {
+        userId: user?.id
+      }
+    })
+
+    event.locals.student = student;
 	}
 
 	const response = await resolve(event);

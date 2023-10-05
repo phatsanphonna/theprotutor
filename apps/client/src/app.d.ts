@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { PrismaClient, User } from 'database';
+import type { PrismaClient, Student, User } from 'database';
 
 // for information about these interfaces
 declare global {
@@ -9,9 +9,13 @@ declare global {
 		interface Locals {
 			db: PrismaClient,
 			user: User | null,
+			student: Student | null
 		}
 	}
-	// interface PageData {}
+	interface PageData {
+		user: User | null,
+		student: Student | null
+	}
 	// interface Platform {}
 }
 

@@ -16,13 +16,15 @@ export const meRoutes = t.router({
 
       const studentId = await generateStudentId();
 
+      console.log(input)
+  
       const student = await db.student.create({
         data: {
-          studentId,
-          ...input,
           userId: user!.id,
+          ...input,
+          studentId,
         }
-      });
+      })
 
       return { success: true, payload: student };
     }),

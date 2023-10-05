@@ -4,7 +4,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import MobileNavbar from "$lib/components/MobileNavbar.svelte";
   import Navbar from "$lib/components/Navbar.svelte";
-  import { modalComponentRegistry } from "$lib/components/modals/modal-registry";
+  import { modalComponentRegistry } from "$lib/components/modals/registry";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
   import {
     AppShell,

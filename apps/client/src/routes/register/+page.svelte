@@ -74,7 +74,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="อีลอน"
-          value={firstname}
+          bind:value={firstname}
           required
         />
       </label>
@@ -85,7 +85,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="มัสก์"
-          value={lastname}
+          bind:value={lastname}
           required
         />
       </label>
@@ -96,7 +96,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="อีหลงหม่า"
-          value={nickname}
+          bind:value={nickname}
           required
         />
       </label>
@@ -121,7 +121,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="0987654321"
-          value={telephoneNumber}
+          bind:value={telephoneNumber}
           required
         />
       </label>
@@ -132,7 +132,7 @@
           class="input px-4 py-2"
           type="tel"
           placeholder="0987654321"
-          value={guardianTelephoneNumber}
+          bind:value={guardianTelephoneNumber}
           required
         />
       </label>

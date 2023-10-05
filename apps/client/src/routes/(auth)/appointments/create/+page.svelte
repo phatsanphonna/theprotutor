@@ -59,6 +59,8 @@
         messageType = "variant-soft-error";
         message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
       }
+
+      validAppointment = true;
     } catch (err: any) {
       console.error(err);
 

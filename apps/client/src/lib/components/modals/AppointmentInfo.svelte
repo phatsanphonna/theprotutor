@@ -116,7 +116,7 @@
         </li>
       </ul>
 
-      {#if info?.studentId == $page.data.user?.id}
+      {#if info?.studentId == $page.data.student?.id}
         <Button
           on:click={cancelAppointment}
           {isLoading}
