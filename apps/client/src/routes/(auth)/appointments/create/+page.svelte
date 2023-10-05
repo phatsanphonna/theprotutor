@@ -5,67 +5,98 @@
   import Button from "$lib/components/Button.svelte";
   import { getToastStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
+  import Header from "$lib/components/Header.svelte";
+
+  const times = [
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
+  ];
 
   const toastStore = getToastStore();
 
   export let data: PageData;
+
   let isLoading = false;
   let validAppointment = false;
   let message = "";
-  let messageType: "variant-ghost-error" | "variant-ghost-success" =
-    "variant-ghost-success";
+  let messageType: "variant-soft-error" | "variant-soft-success" =
+    "variant-soft-success";
 
   let appointmentDate = "";
-  let startTime = "";
+  let startTime = "15:30";
   let totalHours = 1;
 
   const setUnvalidAppointment = () => {
     validAppointment = false;
+    message = "";
   };
 
   const checkValidAppointment = async () => {
     validAppointment = false;
     isLoading = true;
 
-    const { payload } = await trpc(
-      $page
-    ).appointment.checkValidAppointment.query({
-      appointmentTime: `${appointmentDate} ${startTime}`,
-      endTime: totalHours,
-    });
-
-    if (payload) {
-      validAppointment = true;
-      messageType = "variant-ghost-success";
-      message = "โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการจอง";
-    } else {
-      messageType = "variant-ghost-error";
-      message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
-    }
-
-    isLoading = false;
-  };
-
-  const submitAppointment = async () => {
-    isLoading = true;
     try {
-      await trpc($page).appointment.createAppointment.mutate({
+      const { success, payload } = await trpc(
+        $page
+      ).appointment.checkValidAppointment.query({
         appointmentTime: `${appointmentDate} ${startTime}`,
         endTime: totalHours,
       });
 
-      toastStore.trigger({
-        background: "variant-filled-success",
-        message: `จองเรียนชดเชยสำเร็จ`,
-      });
-      goto("/appointments");
+      if (!success) {
+        messageType = "variant-soft-error";
+        message = "ไม่สามารถนัดเรียนชดเชยได้ในวันนี้";
+        return;
+      }
+
+      if (!payload) {
+        messageType = "variant-soft-error";
+        message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
+      }
+
+      validAppointment = true;
     } catch (err: any) {
+      console.error(err);
+
       toastStore.trigger({
         background: "variant-filled-error",
-        message: err.message,
+        message: "เกิดข้อผิดพลาดทางระบบ โปรดติดต่อเจ้าหน้าที่",
+        autohide: true,
       });
     } finally {
       isLoading = false;
+    }
+  };
+
+  const submitAppointment = async () => {
+    await checkValidAppointment();
+
+    if (validAppointment) {
+      try {
+        await trpc($page).appointment.createAppointment.mutate({
+          appointmentTime: `${appointmentDate} ${startTime}`,
+          endTime: totalHours,
+        });
+
+        toastStore.trigger({
+          background: "variant-filled-success",
+          message: `จองเรียนชดเชยสำเร็จ`,
+        });
+        goto("/appointments");
+      } catch (err: any) {
+        toastStore.trigger({
+          background: "variant-filled-error",
+          message: err.message,
+        });
+      } finally {
+        isLoading = false;
+      }
     }
   };
 </script>
@@ -75,7 +106,7 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
-  <h2 class="font-bold text-4xl md:text-6xl mb-4">นัดเรียนชดเชย</h2>
+  <Header>นัดเรียนชดเชย</Header>
 
   <section class="mb-4">
     <h4 class="text-2xl font-medium">คำแนะนำ</h4>
@@ -106,7 +137,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="ชื่อจริง"
-          value={data.user?.firstname}
+          value={data.student?.firstname}
           readonly
           required
         />
@@ -118,7 +149,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="นามสกุล"
-          value={data.user?.lastname}
+          value={data.student?.lastname}
           readonly
           required
         />
@@ -130,7 +161,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="ชื่อเล่น"
-          value={data.user?.nickname}
+          value={data.student?.nickname}
           readonly
           required
         />
@@ -155,20 +186,23 @@
       <div class="grid grid-cols-2 gap-2">
         <label class="label">
           <span>เวลาเริ่มต้น<span class="text-red-500">*</span></span>
-          <input
-            class="input px-4 py-2"
-            type="time"
+          <select
+            class="select"
             required
-            on:change={setUnvalidAppointment}
             bind:value={startTime}
-            placeholder="เวลาเริ่มต้น"
-          />
+            on:change={setUnvalidAppointment}
+          >
+            {#each times as time}
+              <option value={time}>{time}</option>
+            {/each}
+          </select>
         </label>
 
         <label class="label">
           <span>จำนวนชั่วโมง<span class="text-red-500">*</span></span>
           <select
             class="select"
+            required
             bind:value={totalHours}
             on:change={setUnvalidAppointment}
           >
@@ -180,19 +214,8 @@
       </div>
     </div>
 
-    <Button
-      class="variant-filled-surface"
-      on:click={checkValidAppointment}
-      {isLoading}>ตรวจสอบข้อมูล</Button
-    >
-
-    <hr class="!border-t-2" />
-
-    <Button
-      class="variant-filled-primary"
-      {isLoading}
-      type="submit"
-      disabled={!validAppointment}>จองเรียนชดเชย</Button
-    >
+    <Button class="variant-filled-primary" {isLoading} type="submit">
+      นัดเรียนชดเชย
+    </Button>
   </form>
 </div>

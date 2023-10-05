@@ -22,7 +22,7 @@
     </header>
 
     <footer class="card-footer">
-      <span class="badge variant-filled">{totalFiles} ไฟล์</span>
+      <span class="badge variant-ghost">{totalFiles} ไฟล์</span>
       <span class="badge variant-filled-error text-white">หมดอายุแล้ว</span>
     </footer>
   </div>
@@ -34,7 +34,7 @@
       </header>
 
       <footer class="card-footer">
-        <span class="badge variant-filled">{totalFiles} ไฟล์</span>
+        <span class="badge variant-ghost">{totalFiles} ไฟล์</span>
         {#if !expireDate && !isExpired}
           <span class="badge variant-filled-success text-white">
             ไม่มีวันหมดอายุ

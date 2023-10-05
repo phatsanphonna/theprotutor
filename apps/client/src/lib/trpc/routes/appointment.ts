@@ -34,7 +34,10 @@ export const appointmentRoutes = t.router({
 
     const appointments = await db.appointment.findMany({
       where: {
-        studentId: user!.id
+        studentId: user!.id,
+        appointmentTime: {
+          gte: new Date()
+        },
       },
       include: {
         student: true
@@ -54,6 +57,13 @@ export const appointmentRoutes = t.router({
       const parsedAppointmentTime = new Date(appointmentTime);
       const parsedEndTime = new Date(parsedAppointmentTime.getTime() + endTime * 60 * 60 * 1000);
 
+      if (parsedAppointmentTime < new Date()) {
+        return {
+          success: false,
+          payload: false
+        }
+      }
+
       const appointments = await db.appointment.findMany({
         where: {
           appointmentTime: {
@@ -65,7 +75,7 @@ export const appointmentRoutes = t.router({
         }
       });
 
-      return { success: true, payload: appointments.length === 0 }
+      return { success: true, payload: appointments.length <= 3 }
     }),
   deleteAppointmentById: authProcedure.input(z.number())
     .mutation(async ({ ctx, input }) => {
@@ -85,7 +95,7 @@ export const appointmentRoutes = t.router({
       endTime: z.number()
     })
   ).mutation(async ({ ctx, input }) => {
-    const { db, user } = ctx;
+    const { db, student } = ctx;
     const { appointmentTime, endTime } = input;
 
     const parsedAppointmentTime = new Date(appointmentTime);
@@ -95,7 +105,7 @@ export const appointmentRoutes = t.router({
       data: {
         appointmentTime: parsedAppointmentTime,
         endTime: parsedEndTime,
-        studentId: user!.id,
+        studentId: student!.id,
       }
     })
 

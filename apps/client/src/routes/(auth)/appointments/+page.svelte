@@ -4,10 +4,10 @@
     type EventClickArg,
   } from "svelte-fullcalendar";
   import daygridPlugin from "@fullcalendar/daygrid";
-  import interactionPlugin, {
-  } from "@fullcalendar/interaction";
+  import interactionPlugin from "@fullcalendar/interaction";
   import { getModalStore } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types";
+    import Header from '$lib/components/Header.svelte';
 
   export let data: PageData;
 
@@ -18,8 +18,8 @@
       type: "component",
       component: "appointmentInfo",
       value: {
-        id: arg.event.id
-      }
+        id: arg.event.id,
+      },
     });
   };
 
@@ -28,8 +28,8 @@
     events: data.appointments.map(({ appointmentTime, student, id }) => ({
       date: appointmentTime,
       title: `${student.firstname} ${student.lastname}`,
-      id: id + '',
-      backgroundColor: '#86C556'
+      id: id + "",
+      backgroundColor: "#86C556",
     })),
     plugins: [daygridPlugin, interactionPlugin],
     locale: {
@@ -43,16 +43,19 @@
 </script>
 
 <svelte:head>
-  <title>ตารางการเรียนชดเชย | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+  <title>ตารางการนัดเรียนชดเชย | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
-  <h2 class="font-bold text-4xl md:text-6xl mb-4">ตารางการเรียนชดเชย</h2>
+  <Header>ตารางการนัดเรียนชดเชย</Header>
 
   <div class="flex flex-col gap-4">
-    <a href="/appointments/create">
-      <button class="btn variant-filled-primary">นัดเรียนชดเชย</button>
-    </a>
+    <div class="w-full md:w-1/10">
+      <a href="/appointments/create" class="btn variant-filled-primary w-full md:w-auto">
+        นัดเรียนชดเชย
+      </a>
+    </div>
+
     <hr class="!border-t-2" />
 
     <div class="text-sm md:text-base">

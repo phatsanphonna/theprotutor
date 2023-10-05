@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { PUBLIC_BACKEND_AUTH_URL } from "$env/static/public";
+  import { signIn } from "@auth/sveltekit/client"
   import { isAuthenticated } from "$lib/stores/is-authenticated";
   import {
     Avatar,
@@ -12,7 +12,7 @@
   const drawerStore = getDrawerStore();
 
   const googleSignIn = async () => {
-    window.open(PUBLIC_BACKEND_AUTH_URL + "/signin/google", "_self");
+    await signIn('google')
   };
 
   const toggleDrawer = () => {
@@ -30,11 +30,15 @@
 {#if $isAuthenticated && $page.data.user}
   <button class="btn variant-filled-secondary" on:click={toggleDrawer}>
     <Avatar
-      src={$page.data.user?.userAuth.profilePicture}
+      src={$page.data.user?.image}
       width="w-5"
       rounded="rounded-full"
     />
-    <p>{$page.data.user?.firstname}</p>
+    {#if $page.data.student}
+      <p>{$page.data.student?.firstname}</p>
+    {:else}
+      <p>{$page.data.user?.email.split('@')[0]}</p>
+    {/if}
     <IconArrowBarLeft />
   </button>
 {:else}

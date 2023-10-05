@@ -1,28 +1,43 @@
 <script lang="ts">
+  import { navigating } from "$app/stores";
   import AuthSidebar from "$lib/components/AuthSidebar.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MobileNavbar from "$lib/components/MobileNavbar.svelte";
   import Navbar from "$lib/components/Navbar.svelte";
+  import { modalComponentRegistry } from "$lib/components/modals/registry";
+  import { isAuthenticated } from "$lib/stores/is-authenticated";
   import {
     AppShell,
     Drawer,
     Modal,
     Toast,
     getDrawerStore,
-    getModalStore,
     initializeStores,
   } from "@skeletonlabs/skeleton";
+  import NProgress from "nprogress";
+  import "nprogress/nprogress.css";
   import "../app.css";
   import type { LayoutServerData } from "./$types";
-  import { isAuthenticated } from "$lib/stores/is-authenticated";
-  import { modalComponentRegistry } from "$lib/components/modals/modal-registry";
+
+  NProgress.configure({
+    minimum: 0.16,
+    easing: "ease",
+    speed: 500,
+    showSpinner: false
+  });
+
+  $: {
+    if ($navigating) {
+      NProgress.start();
+    } else NProgress.done();
+  }
 
   initializeStores();
   const drawerStore = getDrawerStore();
 
   export let data: LayoutServerData;
 
-  if (data.user) {
+  if (data.session) {
     isAuthenticated.set(true);
   }
 </script>
