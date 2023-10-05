@@ -33,9 +33,11 @@
   let info: InfoPayload | null;
   let appointmentTime: Date;
   let endTime: Date;
+  let createdAt: Date;
 
   $: formatAppointmentTime = dateTimeFormatter.format(appointmentTime);
   $: formatEndTime = dateTimeFormatter.format(endTime);
+  $: formatCreatedAt = dateTimeFormatter.format(createdAt);
 
   const cancelAppointment = async () => {
     if (info) {
@@ -66,6 +68,7 @@
 
       appointmentTime = new Date(String(payload?.appointmentTime));
       endTime = new Date(String(payload?.endTime));
+      createdAt = new Date(String(payload?.createdAt));
     } catch (error: any) {
       toastStore.trigger({
         message: `${error.message}`,
@@ -78,7 +81,7 @@
 </script>
 
 {#if $modalStore[0]}
-  <div class="card md:w-1/5 p-4 flex flex-col gap-4">
+  <div class="card p-4 flex flex-col gap-4">
     {#if busy}
       <div class="grid place-items-center">
         <IconLoader2 size={64} class="animate-spin" />
@@ -88,10 +91,19 @@
 
       <hr class="!border-t-2" />
 
-      <h4 class="font-medium text-xl">
-        {info?.student.firstname}
-        {info?.student.lastname}
-      </h4>
+      <div>
+        <h4 class="font-medium text-xl">
+          {info?.student.firstname}
+          {info?.student.lastname}
+        </h4>
+        <div>
+          <span class="flex gap-1 font-medium"
+            >จองไว้เมื่อวันที่ <span class="text-left font-normal"
+              >{formatCreatedAt}</span
+            ></span
+          >
+        </div>
+      </div>
 
       <ul>
         <li class="flex gap-2">

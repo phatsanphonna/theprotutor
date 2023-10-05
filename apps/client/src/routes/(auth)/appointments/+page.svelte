@@ -7,6 +7,7 @@
   import interactionPlugin from "@fullcalendar/interaction";
   import { getModalStore } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types";
+    import Header from '$lib/components/Header.svelte';
 
   export let data: PageData;
 
@@ -46,7 +47,7 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
-  <h2 class="font-bold text-4xl md:text-6xl mb-4">ตารางการนัดเรียนชดเชย</h2>
+  <Header>ตารางการนัดเรียนชดเชย</Header>
 
   <div class="flex flex-col gap-4">
     <div class="w-full md:w-1/10">

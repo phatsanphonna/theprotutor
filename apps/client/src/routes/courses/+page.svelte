@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Header from "$lib/components/Header.svelte";
   import {
     PREPRO1,
     PREPRO2,
@@ -33,7 +34,8 @@
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
   <div class="flex justify-between items-center">
-    <h2 class="font-bold text-4xl md:text-6xl mb-4">คอร์สเรียน</h2>
+    <Header>คอร์สเรียน</Header>
+
     <div>
       <a
         href="https://lin.ee/BdFh3Km"

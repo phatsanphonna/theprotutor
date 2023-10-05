@@ -34,10 +34,10 @@
   <div class="w-4/5 mx-auto">
     <div class="flex flex-col gap-4">
       <h2 class="text-2xl md:text-4xl">
-        👋🏻 สวัสดีตอน{time} น้อง{data.user?.nickname}
+        👋🏻 สวัสดีตอน{time} น้อง{data.student?.nickname}
       </h2>
 
-      <StudentCard user={data.user} />
+      <StudentCard student={data.student} user={data?.user} />
       <NavigationBar />
     </div>
     <slot />

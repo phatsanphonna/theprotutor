@@ -1,14 +1,26 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+export const load: LayoutServerLoad = async ({ locals }) => {
+  const session = await locals.getSession();
   const { user } = locals;
 
-  if (!cookies.get('accessToken')) {
-    throw error(403, 'โปรดเข้าสู่ระบบ')
+  if (!session) {
+    throw error(400, 'โปรดเข้าสู่ระบบ')
   }
 
-  if (!user) {
+  const student = await locals.db.student.findUnique({
+    where: {
+      id: user?.id
+    }
+  })
+
+  if (!student) {
     throw redirect(304, '/register')
+  }
+
+  return {
+    session,
+    student
   }
 };

@@ -1,22 +1,23 @@
 <script lang="ts">
-  import type { User } from "$lib/types";
   import { Avatar } from "@skeletonlabs/skeleton";
+  import type { Student, User } from "database";
 
-  export let user: User | undefined;
+  export let student: Student | null;
+  export let user: User | null;
 </script>
 
 <div class="card variant-filled-primary p-4">
   <section class="flex justify-between items-center">
     <div class="flex gap-4 items-center">
       <Avatar
-        src={user?.userAuth.profilePicture}
+        src={String(user?.image)}
         width="w-20"
         rounded="rounded-full"
       />
 
       <div>
-        <h4 class="text-2xl md:text-4xl font-bold">{user?.studentId}</h4>
-        <p class="md:text-2xl">{user?.firstname} {user?.lastname}</p>
+        <h4 class="text-2xl md:text-4xl font-bold">{student?.studentId}</h4>
+        <p class="md:text-2xl">{student?.firstname} {student?.lastname}</p>
       </div>
     </div>
 

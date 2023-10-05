@@ -10,6 +10,7 @@
     IconUser,
   } from "@tabler/icons-svelte";
   import { page } from "$app/stores";
+    import { signOut } from '@auth/sveltekit/client';
 
   const drawerStore = getDrawerStore();
   const { data } = $page;
@@ -20,10 +21,7 @@
 
   const handleSignOut = async () => {
     try {
-      await fetch(PUBLIC_BACKEND_AUTH_URL + "/signout", {
-        method: "POST",
-        credentials: "include",
-      });
+      await signOut()
     } finally {
       isAuthenticated.set(false);
       drawerStore.close();
@@ -35,11 +33,16 @@
 <div class="p-4 flex flex-col gap-4 h-full">
   <div class="flex gap-2 items-center">
     <Avatar
-      src={data.user?.userAuth.profilePicture}
+      src={data.user?.image}
       width="w-10"
       rounded="rounded-full"
     />
-    <p>{data.user?.firstname} {data.user?.lastname}</p>
+
+    {#if $page.data.student}
+      <p>{$page.data.student?.firstname}</p>
+    {:else}
+      <p>{$page.data.user?.email}</p>
+    {/if}
   </div>
 
   <hr class="!border-t-2" />
@@ -47,7 +50,7 @@
   <ul class="flex flex-col gap-1">
     <li>
       <a
-        href="/dashboard/assignment"
+        href="/dashboard/assignments"
         class="flex gap-2 items-center"
         on:click={toggleDrawer}
       >

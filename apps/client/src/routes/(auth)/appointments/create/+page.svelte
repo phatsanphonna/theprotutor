@@ -5,6 +5,7 @@
   import Button from "$lib/components/Button.svelte";
   import { getToastStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
+  import Header from "$lib/components/Header.svelte";
 
   const times = [
     "14:00",
@@ -20,6 +21,7 @@
   const toastStore = getToastStore();
 
   export let data: PageData;
+
   let isLoading = false;
   let validAppointment = false;
   let message = "";
@@ -27,7 +29,7 @@
     "variant-soft-success";
 
   let appointmentDate = "";
-  let startTime = "";
+  let startTime = "15:30";
   let totalHours = 1;
 
   const setUnvalidAppointment = () => {
@@ -53,19 +55,17 @@
         return;
       }
 
-      if (payload) {
-        validAppointment = true;
-        messageType = "variant-soft-success";
-        message =
-          "เวลาที่คุณเลือกมานั้นสามารถนัดเรียนชดเชยได้ โปรดตรวจสอบข้อมูลให้เรียบร้อยก่อนทำการนัดเรียนชดเชย";
-      } else {
+      if (!payload) {
         messageType = "variant-soft-error";
         message = "เวลาที่คุณเลือกมานั้นได้มีคนจองไปแล้ว โปรดเลือกเวลาอื่น";
       }
     } catch (err: any) {
+      console.error(err);
+
       toastStore.trigger({
         background: "variant-filled-error",
-        message: err.message,
+        message: "เกิดข้อผิดพลาดทางระบบ โปรดติดต่อเจ้าหน้าที่",
+        autohide: true,
       });
     } finally {
       isLoading = false;
@@ -73,25 +73,28 @@
   };
 
   const submitAppointment = async () => {
-    isLoading = true;
-    try {
-      await trpc($page).appointment.createAppointment.mutate({
-        appointmentTime: `${appointmentDate} ${startTime}`,
-        endTime: totalHours,
-      });
+    await checkValidAppointment();
 
-      toastStore.trigger({
-        background: "variant-filled-success",
-        message: `จองเรียนชดเชยสำเร็จ`,
-      });
-      goto("/appointments");
-    } catch (err: any) {
-      toastStore.trigger({
-        background: "variant-filled-error",
-        message: err.message,
-      });
-    } finally {
-      isLoading = false;
+    if (validAppointment) {
+      try {
+        await trpc($page).appointment.createAppointment.mutate({
+          appointmentTime: `${appointmentDate} ${startTime}`,
+          endTime: totalHours,
+        });
+
+        toastStore.trigger({
+          background: "variant-filled-success",
+          message: `จองเรียนชดเชยสำเร็จ`,
+        });
+        goto("/appointments");
+      } catch (err: any) {
+        toastStore.trigger({
+          background: "variant-filled-error",
+          message: err.message,
+        });
+      } finally {
+        isLoading = false;
+      }
     }
   };
 </script>
@@ -101,7 +104,7 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8 min-h-screen">
-  <h2 class="font-bold text-4xl md:text-6xl mb-4">นัดเรียนชดเชย</h2>
+  <Header>นัดเรียนชดเชย</Header>
 
   <section class="mb-4">
     <h4 class="text-2xl font-medium">คำแนะนำ</h4>
@@ -132,7 +135,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="ชื่อจริง"
-          value={data.user?.firstname}
+          value={data.student?.firstname}
           readonly
           required
         />
@@ -144,7 +147,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="นามสกุล"
-          value={data.user?.lastname}
+          value={data.student?.lastname}
           readonly
           required
         />
@@ -156,7 +159,7 @@
           class="input px-4 py-2"
           type="text"
           placeholder="ชื่อเล่น"
-          value={data.user?.nickname}
+          value={data.student?.nickname}
           readonly
           required
         />
@@ -183,6 +186,7 @@
           <span>เวลาเริ่มต้น<span class="text-red-500">*</span></span>
           <select
             class="select"
+            required
             bind:value={startTime}
             on:change={setUnvalidAppointment}
           >
@@ -196,6 +200,7 @@
           <span>จำนวนชั่วโมง<span class="text-red-500">*</span></span>
           <select
             class="select"
+            required
             bind:value={totalHours}
             on:change={setUnvalidAppointment}
           >
@@ -207,19 +212,8 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-2">
-      <Button
-        class="variant-filled-surface"
-        on:click={checkValidAppointment}
-        {isLoading}>ตรวจสอบข้อมูล</Button
-      >
-
-      <Button
-        class="variant-filled-primary"
-        {isLoading}
-        type="submit"
-        disabled={!validAppointment}>นัดเรียนชดเชย</Button
-      >
-    </div>
+    <Button class="variant-filled-primary" {isLoading} type="submit">
+      นัดเรียนชดเชย
+    </Button>
   </form>
 </div>
