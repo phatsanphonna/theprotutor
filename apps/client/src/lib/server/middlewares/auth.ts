@@ -13,8 +13,4 @@ export const authHandle = SvelteKitAuth({
       clientSecret: GOOGLE_CLIENT_SECRET,
     })
   ],
-  session: {
-    maxAge: 60 * 60 * 8,
-    updateAge: 60 * 60,
-  },
 })

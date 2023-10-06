@@ -19,7 +19,7 @@
         >?
       </p>
     {:else}
-      <p class="text-center text-xl">
+      <p class="text-xl">
         คุณไม่มีประวัติการจองการเรียนชดเชย ต้องการ<a
           class="anchor"
           href="/appointments/create">นัดเรียนชดเชย</a

@@ -31,14 +31,11 @@ export const appointmentRoutes = t.router({
       return { success: true, payload: appointment }
     }),
   getOwnAppointments: authProcedure.query(async ({ ctx }) => {
-    const { db, user } = ctx;
+    const { db, student } = ctx;
 
     const appointments = await db.appointment.findMany({
       where: {
-        studentId: user!.id,
-        appointmentTime: {
-          gte: new Date()
-        },
+        studentId: student?.id,
       },
       include: {
         student: true
