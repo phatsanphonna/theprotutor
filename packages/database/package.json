@@ -7,7 +7,8 @@
     "build": "dotenv -e ../../.env.local -- prisma generate",
     "db:generate": "dotenv -e ../../.env.local -- prisma generate",
     "db:push": "dotenv -e ../../.env.local -- prisma db push",
-    "db:studio": "prisma studio"
+    "db:force-push": "dotenv -e ../../.env.local -- prisma db push --accept-data-loss",
+    "db:studio": "dotenv -e ../../.env.local -- prisma studio"
   },
   "keywords": [],
   "author": "",
