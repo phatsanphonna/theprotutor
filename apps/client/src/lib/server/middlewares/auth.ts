@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { SvelteKitAuth } from "@auth/sveltekit"
 import { prisma } from 'database'
 
-export const authHandle = SvelteKitAuth({
+export const authMiddleware = SvelteKitAuth({
   adapter: PrismaAdapter(prisma),
   secret: JWT_SECRET,
   providers: [
@@ -13,4 +13,9 @@ export const authHandle = SvelteKitAuth({
       clientSecret: GOOGLE_CLIENT_SECRET,
     })
   ],
+  // set accesstoken session expires in 8 hours
+  session: {
+    maxAge: 8 * 60 * 60,
+  },
+  
 })
