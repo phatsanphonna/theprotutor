@@ -15,9 +15,6 @@ export const meRoutes = t.router({
       const { db, user } = ctx;
 
       const studentId = await generateStudentId();
-
-      console.log(input)
-  
       const student = await db.student.create({
         data: {
           userId: user!.id,
@@ -26,7 +23,10 @@ export const meRoutes = t.router({
         }
       })
 
-      return { success: true, payload: student };
+      return {
+        success: true,
+        payload: student
+      };
     }),
   getAssignments: authProcedure.query(async ({ ctx }) => {
     const { db, user } = ctx;

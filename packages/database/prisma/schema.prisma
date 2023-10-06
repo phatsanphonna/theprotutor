@@ -97,6 +97,8 @@ model Student {
   assignment  Assignment[]
   Score       Score[]
   Appointment Appointment[]
+
+  createdAt DateTime @default(now())
 }
 
 model Teacher {

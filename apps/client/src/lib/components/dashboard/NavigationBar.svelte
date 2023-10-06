@@ -4,7 +4,7 @@
 </script>
 
 <TabGroup justify="justify-center">
-  <TabAnchor href="/dashboard/assignments" selected={$page.url.pathname === "/dashboard/assignment"}>บทเรียน</TabAnchor>
+  <TabAnchor href="/dashboard/assignments" selected={$page.url.pathname === "/dashboard/assignments"}>บทเรียน</TabAnchor>
   <TabAnchor href="/dashboard/appointments" selected={$page.url.pathname === "/dashboard/appointments"}>
     เรียนชดเชย
   </TabAnchor>
