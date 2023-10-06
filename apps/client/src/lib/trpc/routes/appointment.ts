@@ -1,3 +1,4 @@
+import { NODE_ENV } from '$env/static/private';
 import { z } from 'zod';
 import { authProcedure } from '../procedures';
 import { t } from '../t';
@@ -100,6 +101,11 @@ export const appointmentRoutes = t.router({
 
     const parsedAppointmentTime = new Date(appointmentTime);
     const parsedEndTime = new Date(parsedAppointmentTime.getTime() + endTime * 60 * 60 * 1000);
+
+    if (NODE_ENV === 'production') {
+      parsedAppointmentTime.setHours(parsedAppointmentTime.getHours() - 7);
+      parsedEndTime.setHours(parsedEndTime.getHours() - 7);
+    }
 
     const data = await db.appointment.create({
       data: {
