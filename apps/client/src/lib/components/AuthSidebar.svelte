@@ -20,13 +20,10 @@
   };
 
   const handleSignOut = async () => {
-    try {
-      await signOut();
-    } finally {
-      isAuthenticated.set(false);
-      drawerStore.close();
-      goto("/");
-    }
+    await signOut();
+    isAuthenticated.set(false);
+    drawerStore.close();
+    goto("/");
   };
 </script>
 
@@ -37,7 +34,9 @@
     <div class="flex flex-col justify-start">
       {#if $page.data.student}
         <p class="-mb-1 font-medium">{$page.data.student?.studentId}</p>
-        <span>{$page.data.student?.firstname} {$page.data.student?.lastname}</span>
+        <span
+          >{$page.data.student?.firstname} {$page.data.student?.lastname}</span
+        >
       {:else}
         <p>{$page.data.user?.email}</p>
       {/if}
