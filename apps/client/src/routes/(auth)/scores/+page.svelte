@@ -12,7 +12,7 @@
   export let data: PageData;
 
   const table: TableSource = {
-    head: ["ชื่อ", "ช่วงคะแนนของคุณ", "ค่าเฉลี่ย"],
+    head: ["ชื่อ", "ค่าเฉลี่ย",  "ช่วงคะแนนของคุณ"],
     meta: tableSourceValues(data.ids),
     body: tableSourceValues(data.scores),
   };
