@@ -10,8 +10,8 @@ export const load: PageLoad = async (event) => {
   const scores = payload.map(
     ({ scoreboard, score }) => ([
       scoreboard.name,
-      getScoreRange(score, scoreboard.total),
       scoreboard.mean,
+      getScoreRange(score, scoreboard.total),
     ])
   )
 
