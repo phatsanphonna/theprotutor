@@ -7,7 +7,7 @@
 
 <svelte:head>
   <title
-    >คะแนนสอบ - {data.score?.scoreboard.name} | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title
+    >{data.score?.scoreboard.name} | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title
   >
 </svelte:head>
 
