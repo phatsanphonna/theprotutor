@@ -13,9 +13,17 @@ export const authMiddleware = SvelteKitAuth({
       clientSecret: GOOGLE_CLIENT_SECRET,
     })
   ],
-  // set accesstoken session expires in 8 hours
   session: {
-    maxAge: 8 * 60 * 60,
+    maxAge: 8 * 60 * 60 // Set session expire in 8 hours,
   },
-  
+  events: {
+    signIn: async ({ user }) => {
+      await prisma.log.create({
+        data: {
+          activity: 'SIGN_IN',
+          userId: user.id,
+        }
+      })
+    },
+  }
 })
