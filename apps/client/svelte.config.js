@@ -7,7 +7,7 @@ const config = {
 
   kit: {
     adapter: adapter({
-      regions: 'all',
+      regions: ['all'],
     }),
   },
 };
