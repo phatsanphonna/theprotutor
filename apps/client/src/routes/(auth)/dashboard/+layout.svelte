@@ -1,6 +1,6 @@
 <script lang="ts">
   import StudentCard from "$lib/components/StudentCard.svelte";
-  import NavigationBar from "$lib/components/dashboard/NavigationBar.svelte";
+  import NavigationBar from "./ui/NavigationBar.svelte";
   import type { LayoutData } from "./$types";
 
   export let data: LayoutData;

@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { generateAvatarInitials } from "$lib/utils";
   import { Avatar } from "@skeletonlabs/skeleton";
   import type { Student, User } from "database";
 
   export let student: Student | null;
   export let user: User | null;
+
+  const initials = generateAvatarInitials(student!, user!);
 </script>
 
 <div class="card variant-filled-primary p-4">
@@ -13,6 +16,8 @@
         src={String(user?.image)}
         width="w-20"
         rounded="rounded-full"
+        {initials}
+        background="bg-white"
       />
 
       <div>

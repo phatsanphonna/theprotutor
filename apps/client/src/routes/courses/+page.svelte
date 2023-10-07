@@ -1,29 +1,29 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
-  import {
-    PREPRO1,
-    PREPRO2,
-    PREPRO3,
-    PROKIDS1,
-    PROKIDS2,
-  } from "$lib/components/courses/elementary";
-  import {
-    PROBIO,
-    PROCHEM,
-    PROENGHIGH,
-    PROMATHBYKPPM,
-    PROPHY,
-  } from "$lib/components/courses/highschool";
-  import {
-    M4ENG,
-    M4MATH,
-    M4SCI,
-    PROENG,
-    PROMATH,
-    PROSCI,
-  } from "$lib/components/courses/secondary";
-  import { PROTCAS, PROTGAT } from "$lib/components/courses/tcas";
   import { Tab, TabGroup } from "@skeletonlabs/skeleton";
+  import {
+      PREPRO1,
+      PREPRO2,
+      PREPRO3,
+      PROKIDS1,
+      PROKIDS2,
+  } from "./ui/elementary";
+  import {
+      PROBIO,
+      PROCHEM,
+      PROENGHIGH,
+      PROMATHBYKPPM,
+      PROPHY,
+  } from "./ui/highschool";
+  import {
+      M4ENG,
+      M4MATH,
+      M4SCI,
+      PROENG,
+      PROMATH,
+      PROSCI,
+  } from "./ui/secondary";
+  import { PROTCAS, PROTGAT } from "./ui/tcas";
 
   let tabSet: number = 0;
 </script>

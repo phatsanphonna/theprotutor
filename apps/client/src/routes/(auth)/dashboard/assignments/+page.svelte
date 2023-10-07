@@ -1,5 +1,5 @@
 <script lang="ts">
-  import WorkCard from "$lib/components/dashboard/WorkCard.svelte";
+  import WorkCard from "../ui/WorkCard.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;

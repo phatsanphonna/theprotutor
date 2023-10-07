@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AppointmentCard from "$lib/components/dashboard/AppointmentCard.svelte";
+  import AppointmentCard from "../ui/AppointmentCard.svelte";
   import { getModalStore } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types";
 

@@ -1,16 +1,16 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { PUBLIC_BACKEND_AUTH_URL } from "$env/static/public";
+  import { page } from "$app/stores";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
+  import { generateAvatarInitials } from "$lib/utils";
+  import { signOut } from "@auth/sveltekit/client";
   import { Avatar, getDrawerStore } from "@skeletonlabs/skeleton";
   import {
     IconCalendar,
-    IconCalendarPlus,
     IconLayoutDashboard,
+    IconTestPipe,
     IconUser,
   } from "@tabler/icons-svelte";
-  import { page } from "$app/stores";
-  import { signOut } from "@auth/sveltekit/client";
 
   const drawerStore = getDrawerStore();
   const { data } = $page;
@@ -25,20 +25,26 @@
     drawerStore.close();
     goto("/");
   };
+
+  const initials = generateAvatarInitials(data.student, data.user);
 </script>
 
 <div class="p-4 flex flex-col gap-4 h-full">
   <div class="flex gap-2 items-center">
-    <Avatar src={data.user?.image} width="w-10" rounded="rounded-full" />
+    <Avatar
+      src={data.user?.image}
+      width="w-10"
+      rounded="rounded-full"
+      {initials}
+      background="bg-white"
+    />
 
     <div class="flex flex-col justify-start">
-      {#if $page.data.student}
-        <p class="-mb-1 font-medium">{$page.data.student?.studentId}</p>
-        <span
-          >{$page.data.student?.firstname} {$page.data.student?.lastname}</span
-        >
+      {#if data.student}
+        <p class="-mb-1 font-semibold">{data.student?.studentId}</p>
+        <span>{data.student?.firstname} {data.student?.lastname}</span>
       {:else}
-        <p>{$page.data.user?.email}</p>
+        <p>{data.user?.email}</p>
       {/if}
     </div>
   </div>
@@ -65,6 +71,13 @@
       >
         <IconCalendar />
         ตารางการนัดเรียนชดเชย
+      </a>
+    </li>
+
+    <li>
+      <a href="/scores" class="flex gap-2 items-center" on:click={toggleDrawer}>
+        <IconTestPipe />
+        คะแนนสอบ
       </a>
     </li>
 
