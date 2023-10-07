@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { signIn } from "@auth/sveltekit/client"
+  import { signIn } from "@auth/sveltekit/client";
   import { isAuthenticated } from "$lib/stores/is-authenticated";
   import {
     Avatar,
@@ -12,7 +12,7 @@
   const drawerStore = getDrawerStore();
 
   const googleSignIn = async () => {
-    await signIn('google')
+    await signIn("google");
   };
 
   const toggleDrawer = () => {
@@ -29,15 +29,11 @@
 
 {#if $isAuthenticated && $page.data.user}
   <button class="btn variant-filled-secondary" on:click={toggleDrawer}>
-    <Avatar
-      src={$page.data.user?.image}
-      width="w-5"
-      rounded="rounded-full"
-    />
+    <Avatar src={$page.data.user?.image} width="w-5" rounded="rounded-full" />
     {#if $page.data.student}
       <p>{$page.data.student?.firstname}</p>
     {:else}
-      <p>{$page.data.user?.email.split('@')[0]}</p>
+      <p>{$page.data.user?.email.split("@")[0]}</p>
     {/if}
     <IconArrowBarLeft />
   </button>

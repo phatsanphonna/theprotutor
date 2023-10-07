@@ -1,21 +1,17 @@
-import { ServerAxios } from '@/libs/http';
-import {
-  Button,
-  Center,
-  Container,
-  Text
-} from '@mantine/core';
-import { Role } from 'database';
-import {
-  IconBrandGoogle
-} from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import { AxiosError } from 'axios';
+import { ServerAxios } from "@/libs/http";
+import { Button, Center, Container, Text } from "@mantine/core";
+import { Role } from "database";
+import { IconBrandGoogle } from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import { AxiosError } from "axios";
 
 const SignInPage: NextPage = () => {
   const handleSignIn = async () => {
-    window.open(`/api/auth/signin/google?redirectUrl=http://localhost:7810/api/auth/callback`,"_self")
+    window.open(
+      `/api/auth/signin/google?redirectUrl=http://localhost:7810/api/auth/callback`,
+      "_self",
+    );
   };
 
   return (
@@ -34,7 +30,7 @@ const SignInPage: NextPage = () => {
             color="blue"
             opacity={100}
             onClick={handleSignIn}
-            leftIcon={<IconBrandGoogle size='1rem' />}
+            leftIcon={<IconBrandGoogle size="1rem" />}
           >
             เข้าสู่ระบบด้วย Google
           </Button>
@@ -47,21 +43,21 @@ const SignInPage: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const { data } = await ServerAxios<{ status: boolean; roles: Role[] }>(
-      '/auth/verify',
+      "/auth/verify",
       {
-        method: 'POST',
+        method: "POST",
         withCredentials: true,
         headers: {
           Cookie: req.headers.cookie,
         },
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.status && data.roles.includes(Role.ADMIN)) {
       return {
         redirect: {
-          destination: '/',
+          destination: "/",
           permanent: true,
         },
       };

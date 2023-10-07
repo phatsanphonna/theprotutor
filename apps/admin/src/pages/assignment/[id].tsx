@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ClientAxios, ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ClientAxios, ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -9,16 +9,14 @@ import {
   TextInput,
   Title,
   Text,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { DateTimePicker } from '@mantine/dates';
-import {
-  IconCheck,
-} from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import { useState } from 'react';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { DateTimePicker } from "@mantine/dates";
+import { IconCheck } from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import { useState } from "react";
 
 export interface IResponseData {
   id: string;
@@ -106,13 +104,13 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
       },
       {
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.success) {
       notifications.show({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        color: 'teal',
+        message: "อัพเดทข้อมูลสำเร็จ",
+        color: "teal",
         icon: <IconCheck />,
       });
     }
@@ -133,11 +131,11 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
               </Title>
               <Text>
                 {data.assignTo.firstname} {data.assignTo.lastname}
-                {' / '}
-                <span className="font-medium">ชื่อบทเรียน:</span>{' '}
-                {data.lesson.title} /{' '}
-                <span className="font-medium">ชื่อผู้สอน:</span>{' '}
-                {data.lesson.teacher.firstname} {data.lesson.teacher.lastname}{' '}
+                {" / "}
+                <span className="font-medium">ชื่อบทเรียน:</span>{" "}
+                {data.lesson.title} /{" "}
+                <span className="font-medium">ชื่อผู้สอน:</span>{" "}
+                {data.lesson.teacher.firstname} {data.lesson.teacher.lastname}{" "}
                 {data.lesson.teacher.nickname &&
                   `(${data.lesson.teacher.nickname})`}
               </Text>
@@ -174,7 +172,7 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
                   type="text"
                   placeholder="Assignment ID"
                   disabled
-                  {...form.getInputProps('id')}
+                  {...form.getInputProps("id")}
                 />
 
                 <TextInput
@@ -185,7 +183,7 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
                   type="text"
                   placeholder="ชื่อบทเรียน"
                   disabled
-                  {...form.getInputProps('lesson.title')}
+                  {...form.getInputProps("lesson.title")}
                 />
                 <TextInput
                   withAsterisk
@@ -223,9 +221,9 @@ const LessonIdPage: NextPage<Props> = ({ data }) => {
                   />
                   <Button
                     onClick={toggleExpired}
-                    color={!expired ? 'red' : 'yellow'}
+                    color={!expired ? "red" : "yellow"}
                   >
-                    {expired ? 'ไม่มีวันหมดอายุ' : 'หมดอายุ'}
+                    {expired ? "ไม่มีวันหมดอายุ" : "หมดอายุ"}
                   </Button>
                 </Flex>
               </Box>
@@ -244,13 +242,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const { data, status } = await ServerAxios<IResponseData>(
     `/admin/assignment/${params?.id}`,
     {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   if (status === 404) {

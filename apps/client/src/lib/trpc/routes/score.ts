@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import { authProcedure } from '../procedures';
-import { t } from '../t';
+import { z } from "zod";
+import { authProcedure } from "../procedures";
+import { t } from "../t";
 
 export const scoreRoutes = t.router({
   getOwnScores: authProcedure.query(async ({ ctx }) => {
@@ -12,11 +12,11 @@ export const scoreRoutes = t.router({
       },
       include: {
         student: true,
-        scoreboard: true
-      }
+        scoreboard: true,
+      },
     });
 
-    return { success: true, payload: scores }
+    return { success: true, payload: scores };
   }),
   getScoreById: authProcedure
     .input(z.number())
@@ -27,15 +27,31 @@ export const scoreRoutes = t.router({
         where: {
           scoreboardId_studentId: {
             scoreboardId: input,
-            studentId: student!.id
-          }
+            studentId: student!.id,
+          },
         },
         include: {
           student: true,
-          scoreboard: true
-        }
+          scoreboard: true,
+        },
       });
 
-      return { success: true, payload: score }
-    })
+      const leaderboard = await db.score.findMany({
+        where: {
+          scoreboardId: input,
+        },
+        include: {
+          student: true,
+          scoreboard: true,
+        },
+      });
+
+      return {
+        success: true,
+        payload: {
+          score,
+          leaderboard
+        }
+      };
+    }),
 });

@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ClientAxios, ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ClientAxios, ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -9,12 +9,12 @@ import {
   Text,
   TextInput,
   Title,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { IconCheck } from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 
 interface IResponse {
   id: string;
@@ -68,15 +68,15 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
     validate: {
       telephoneNumber: (value) =>
         !/^-?\d+$/.test(value)
-          ? 'โปรดกรอกตัวเลข'
+          ? "โปรดกรอกตัวเลข"
           : value.length !== 10
-          ? 'โปรดกรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว'
+          ? "โปรดกรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว"
           : null,
       guardianTelephoneNumber: (value) =>
         !/^-?\d+$/.test(value)
-          ? 'โปรดกรอกตัวเลข'
+          ? "โปรดกรอกตัวเลข"
           : value.length !== 10
-          ? 'โปรดกรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว'
+          ? "โปรดกรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว"
           : null,
     },
   });
@@ -90,13 +90,13 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
       },
       {
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.success) {
       notifications.show({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        color: 'teal',
+        message: "อัพเดทข้อมูลสำเร็จ",
+        color: "teal",
         icon: <IconCheck />,
       });
     }
@@ -116,9 +116,9 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                 แก้ไขข้อมูลนักเรียน
               </Title>
               <Text>
-                {data.firstname} {data.lastname} ({data.nickname}) /{' '}
-                <span className="font-medium">รหัสนักเรียน:</span>{' '}
-                {data.studentId} / <span className="font-medium">อีเมล:</span>{' '}
+                {data.firstname} {data.lastname} ({data.nickname}) /{" "}
+                <span className="font-medium">รหัสนักเรียน:</span>{" "}
+                {data.studentId} / <span className="font-medium">อีเมล:</span>{" "}
                 {data.userAuth.email}
               </Text>
             </Group>
@@ -155,7 +155,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                   type="text"
                   placeholder="รหัสนักเรียน"
                   disabled
-                  {...form.getInputProps('studentId')}
+                  {...form.getInputProps("studentId")}
                 />
               </Box>
 
@@ -167,7 +167,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                   label="ชื่อจริง"
                   type="text"
                   placeholder="ชื่อจริง"
-                  {...form.getInputProps('firstname')}
+                  {...form.getInputProps("firstname")}
                 />
 
                 <TextInput
@@ -177,7 +177,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                   label="นามสกุล"
                   type="text"
                   placeholder="นามสกุล"
-                  {...form.getInputProps('lastname')}
+                  {...form.getInputProps("lastname")}
                 />
 
                 <TextInput
@@ -187,7 +187,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                   label="ชื่อเล่น"
                   type="text"
                   placeholder="ชื่อเล่น"
-                  {...form.getInputProps('nickname')}
+                  {...form.getInputProps("nickname")}
                 />
               </Box>
 
@@ -206,7 +206,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                     type="text"
                     placeholder="อีเมล"
                     w="100%"
-                    {...form.getInputProps('userAuth.email')}
+                    {...form.getInputProps("userAuth.email")}
                   />
                   {!data.userAuth.isVerified && (
                     <Button variant="outline">ยืนยันอีเมล</Button>
@@ -235,7 +235,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                     type="text"
                     w="100%"
                     placeholder="เบอร์โทรศัพท์"
-                    {...form.getInputProps('telephoneNumber')}
+                    {...form.getInputProps("telephoneNumber")}
                   />
                   {/* {form.values.telephoneNumber !== data.telephoneNumber
                     && <Button variant='outline'>ยืนยันเบอร์โทรศัพท์</Button>} */}
@@ -255,7 +255,7 @@ const StudentIdPage: NextPage<Props> = ({ data }) => {
                     w="100%"
                     type="text"
                     placeholder="เบอร์โทรศัพท์ผู้ปกครอง"
-                    {...form.getInputProps('guardianTelephoneNumber')}
+                    {...form.getInputProps("guardianTelephoneNumber")}
                   />
                 </Flex>
               </Box>
@@ -274,13 +274,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const { data, status } = await ServerAxios<IResponse>(
     `/admin/student/${params?.id}`,
     {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   if (status === 404) {

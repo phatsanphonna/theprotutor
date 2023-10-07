@@ -18,7 +18,10 @@
   const coursePrice = 1499;
 </script>
 
-<CourseCard title="PRE PRO 2" description="คอร์สติวสอบเข้าโครงการพิเศษ, Gifted, โรงเรียนสาธิตชื่อดัง">
+<CourseCard
+  title="PRE PRO 2"
+  description="คอร์สติวสอบเข้าโครงการพิเศษ, Gifted, โรงเรียนสาธิตชื่อดัง"
+>
   <svelte:fragment slot="grade">
     <p>ประถมศึกษาปีที่ {courseGrade}</p>
   </svelte:fragment>

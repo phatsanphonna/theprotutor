@@ -1,4 +1,4 @@
-import { Group, Navbar, Button as MButton, Divider } from '@mantine/core';
+import { Group, Navbar, Button as MButton, Divider } from "@mantine/core";
 import {
   IconBook2,
   IconBox,
@@ -9,11 +9,11 @@ import {
   IconReportAnalytics,
   IconUserCode,
   IconUsers,
-} from '@tabler/icons-react';
-import Button from './Button';
-import { useRouter } from 'next/router';
-import { ClientAxios } from '@/libs/http';
-import { notifications } from '@mantine/notifications';
+} from "@tabler/icons-react";
+import Button from "./Button";
+import { useRouter } from "next/router";
+import { ClientAxios } from "@/libs/http";
+import { notifications } from "@mantine/notifications";
 
 type Route = {
   name: string;
@@ -23,36 +23,36 @@ type Route = {
 
 const routes: Route[] = [
   {
-    name: 'นักเรียน',
-    route: '/student',
+    name: "นักเรียน",
+    route: "/student",
     icon: <IconUserCode />,
   },
   {
-    name: 'บทเรียน',
-    route: '/lesson',
+    name: "บทเรียน",
+    route: "/lesson",
     icon: <IconBook2 />,
   },
   {
-    name: 'Assignment',
-    route: '/assignment',
+    name: "Assignment",
+    route: "/assignment",
     icon: <IconFileDescription />,
   },
   {
-    name: 'ไฟล์',
-    route: '/file',
+    name: "ไฟล์",
+    route: "/file",
     icon: <IconFolder />,
   },
 ];
 
 const adminRoutes: Route[] = [
   {
-    name: 'ประวัติการใช้งาน',
-    route: '/log',
+    name: "ประวัติการใช้งาน",
+    route: "/log",
     icon: <IconReportAnalytics />,
   },
   {
-    name: 'ผู้ใช้',
-    route: '/user',
+    name: "ผู้ใช้",
+    route: "/user",
     icon: <IconUsers />,
   },
 ];
@@ -61,19 +61,19 @@ const Sidebar: React.FC = () => {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await ClientAxios('/auth/signout', {
-      method: 'POST',
+    await ClientAxios("/auth/signout", {
+      method: "POST",
       withCredentials: true,
       validateStatus: () => true,
     });
 
     notifications.show({
-      title: 'ออกจากระบบสำเร็จ',
-      message: 'ระบบกำลังเปลี่ยนหน้า',
+      title: "ออกจากระบบสำเร็จ",
+      message: "ระบบกำลังเปลี่ยนหน้า",
       icon: <IconCheck size="1.1rem" />,
-      color: 'teal',
+      color: "teal",
     });
-    router.push('/signin');
+    router.push("/signin");
   };
 
   return (

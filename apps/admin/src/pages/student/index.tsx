@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -8,14 +8,14 @@ import {
   Table,
   TextInput,
   Title,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { copyToClipboard } from '@/libs/clipboard';
-import { IconCsv } from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { copyToClipboard } from "@/libs/clipboard";
+import { IconCsv } from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface IResponse {
   userAuth: {
@@ -40,7 +40,7 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
 
   const form = useForm({
     initialValues: {
-      queryBy: router.query.queryBy || 'email',
+      queryBy: router.query.queryBy || "email",
       q: router.query.q,
     },
   });
@@ -63,16 +63,16 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
     ]);
 
     exported.unshift([
-      'studentId',
-      'email',
-      'firstname',
-      'lastname',
-      'nickname',
+      "studentId",
+      "email",
+      "firstname",
+      "lastname",
+      "nickname",
     ]);
 
     const csvContent =
       `data:text/csv;charset=utf-8,` +
-      exported.map((e) => e.join(',')).join('\n');
+      exported.map((e) => e.join(",")).join("\n");
 
     const encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
@@ -124,18 +124,18 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
           >
             <Select
               data={[
-                { value: 'email', label: 'อีเมล' },
-                { value: 'studentId', label: 'รหัสนักเรียน' },
-                { value: 'telephoneNumber', label: 'เบอร์โทรศัพท์' },
-                { value: 'firstname', label: 'ชื่อจริง' },
-                { value: 'nickname', label: 'ชื่อเล่น' },
+                { value: "email", label: "อีเมล" },
+                { value: "studentId", label: "รหัสนักเรียน" },
+                { value: "telephoneNumber", label: "เบอร์โทรศัพท์" },
+                { value: "firstname", label: "ชื่อจริง" },
+                { value: "nickname", label: "ชื่อเล่น" },
               ]}
-              {...form.getInputProps('queryBy')}
+              {...form.getInputProps("queryBy")}
             />
             <TextInput
               w="100%"
               placeholder="คำค้นหา"
-              {...form.getInputProps('q')}
+              {...form.getInputProps("q")}
             />
             <Button type="submit">ค้นหา</Button>
             <Button variant="outline" onClick={exportCSV}>
@@ -172,19 +172,19 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     const { data } = await ServerAxios<IResponse[]>(
       `/admin/student?q=${query.q}&queryBy=${query.queryBy}`,
       {
-        method: 'GET',
+        method: "GET",
         withCredentials: true,
         headers: {
           Cookie: req.headers.cookie,
         },
         validateStatus: () => true,
-      }
+      },
     );
 
     responseData = data;
   } else {
-    const { data } = await ServerAxios<IResponse[]>('/admin/student', {
-      method: 'GET',
+    const { data } = await ServerAxios<IResponse[]>("/admin/student", {
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,

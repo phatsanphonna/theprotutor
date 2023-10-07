@@ -1,6 +1,6 @@
-import Layout from '@/components/Layout';
-import { copyToClipboard } from '@/libs/clipboard';
-import { ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { copyToClipboard } from "@/libs/clipboard";
+import { ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -9,12 +9,12 @@ import {
   Table,
   TextInput,
   Title,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface IResponse {
   id: string;
@@ -43,7 +43,7 @@ const LessonPage: NextPage<Props> = ({ data }) => {
 
   const form = useForm({
     initialValues: {
-      queryBy: router.query.queryBy || 'lessonId',
+      queryBy: router.query.queryBy || "lessonId",
       q: router.query.q,
     },
   });
@@ -57,16 +57,16 @@ const LessonPage: NextPage<Props> = ({ data }) => {
   };
 
   const rows = data.map((d, index) => {
-    const date = new Intl.DateTimeFormat('th-TH', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
+    const date = new Intl.DateTimeFormat("th-TH", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     }).format(new Date(d.lastUpdated));
 
-    const time = new Intl.DateTimeFormat('th-TH', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const time = new Intl.DateTimeFormat("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     }).format(new Date(d.lastUpdated));
 
     return (
@@ -79,7 +79,7 @@ const LessonPage: NextPage<Props> = ({ data }) => {
         </td>
         <td>{d.title}</td>
         <td>
-          {d.teacher.firstname} {d.teacher.lastname}{' '}
+          {d.teacher.firstname} {d.teacher.lastname}{" "}
           {d.teacher.nickname && `(${d.teacher.nickname})`}
         </td>
         <td>
@@ -112,19 +112,19 @@ const LessonPage: NextPage<Props> = ({ data }) => {
           >
             <Select
               data={[
-                { value: 'lessonId', label: 'รหัสบทเรียน' },
-                { value: 'name', label: 'ชื่อบทเรียน' },
+                { value: "lessonId", label: "รหัสบทเรียน" },
+                { value: "name", label: "ชื่อบทเรียน" },
               ]}
-              {...form.getInputProps('queryBy')}
+              {...form.getInputProps("queryBy")}
             />
             <TextInput
               w="100%"
               placeholder="คำค้นหา"
-              {...form.getInputProps('q')}
+              {...form.getInputProps("q")}
             />
             <Button type="submit">ค้นหา</Button>
-            <Link href='/lesson/new'>
-              <Button color='teal'>สร้างบทเรียน</Button>
+            <Link href="/lesson/new">
+              <Button color="teal">สร้างบทเรียน</Button>
             </Link>
           </form>
         </Box>
@@ -148,7 +148,7 @@ const LessonPage: NextPage<Props> = ({ data }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { data } = await ServerAxios<IResponse[]>(`/admin/lesson`, {
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     headers: {
       Cookie: req.headers.cookie,

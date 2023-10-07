@@ -1,4 +1,4 @@
-import { ClientAxios } from '@/libs/http';
+import { ClientAxios } from "@/libs/http";
 import {
   Modal,
   TextInput,
@@ -9,12 +9,12 @@ import {
   Stack,
   Box,
   Title,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
-import { File } from 'database';
-import { IconFile, IconVideo } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { File } from "database";
+import { IconFile, IconVideo } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 
 type Props = {
   toggle: number;
@@ -28,8 +28,8 @@ const FileQuery: React.FC<Props> = ({ toggle, onSelect }) => {
 
   const form = useForm({
     initialValues: {
-      q: '',
-      queryBy: 'id',
+      q: "",
+      queryBy: "id",
     },
   });
 
@@ -40,18 +40,18 @@ const FileQuery: React.FC<Props> = ({ toggle, onSelect }) => {
 
   useEffect(() => {
     if (toggle != 0) toggleModel();
-    handleQuery(form.values)
+    handleQuery(form.values);
   }, [toggle]);
 
   const handleQuery = async (values: typeof form.values) => {
     setSearched(false);
 
     if (
-      (!values.q.match(/^[0-9a-fA-F]{24}$/) && values.queryBy == 'id') ||
+      (!values.q.match(/^[0-9a-fA-F]{24}$/) && values.queryBy == "id") ||
       !values.q
     ) {
       const { data } = await ClientAxios<File[]>(`/admin/file`, {
-        method: 'GET',
+        method: "GET",
         withCredentials: true,
         validateStatus: () => true,
       });
@@ -65,10 +65,10 @@ const FileQuery: React.FC<Props> = ({ toggle, onSelect }) => {
     const { data } = await ClientAxios<File[]>(
       `/admin/file?queryBy=${values.queryBy}&q=${values.q}`,
       {
-        method: 'GET',
+        method: "GET",
         withCredentials: true,
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.length == 0) setQuery([]);
@@ -89,17 +89,17 @@ const FileQuery: React.FC<Props> = ({ toggle, onSelect }) => {
           <Flex direction="row" w="100%" gap="xs">
             <NativeSelect
               data={[
-                { value: 'id', label: 'ไอดีไฟล์' },
-                { value: 'location', label: 'ที่อยู่ไฟล์' },
-                { value: 'name', label: 'ชื่อไฟล์' },
+                { value: "id", label: "ไอดีไฟล์" },
+                { value: "location", label: "ที่อยู่ไฟล์" },
+                { value: "name", label: "ชื่อไฟล์" },
               ]}
               w="33%"
-              {...form.getInputProps('queryBy')}
+              {...form.getInputProps("queryBy")}
             />
             <TextInput
               w="100%"
               placeholder="กด Enter เพื่อค้นหา"
-              {...form.getInputProps('q')}
+              {...form.getInputProps("q")}
             />
           </Flex>
         </form>
@@ -126,7 +126,7 @@ const FileQuery: React.FC<Props> = ({ toggle, onSelect }) => {
                     close();
                   }}
                 >
-                  {file.type === 'FILE' ? <IconFile /> : <IconVideo />}
+                  {file.type === "FILE" ? <IconFile /> : <IconVideo />}
                   {file.name}
                 </Title>
                 <Text size="xs">{file.id}</Text>

@@ -3,7 +3,7 @@
 
   export let isLoading: boolean = false;
   export let disabled: boolean = false;
-  export let type: "button" | "reset" | "submit" = 'button'
+  export let type: "button" | "reset" | "submit" = "button";
   $: isLoading = false;
 
   let className: string | undefined | null = undefined;

@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ServerAxios } from "@/libs/http";
 import {
   Badge,
   Box,
@@ -9,12 +9,12 @@ import {
   Table,
   TextInput,
   Title,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface IResponse {
   id: string;
@@ -65,7 +65,7 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
 
   const form = useForm({
     initialValues: {
-      queryBy: router.query.queryBy || 'assignmentId',
+      queryBy: router.query.queryBy || "assignmentId",
       q: router.query.q,
     },
   });
@@ -82,28 +82,28 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
     const assignDateObj = new Date(d.assignDate);
     const expireDateObj = new Date(d.expireDate!);
 
-    const assignDate = new Intl.DateTimeFormat('th-TH', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
+    const assignDate = new Intl.DateTimeFormat("th-TH", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     }).format(assignDateObj);
 
-    const assignTime = new Intl.DateTimeFormat('th-TH', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const assignTime = new Intl.DateTimeFormat("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     }).format(assignDateObj);
 
-    const expireDate = new Intl.DateTimeFormat('th-TH', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
+    const expireDate = new Intl.DateTimeFormat("th-TH", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     }).format(expireDateObj);
 
-    const expireTime = new Intl.DateTimeFormat('th-TH', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const expireTime = new Intl.DateTimeFormat("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     }).format(expireDateObj);
 
     return (
@@ -111,7 +111,7 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
         <td>
           {assignDate} {assignTime}
         </td>
-        <td>{d.expireDate ? `${expireDate} ${expireTime}` : 'ไม่มีกำหนด'}</td>
+        <td>{d.expireDate ? `${expireDate} ${expireTime}` : "ไม่มีกำหนด"}</td>
         <td>
           {d.assignTo.firstname} {d.assignTo.lastname}
           {` (${d.assignTo.nickname})`}
@@ -152,16 +152,16 @@ const AssignmentPage: NextPage<Props> = ({ data }) => {
             <Select
               w="auto"
               data={[
-                { value: 'assignmentId', label: 'Assignment ID' },
-                { value: 'studentId', label: 'รหัสนักเรียน' },
-                { value: 'lessonName', label: 'ชื่อบทเรียน' },
+                { value: "assignmentId", label: "Assignment ID" },
+                { value: "studentId", label: "รหัสนักเรียน" },
+                { value: "lessonName", label: "ชื่อบทเรียน" },
               ]}
-              {...form.getInputProps('queryBy')}
+              {...form.getInputProps("queryBy")}
             />
             <TextInput
               w="100%"
               placeholder="คำค้นหา"
-              {...form.getInputProps('q')}
+              {...form.getInputProps("q")}
             />
             <Button type="submit">ค้นหา</Button>
             <Button color="teal">สร้าง Assignment</Button>
@@ -190,7 +190,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
 }) => {
   const { data } = await ServerAxios<IResponse[]>(`/admin/assignment`, {
-    method: 'GET',
+    method: "GET",
     withCredentials: true,
     headers: {
       Cookie: req.headers.cookie,

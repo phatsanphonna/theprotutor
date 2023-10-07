@@ -1,8 +1,8 @@
-import { prisma } from 'database';
-import type { LayoutServerLoad } from './$types';
+import { prisma } from "database";
+import type { LayoutServerLoad } from "./$types";
 
 export const load: LayoutServerLoad = async ({ locals, getClientAddress }) => {
-  const session = await locals.getSession()
+  const session = await locals.getSession();
   const { user, student } = locals;
 
   if (session && user) {
@@ -11,9 +11,9 @@ export const load: LayoutServerLoad = async ({ locals, getClientAddress }) => {
         userId: user.id,
         address: {
           not: null,
-        }
-      }
-    })
+        },
+      },
+    });
 
     if (!exist) {
       const clientAddress = getClientAddress();
@@ -25,10 +25,10 @@ export const load: LayoutServerLoad = async ({ locals, getClientAddress }) => {
         },
         data: {
           address: clientAddress,
-        }
-      })
+        },
+      });
     }
   }
 
-  return { session, user, student }
-}
+  return { session, user, student };
+};

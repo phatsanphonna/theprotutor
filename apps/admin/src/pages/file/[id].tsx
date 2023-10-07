@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ClientAxios, ServerAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ClientAxios, ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -10,15 +10,13 @@ import {
   Title,
   Text,
   Select,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { FileType } from 'database';
-import {
-  IconCheck,
-} from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { FileType } from "database";
+import { IconCheck } from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
 
 interface IResponseData {
   id: string;
@@ -47,13 +45,13 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
       },
       {
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.success) {
       notifications.show({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        color: 'teal',
+        message: "อัพเดทข้อมูลสำเร็จ",
+        color: "teal",
         icon: <IconCheck />,
       });
     }
@@ -74,9 +72,9 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
               </Title>
               <Text>
                 {data.name}
-                {' / '}
-                <span className="font-medium">ประเภท:</span>{' '}
-                {data.type === FileType.FILE ? 'เอกสาร' : 'วิดีโอ'}
+                {" / "}
+                <span className="font-medium">ประเภท:</span>{" "}
+                {data.type === FileType.FILE ? "เอกสาร" : "วิดีโอ"}
               </Text>
             </Group>
 
@@ -88,7 +86,7 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
               className="flex-col lg:flex-row"
             >
               <a
-                target='_blank'
+                target="_blank"
                 rel="noreferrer"
                 href={`${process.env.NEXT_PUBLIC_URL}/api/file/${data.id}`}
               >
@@ -118,7 +116,7 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
                   type="text"
                   placeholder="ไอดีไฟล์"
                   disabled
-                  {...form.getInputProps('id')}
+                  {...form.getInputProps("id")}
                 />
 
                 <TextInput
@@ -128,7 +126,7 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
                   label="ชื่อไฟล์"
                   type="text"
                   placeholder="ชื่อไฟล์"
-                  {...form.getInputProps('name')}
+                  {...form.getInputProps("name")}
                 />
 
                 <Select
@@ -136,10 +134,10 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
                   withAsterisk={true}
                   disabled
                   data={[
-                    { label: 'วิดีโอ', value: 'VIDEO' },
-                    { label: 'เอกสาร', value: 'FILE' },
+                    { label: "วิดีโอ", value: "VIDEO" },
+                    { label: "เอกสาร", value: "FILE" },
                   ]}
-                  {...form.getInputProps('type')}
+                  {...form.getInputProps("type")}
                 />
 
                 <TextInput
@@ -150,7 +148,7 @@ const FileIdPage: NextPage<Props> = ({ data }) => {
                   type="text"
                   disabled={form.values.type === FileType.FILE}
                   placeholder="ที่อยู่ไฟล์"
-                  {...form.getInputProps('location')}
+                  {...form.getInputProps("location")}
                 />
               </Box>
             </Group>
@@ -168,13 +166,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const { data, status } = await ServerAxios<IResponseData>(
     `/admin/file/${params?.id}`,
     {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   if (status === 404) {
