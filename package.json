@@ -8,11 +8,12 @@
     "db:studio": "turbo run db:studio",
     "db:force-push": "turbo run db:force-push",
     "db:generate": "turbo run db:generate",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,svelte}\""
   },
   "devDependencies": {
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
+    "prettier-plugin-svelte": "^3.0.3",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.10",

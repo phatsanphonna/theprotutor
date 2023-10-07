@@ -1,5 +1,5 @@
-import Layout from '@/components/Layout';
-import { ClientAxios } from '@/libs/http';
+import Layout from "@/components/Layout";
+import { ClientAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -11,62 +11,60 @@ import {
   Select,
   FileInput,
   LoadingOverlay,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { FileType } from 'database';
-import {
-  IconCheck,
-} from '@tabler/icons-react';
-import { NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { FileType } from "database";
+import { IconCheck } from "@tabler/icons-react";
+import { NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const NewFilePage: NextPage = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm({
     initialValues: {
-      name: '',
+      name: "",
       type: FileType.FILE as FileType,
-      location: '',
-      file: null
+      location: "",
+      file: null,
     },
     validateInputOnChange: true,
     validate: {},
   });
 
-  const [spinner, setSpinner] = useState(false)
+  const [spinner, setSpinner] = useState(false);
 
   const handleUpdateData = async (values: typeof form.values) => {
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append('file', values.file!)
-    formData.append('name', values.name)
-    formData.append('type', values.type)
+    formData.append("file", values.file!);
+    formData.append("name", values.name);
+    formData.append("type", values.type);
 
-    setSpinner(true)
+    setSpinner(true);
 
     const { data, status } = await ClientAxios.post(
-      `/admin/file/upload`, formData,
+      `/admin/file/upload`,
+      formData,
       {
         validateStatus: () => true,
-      }
+      },
     );
 
     if (status === 201) {
       notifications.show({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        color: 'teal',
+        message: "อัพเดทข้อมูลสำเร็จ",
+        color: "teal",
         icon: <IconCheck />,
       });
 
-      router.push(`/file/${data.id}`)
+      router.push(`/file/${data.id}`);
     }
 
-    setSpinner(false)
+    setSpinner(false);
   };
 
   return (
@@ -115,17 +113,17 @@ const NewFilePage: NextPage = () => {
                   label="ชื่อไฟล์"
                   type="text"
                   placeholder="ชื่อไฟล์"
-                  {...form.getInputProps('name')}
+                  {...form.getInputProps("name")}
                 />
 
                 <Select
                   label="ประเภทของไฟล์"
                   withAsterisk={true}
                   data={[
-                    { label: 'วิดีโอ', value: 'VIDEO' },
-                    { label: 'เอกสาร', value: 'FILE' },
+                    { label: "วิดีโอ", value: "VIDEO" },
+                    { label: "เอกสาร", value: "FILE" },
                   ]}
-                  {...form.getInputProps('type')}
+                  {...form.getInputProps("type")}
                 />
 
                 {form.values.type == FileType.VIDEO ? (
@@ -136,7 +134,7 @@ const NewFilePage: NextPage = () => {
                     label="ที่อยู่ไฟล์"
                     type="text"
                     placeholder="ที่อยู่ไฟล์"
-                    {...form.getInputProps('location')}
+                    {...form.getInputProps("location")}
                   />
                 ) : (
                   <FileInput
@@ -144,7 +142,7 @@ const NewFilePage: NextPage = () => {
                     label="อัพโหลดไฟล์"
                     withAsterisk
                     accept="application/pdf"
-                    {...form.getInputProps('file')}
+                    {...form.getInputProps("file")}
                   />
                 )}
               </Box>

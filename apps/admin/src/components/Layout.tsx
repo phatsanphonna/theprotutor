@@ -1,7 +1,7 @@
-import { AppShell } from '@mantine/core';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import { useRouter } from 'next/router';
+import { AppShell } from "@mantine/core";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import { useRouter } from "next/router";
 
 type Props = {
   children: JSX.Element | JSX.Element[];

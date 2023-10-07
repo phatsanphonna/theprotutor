@@ -1,6 +1,6 @@
-import FileQuery from '@/components/FileQuery';
-import Layout from '@/components/Layout';
-import { ClientAxios, ServerAxios } from '@/libs/http';
+import FileQuery from "@/components/FileQuery";
+import Layout from "@/components/Layout";
+import { ClientAxios, ServerAxios } from "@/libs/http";
 import {
   Box,
   Button,
@@ -12,19 +12,19 @@ import {
   Text,
   Textarea,
   Select,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { File, FileType, Teacher } from 'database';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
+import { File, FileType, Teacher } from "database";
 import {
   IconBrandVimeo,
   IconCheck,
   IconFile,
   IconX,
-} from '@tabler/icons-react';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import { useState } from 'react';
+} from "@tabler/icons-react";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import { useState } from "react";
 
 interface IResponseData {
   id: string;
@@ -66,14 +66,14 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
 
   const deleteFile = (fileId: string) => {
     form.values.materials = form.values.materials.filter(
-      (file) => file.id !== fileId
+      (file) => file.id !== fileId,
     );
 
     setTotalFiles(form.values.materials.length);
   };
 
   const handleSelectFile = (file: File) => {
-    if (form.values.materials.find(m => m.id === file.id)) {
+    if (form.values.materials.find((m) => m.id === file.id)) {
       return;
     }
 
@@ -83,7 +83,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
   };
 
   const handleUpdateData = async (values: typeof form.values) => {
-    const materialsId = values.materials.map((value) => value.id)
+    const materialsId = values.materials.map((value) => value.id);
 
     const { data } = await ClientAxios.patch(
       `/admin/lesson/${values.id}`,
@@ -97,13 +97,13 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
       },
       {
         validateStatus: () => true,
-      }
+      },
     );
 
     if (data.success) {
       notifications.show({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        color: 'teal',
+        message: "อัพเดทข้อมูลสำเร็จ",
+        color: "teal",
         icon: <IconCheck />,
       });
     }
@@ -124,10 +124,10 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                 แก้ไขข้อมูลบทเรียน
               </Title>
               <Text>
-                {data.title} /{' '}
-                <span className="font-medium">จำนวนไฟล์ทั้งหมด:</span>{' '}
-                {totalFiles} / <span className="font-medium">ชื่อผู้สอน:</span>{' '}
-                {data.teacher.firstname} {data.teacher.lastname}{' '}
+                {data.title} /{" "}
+                <span className="font-medium">จำนวนไฟล์ทั้งหมด:</span>{" "}
+                {totalFiles} / <span className="font-medium">ชื่อผู้สอน:</span>{" "}
+                {data.teacher.firstname} {data.teacher.lastname}{" "}
                 {data.teacher.nickname && `(${data.teacher.nickname})`}
               </Text>
             </Group>
@@ -163,7 +163,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                   type="text"
                   placeholder="ไอดีบทเรียน"
                   disabled
-                  {...form.getInputProps('id')}
+                  {...form.getInputProps("id")}
                 />
 
                 <TextInput
@@ -173,7 +173,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                   label="ชื่อบทเรียน"
                   type="text"
                   placeholder="ชื่อบทเรียน"
-                  {...form.getInputProps('title')}
+                  {...form.getInputProps("title")}
                 />
 
                 <Select
@@ -183,7 +183,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                     value: teacher.id,
                     label: `${teacher.firstname} ${teacher.lastname}`,
                   }))}
-                  {...form.getInputProps('teacherId')}
+                  {...form.getInputProps("teacherId")}
                 />
 
                 <Textarea
@@ -192,7 +192,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                   placeholder="คำอธิบายบทเรียน"
                   minRows={10}
                   maxRows={15}
-                  {...form.getInputProps('description')}
+                  {...form.getInputProps("description")}
                 />
               </Box>
             </Group>
@@ -214,7 +214,7 @@ const LessonIdPage: NextPage<Props> = ({ data, teachers }) => {
                     p="sm"
                   >
                     <Text className="h-full w-full flex flex-row justify-start items-center gap-2">
-                      {file.type === 'FILE' ? <IconFile /> : <IconBrandVimeo />}
+                      {file.type === "FILE" ? <IconFile /> : <IconBrandVimeo />}
                       <span>{file.name}</span>
                     </Text>
                     <IconX color="red" onClick={() => deleteFile(file.id)} />
@@ -237,25 +237,25 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const { data, status } = await ServerAxios<IResponseData>(
     `/admin/lesson/${params?.id}`,
     {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   const { data: teachers, status: tStatus } = await ServerAxios<Teacher[]>(
     `/admin/teacher`,
     {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
       },
       validateStatus: () => true,
-    }
+    },
   );
 
   if (status === 404 || tStatus == 404) {

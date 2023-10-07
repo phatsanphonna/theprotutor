@@ -1,6 +1,6 @@
-import { Group, ThemeIcon, UnstyledButton, Text } from '@mantine/core';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Group, ThemeIcon, UnstyledButton, Text } from "@mantine/core";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 type ButtonProps = {
   name: string;
@@ -16,13 +16,13 @@ const Button: React.FC<ButtonProps> = ({ route, name, icon }) => {
       <UnstyledButton
         className="no-underline"
         sx={(theme) => ({
-          display: 'block',
-          width: '100%',
+          display: "block",
+          width: "100%",
           padding: theme.spacing.xs,
           borderRadius: theme.radius.sm,
           color: theme.black,
 
-          '&:hover': {
+          "&:hover": {
             backgroundColor: theme.colors.gray[0],
           },
         })}

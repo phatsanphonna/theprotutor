@@ -34,17 +34,17 @@
           autohide: true,
           background: "variant-filled-success",
         });
-      
+
         goto("/dashboard/assignments");
       }
     } catch (error: any) {
-      console.error(error)
+      console.error(error);
 
       toastStore.trigger({
-        message: 'เกิดความผิดพลาดทางระบบ โปรดติดต่อเจ้าหน้าที่',
-        background: 'variant-filled-error',
-        autohide: true
-      })
+        message: "เกิดความผิดพลาดทางระบบ โปรดติดต่อเจ้าหน้าที่",
+        background: "variant-filled-error",
+        autohide: true,
+      });
     } finally {
       busy = false;
     }

@@ -1,10 +1,10 @@
-import Layout from '@/components/Layout';
-import { ServerAxios } from '@/libs/http';
-import { Box, Title, Divider, Code, Table, Checkbox } from '@mantine/core';
-import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React from 'react';
+import Layout from "@/components/Layout";
+import { ServerAxios } from "@/libs/http";
+import { Box, Title, Divider, Code, Table, Checkbox } from "@mantine/core";
+import { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import React from "react";
 
 interface IResponse {
   route: string;
@@ -23,7 +23,7 @@ const LogPage: NextPage<Props> = ({ data }) => {
   const router = useRouter();
 
   const toggleLoginLog = () => {
-    if (router.query.q !== '/auth/signin') {
+    if (router.query.q !== "/auth/signin") {
       router.push(`/logs?q=/auth/signin`);
     } else {
       router.push(`/logs`);
@@ -31,19 +31,19 @@ const LogPage: NextPage<Props> = ({ data }) => {
   };
 
   const rows = data.map((d, index) => {
-    const date = new Intl.DateTimeFormat('th-TH', {
-      month: '2-digit',
-      day: '2-digit',
-      year: 'numeric',
+    const date = new Intl.DateTimeFormat("th-TH", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
     }).format(new Date(d.timestamp));
 
-    const time = new Intl.DateTimeFormat('th-TH', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    const time = new Intl.DateTimeFormat("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     }).format(new Date(d.timestamp));
 
-    const route = d.route.length > 50 ? d.route.slice(0, 50) + '...' : d.route;
+    const route = d.route.length > 50 ? d.route.slice(0, 50) + "..." : d.route;
 
     return (
       <tr key={index}>
@@ -72,7 +72,7 @@ const LogPage: NextPage<Props> = ({ data }) => {
           <Checkbox
             label="ดูประวัติการลงชื่อเข้าใช้"
             onChange={toggleLoginLog}
-            checked={router.query.q === '/auth/signin'}
+            checked={router.query.q === "/auth/signin"}
           />
         </Box>
 
@@ -102,7 +102,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   if (query.q) {
     const { data } = await ServerAxios(`/admin/logs?q=${query.q}`, {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,
@@ -113,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     responseData = data;
   } else {
     const { data } = await ServerAxios(`/admin/logs`, {
-      method: 'GET',
+      method: "GET",
       withCredentials: true,
       headers: {
         Cookie: req.headers.cookie,

@@ -7,7 +7,7 @@
   import interactionPlugin from "@fullcalendar/interaction";
   import { getModalStore } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types";
-    import Header from '$lib/components/Header.svelte';
+  import Header from "$lib/components/Header.svelte";
 
   export let data: PageData;
 
@@ -51,7 +51,10 @@
 
   <div class="flex flex-col gap-4">
     <div class="w-full md:w-1/10">
-      <a href="/appointments/create" class="btn variant-filled-primary w-full md:w-auto">
+      <a
+        href="/appointments/create"
+        class="btn variant-filled-primary w-full md:w-auto"
+      >
         นัดเรียนชดเชย
       </a>
     </div>

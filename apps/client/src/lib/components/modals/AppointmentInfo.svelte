@@ -60,9 +60,8 @@
       const { value } = $modalStore[0];
       const id = Number(value.id);
 
-      const { payload } = await trpc(
-        $page
-      ).appointment.getAppointmentById.query(id);
+      const { payload } =
+        await trpc($page).appointment.getAppointmentById.query(id);
       info = payload;
 
       appointmentTime = new Date(String(payload?.appointmentTime));

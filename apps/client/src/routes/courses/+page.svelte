@@ -2,26 +2,26 @@
   import Header from "$lib/components/Header.svelte";
   import { Tab, TabGroup } from "@skeletonlabs/skeleton";
   import {
-      PREPRO1,
-      PREPRO2,
-      PREPRO3,
-      PROKIDS1,
-      PROKIDS2,
+    PREPRO1,
+    PREPRO2,
+    PREPRO3,
+    PROKIDS1,
+    PROKIDS2,
   } from "./ui/elementary";
   import {
-      PROBIO,
-      PROCHEM,
-      PROENGHIGH,
-      PROMATHBYKPPM,
-      PROPHY,
+    PROBIO,
+    PROCHEM,
+    PROENGHIGH,
+    PROMATHBYKPPM,
+    PROPHY,
   } from "./ui/highschool";
   import {
-      M4ENG,
-      M4MATH,
-      M4SCI,
-      PROENG,
-      PROMATH,
-      PROSCI,
+    M4ENG,
+    M4MATH,
+    M4SCI,
+    PROENG,
+    PROMATH,
+    PROSCI,
   } from "./ui/secondary";
   import { PROTCAS, PROTGAT } from "./ui/tcas";
 

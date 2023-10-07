@@ -66,7 +66,8 @@
   <svelte:fragment slot="price">
     <ul class="flex flex-col">
       <li>
-        <span class="font-medium">{coursePrice.toLocaleString()} บาท/เดือน</span>
+        <span class="font-medium">{coursePrice.toLocaleString()} บาท/เดือน</span
+        >
         โดยสามารถลงแยกได้วิชาละ
       </li>
       {#each subjects as { price, subject }}

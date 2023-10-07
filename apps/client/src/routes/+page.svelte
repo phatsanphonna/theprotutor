@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
 
-  let greetingMessage = '';
+  let greetingMessage = "";
 </script>
 
 <svelte:head>

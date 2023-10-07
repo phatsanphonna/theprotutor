@@ -4,15 +4,17 @@
   export let totalFiles: number = 0;
   export let id: string;
 
-  const parsedExpireDate = new Date(expireDate!)
+  const parsedExpireDate = new Date(expireDate!);
 
-  const isExpired = expireDate && parsedExpireDate.getTime() <= new Date().getTime();
-  const formatExpireDate = expireDate && new Intl.DateTimeFormat('th-TH', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric'
-  })
-    .format(parsedExpireDate)
+  const isExpired =
+    expireDate && parsedExpireDate.getTime() <= new Date().getTime();
+  const formatExpireDate =
+    expireDate &&
+    new Intl.DateTimeFormat("th-TH", {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    }).format(parsedExpireDate);
 </script>
 
 {#if isExpired}

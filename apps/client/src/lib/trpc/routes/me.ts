@@ -1,16 +1,19 @@
-import { generateStudentId } from '$lib/utils';
-import { authProcedure } from '../procedures';
-import { t } from '../t';
-import { z } from 'zod';
+import { generateStudentId } from "$lib/utils";
+import { authProcedure } from "../procedures";
+import { t } from "../t";
+import { z } from "zod";
 
 export const meRoutes = t.router({
-  createStudent: authProcedure.input(z.object({
-    firstname: z.string(),
-    lastname: z.string(),
-    nickname: z.string(),
-    telephoneNumber: z.string(),
-    guardianTelephoneNumber: z.string(),
-  }))
+  createStudent: authProcedure
+    .input(
+      z.object({
+        firstname: z.string(),
+        lastname: z.string(),
+        nickname: z.string(),
+        telephoneNumber: z.string(),
+        guardianTelephoneNumber: z.string(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       const { db, user } = ctx;
 
@@ -20,12 +23,12 @@ export const meRoutes = t.router({
           userId: user!.id,
           ...input,
           studentId,
-        }
-      })
+        },
+      });
 
       return {
         success: true,
-        payload: student
+        payload: student,
       };
     }),
   getAssignments: authProcedure.query(async ({ ctx }) => {
@@ -35,9 +38,9 @@ export const meRoutes = t.router({
       where: {
         assignTo: {
           every: {
-            id: user?.id
-          }
-        }
+            id: user?.id,
+          },
+        },
       },
       include: {
         lesson: {
@@ -45,13 +48,13 @@ export const meRoutes = t.router({
             materials: {
               select: {
                 _count: true,
-              }
-            }
-          }
-        }
+              },
+            },
+          },
+        },
       },
     });
 
-    return { success: true, payload: assignments }
-  })
-})
+    return { success: true, payload: assignments };
+  }),
+});

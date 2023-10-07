@@ -23,7 +23,7 @@
     minimum: 0.16,
     easing: "ease",
     speed: 500,
-    showSpinner: false
+    showSpinner: false,
   });
 
   $: {

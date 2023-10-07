@@ -43,7 +43,7 @@
 
     try {
       const { success, payload } = await trpc(
-        $page
+        $page,
       ).appointment.checkValidAppointment.query({
         appointmentTime: `${appointmentDate} ${startTime}`,
         endTime: totalHours,

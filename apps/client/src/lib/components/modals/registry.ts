@@ -1,8 +1,8 @@
-import type { ModalComponent } from '@skeletonlabs/skeleton';
-import AppointmentInfo from './AppointmentInfo.svelte';
+import type { ModalComponent } from "@skeletonlabs/skeleton";
+import AppointmentInfo from "./AppointmentInfo.svelte";
 
 export const modalComponentRegistry: Record<string, ModalComponent> = {
-	appointmentInfo: {
-		ref: AppointmentInfo,
-	},
+  appointmentInfo: {
+    ref: AppointmentInfo,
+  },
 };
