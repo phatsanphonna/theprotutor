@@ -3,10 +3,10 @@
     AppBar,
     getDrawerStore,
     type DrawerSettings,
-    LightSwitch,
   } from "@skeletonlabs/skeleton";
   import { IconMenu2 } from "@tabler/icons-svelte";
   import AuthButton from "./AuthButton.svelte";
+  import { page } from "$app/stores";
 
   const drawerStore = getDrawerStore();
 
@@ -40,10 +40,18 @@
 
       <ul class="hidden md:inline-flex gap-4">
         <li class="hover:underline">
-          <a href="/courses">คอร์สเรียน</a>
+          <a
+            href="/courses"
+            class={$page.url.pathname === "/courses" ? "underline" : ""}
+            >คอร์สเรียน</a
+          >
         </li>
         <li class="hover:underline">
-          <a href="/tutors">ติวเตอร์</a>
+          <a
+            href="/tutors"
+            class={$page.url.pathname === "/tutors" ? "underline" : ""}
+            >ติวเตอร์</a
+          >
         </li>
       </ul>
     </div>

@@ -15,7 +15,9 @@ export const trpcAuthMiddleware = t.middleware(({ next, ctx }) => {
 export const trpcTeacherMiddleware = t.middleware(({ next, ctx }) => {
   const { user } = ctx;
 
-  if (!user?.roles.includes(Role.TEACHER) || !user?.roles.includes(Role.ADMIN)) {
+  if (user?.roles.includes(Role.ADMIN)) {
+    return next({ ctx });
+  } else if (!user?.roles.includes(Role.TEACHER)) {
     throw new TRPCError({ code: "FORBIDDEN" });
   }
 
