@@ -8,6 +8,8 @@
 		IconUser
 	} from '@tabler/icons-svelte';
 	import { page } from '$app/stores';
+	import { signOut } from '@auth/sveltekit/client';
+	import { goto } from '$app/navigation';
 
 	const routes = [
 		{
@@ -33,6 +35,11 @@
 	];
 
 	let currentTile = 0;
+
+	const handleSignOut = async () => {
+		await signOut();
+		goto('/')
+	};
 </script>
 
 <AppRail width="w-24" background="variant-soft-surface">
@@ -53,6 +60,7 @@
 			title="signout"
 			active="variant-soft-error"
 			hover="variant-filled-error"
+			on:click={handleSignOut}
 		>
 			<svelte:fragment slot="lead">
 				<div class="grid place-items-center">

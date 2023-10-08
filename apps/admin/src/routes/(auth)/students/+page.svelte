@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>รายชื่อนักเรียน | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>รายชื่อนักเรียน | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <Header>รายชื่อนักเรียน</Header>

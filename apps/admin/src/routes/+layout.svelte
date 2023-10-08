@@ -7,7 +7,6 @@
 	import 'nprogress/nprogress.css';
 	import '../app.css';
 	import { page } from '$app/stores';
-	import { url } from 'inspector';
 
 	initializeStores();
 
@@ -49,7 +48,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		{#if $page.url.pathname === '/'}
+		{#if $page.data.session}
 			<Sidebar />
 		{/if}
 	</svelte:fragment>
