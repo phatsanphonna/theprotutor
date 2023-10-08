@@ -1,2 +1,4 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="flex flex-col justify-center items-center">
+	<h2>ระบบจัดการหลังบ้าน THE PRO TUTOR</h2>
+	<button class="btn variant-filled-primary">เข้าสู่ระบบด้วยบัญชี Google</button>
+</div>

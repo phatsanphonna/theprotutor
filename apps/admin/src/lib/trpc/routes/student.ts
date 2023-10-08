@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
 
-export const studentRouter = t.router({
+export const studentRoute = t.router({
   getStudents: teacherProcedure.query(async ({ ctx }) => {
     const { db } = ctx;
 
