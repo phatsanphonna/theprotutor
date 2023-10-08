@@ -32,28 +32,38 @@ export const meRoutes = t.router({
       };
     }),
   getAssignments: authProcedure.query(async ({ ctx }) => {
-    const { db, user } = ctx;
+    const { db, student } = ctx;
 
-    const assignments = await db.assignment.findMany({
+    const studentAssignments = await db.student.findUnique({
       where: {
-        assignTo: {
-          every: {
-            id: user?.id,
-          },
-        },
+        id: student!.id,
       },
-      include: {
-        lesson: {
+      select: {
+        assignment: {
           include: {
-            materials: {
-              select: {
-                _count: true,
+            lesson: {
+              include: {
+                materials: {
+                  select: {
+                    _count: true,
+                  },
+                },
               },
             },
           },
-        },
-      },
-    });
+        }
+      }
+    })
+
+    const assignments = studentAssignments?.assignment.map((assignment) => {
+      return {
+        ...assignment,
+        lesson: {
+          ...assignment.lesson,
+          materials: assignment.lesson.materials
+        }
+      }
+    })
 
     return { success: true, payload: assignments };
   }),

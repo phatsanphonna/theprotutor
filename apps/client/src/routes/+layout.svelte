@@ -18,6 +18,7 @@
   import "nprogress/nprogress.css";
   import "../app.css";
   import type { LayoutServerData } from "./$types";
+  import { page } from "$app/stores";
 
   NProgress.configure({
     minimum: 0.16,
@@ -67,19 +68,21 @@
     <AuthSidebar />
   {/if}
 </Drawer>
-
 <Toast />
-
 <Modal components={modalComponentRegistry} />
 
-<AppShell>
+<AppShell regionPage="scroll-smooth">
   <svelte:fragment slot="header">
-    <Navbar />
+    {#if $page.url.pathname !== "/signin"}
+      <Navbar />
+    {/if}
   </svelte:fragment>
 
   <slot />
 
-  <svelte:fragment slot="footer">
-    <Footer />
+  <svelte:fragment slot="pageFooter">
+    {#if $page.url.pathname !== "/signin"}
+      <Footer />
+    {/if}
   </svelte:fragment>
 </AppShell>

@@ -9,11 +9,12 @@
 
 <svelte:head>
   <title
-    >รายงานคะแนนสอบของ {data.ownScore?.scoreboard.name} | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title
+    >รายงานคะแนนสอบของ {data.ownScore?.scoreboard.name} | สถาบันกวดวิชาเดอะโปร -
+    THE PRO TUTOR</title
   >
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen">
+<div class="container mx-auto px-4 py-8">
   <Header>
     <IconTestPipe class="inline-block" size={32} /> รายงานคะแนนสอบ
   </Header>
@@ -46,7 +47,8 @@
       <li class="flex">
         <span class="font-medium">ชื่อ-นามสกุล:</span>
         <span class="flex-auto">
-          {data.ownScore?.student.firstname} {data.ownScore?.student.lastname} ({data.ownScore?.student.nickname})
+          {data.ownScore?.student.firstname}
+          {data.ownScore?.student.lastname} ({data.ownScore?.student.nickname})
         </span>
       </li>
     </ul>
@@ -55,19 +57,25 @@
   <div class="grid grid-cols-1 gap-4 pb-4">
     <div class="grid grid-cols-2 gap-4">
       <ScoreCard
-        name="คะแนนเต็ม"
-        variant="variant-ghost-primary"
-        score={Number(data.ownScore?.scoreboard.total)}
+        name="คะแนนของคุณ"
+        variant="variant-filled-primary"
+        score={Number(data.ownScore?.score)}
       />
       <ScoreCard
-        name="คะแนนของคุณ"
+        name="คะแนนเต็ม"
         variant="variant-ghost-success"
-        score={Number(data.ownScore?.score)}
+        score={Number(data.ownScore?.scoreboard.total)}
       />
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <ScoreCard name="ค่าเฉลี่ย" score={Number(data.ownScore?.scoreboard.mean)} />
-      <ScoreCard name="S.D." score={Number(data.ownScore?.scoreboard.sd)} />
+      <ScoreCard
+        name="ค่าเฉลี่ย"
+        score={Number(data.ownScore?.scoreboard.mean)}
+      />
+      <ScoreCard
+        name="ส่วนเบี่ยงเบนมาตรฐาน"
+        score={Number(data.ownScore?.scoreboard.sd)}
+      />
       <ScoreCard
         name="คะแนนต่ำสุด"
         score={Number(data.ownScore?.scoreboard.min)}

@@ -44,14 +44,17 @@ export const scoreRoutes = t.router({
           student: true,
           scoreboard: true,
         },
+        orderBy: {
+          score: "desc",
+        }
       });
 
       return {
         success: true,
         payload: {
           score,
-          leaderboard
-        }
+          leaderboard,
+        },
       };
     }),
 });

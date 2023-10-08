@@ -63,8 +63,7 @@ model User {
   student Student?
   teacher Teacher?
 
-  activities   Log[]
-  loginRequest LoginRequest[]
+  activities Log[]
 }
 
 model VerificationToken {
@@ -101,8 +100,8 @@ model Student {
   guardianTelephoneNumber String
 
   assignment  Assignment[]
-  Score       Score[]
-  Appointment Appointment[]
+  score       Score[]
+  appointment Appointment[]
 
   createdAt DateTime @default(now())
 }
@@ -137,7 +136,7 @@ model Lesson {
   lastUpdated DateTime @default(now())
 
   materials  File[]
-  assignment Assignment[]
+  assignments Assignment[]
 
   teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String
@@ -151,15 +150,11 @@ model Assignment {
 
   isFinished Boolean @default(false)
 
-  assignTo Student[]
+  assignTo  Student @relation(fields: [assignToId], references: [id])
+  assignToId String
 
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId String
-}
-
-model Config {
-  key   String  @id @unique
-  value String?
 }
 
 model Score {
@@ -186,16 +181,6 @@ model Scoreboard {
   min   Float
   max   Float
   sd    Float
-}
-
-model LoginRequest {
-  id String @id @default(cuid())
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-
-  timestamp DateTime @default(now())
-  approved  Boolean  @default(false)
 }
 
 model Appointment {
