@@ -53,8 +53,8 @@ export const scoreRoutes = t.router({
         success: true,
         payload: {
           score,
-          leaderboard,
-        },
+          leaderboard
+        }
       };
     }),
 });
