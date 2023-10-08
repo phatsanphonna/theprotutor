@@ -59,10 +59,10 @@
         </a>
       </div>
 
-      <div class="text-xs font-light md:text-right flex flex-col gap-1">
-        <ul class="flex justify-end items-center gap-4 text-base">
+      <div class="text-xs font-light text-left md:text-right flex flex-col gap-1">
+        <ul class="flex md:justify-end items-center gap-4 text-base">
           <li>
-            <a href="/privacy-policy" class="underline">นโยบายความเป็นส่วนตัว</a
+            <a href="/privacy-policy" class="underline text-left">นโยบายความเป็นส่วนตัว</a
             >
           </li>
         </ul>

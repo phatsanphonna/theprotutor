@@ -18,7 +18,7 @@ export const authMiddleware = SvelteKitAuth({
     }),
   ],
   session: {
-    maxAge: 8 * 60 * 60, // Set session expire in 8 hours,
+    maxAge: 24 * 60 * 60, // Set session expire in 8 hours,
   },
   events: {
     signIn: async ({ user }) => {

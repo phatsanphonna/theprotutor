@@ -150,8 +150,8 @@ model Assignment {
 
   isFinished Boolean @default(false)
 
-  assignTo  Student @relation(fields: [studentId], references: [id])
-  studentId String
+  assignTo  Student @relation(fields: [assignToId], references: [id])
+  assignToId String
 
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId String

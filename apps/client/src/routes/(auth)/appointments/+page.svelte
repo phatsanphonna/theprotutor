@@ -46,7 +46,7 @@
   <title>ตารางการนัดเรียนชดเชย | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen">
+<div class="container mx-auto px-4 py-8">
   <Header>ตารางการนัดเรียนชดเชย</Header>
 
   <div class="flex flex-col gap-4">

@@ -14,7 +14,7 @@
   >
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen">
+<div class="container mx-auto px-4 py-8">
   <Header>
     <IconTestPipe class="inline-block" size={32} /> รายงานคะแนนสอบ
   </Header>

@@ -30,7 +30,7 @@
   <title>Dashboard | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen">
+<div class="container mx-auto px-4 py-8">
   <div class="w-4/5 mx-auto">
     <div class="flex flex-col gap-4">
       <h2 class="text-2xl md:text-4xl">

@@ -26,7 +26,7 @@
   <title>คะแนนสอบ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen">
+<div class="container mx-auto px-4 py-8">
   <Header>คะแนนสอบ</Header>
   <Table source={table} interactive={true} on:selected={handleSelect} />
 </div>
