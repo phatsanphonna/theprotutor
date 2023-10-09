@@ -6,7 +6,7 @@ import {
 import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { SvelteKitAuth } from "@auth/sveltekit";
-import { prisma, type Session } from "database";
+import { prisma } from "database";
 
 export const authMiddleware = SvelteKitAuth({
   adapter: PrismaAdapter(prisma),
@@ -19,7 +19,5 @@ export const authMiddleware = SvelteKitAuth({
   ],
   session: {
     maxAge: 8 * 60 * 60, // Set session expire in 8 hours,
-  },
-  events: {
   },
 });

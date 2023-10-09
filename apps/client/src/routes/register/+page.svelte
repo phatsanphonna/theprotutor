@@ -140,17 +140,12 @@
 
     <hr class="!border-t-2 my-4" />
 
-    <div>
-      <h4 class="text-2xl font-medium">นโยบายความเป็นส่วนตัว</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi officia
-        eligendi asperiores eum temporibus, aspernatur odit cupiditate
-        doloremque quia explicabo. Architecto dicta accusamus iste qui
-        blanditiis aspernatur dolor deleniti consequatur.
-      </p>
-      <br />
-      <p>ข้าพเจ้าได้ยอมรับข้อนโยบายความเป็นส่วนตัวนี้</p>
-    </div>
+    <p>
+      การดำเนินการต่อเพื่อทำการสมัครสมาชิก หมายความว่าคุณได้ยอมรับ<a
+        class="anchor"
+        href="/privacy-policy">นโยบายความเป็นส่วนตัว</a
+      >ของทางเว็บไซต์
+    </p>
 
     <Button type="submit" class="variant-filled-primary" isLoading={busy}>
       สมัครสมาชิก

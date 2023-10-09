@@ -46,7 +46,7 @@ export const scoreRoutes = t.router({
         },
         orderBy: {
           score: "desc",
-        }
+        },
       });
 
       return {

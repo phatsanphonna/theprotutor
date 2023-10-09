@@ -2,11 +2,13 @@
 	import { navigating } from '$app/stores';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
-	import { AppShell, Toast, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
+	import { AppShell, Toast, initializeStores } from '@skeletonlabs/skeleton';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
 	import '../app.css';
-	import { page } from '$app/stores';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 
 	initializeStores();
 
@@ -48,7 +50,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		{#if $page.data.session}
+		{#if data.session}
 			<Sidebar />
 		{/if}
 	</svelte:fragment>
