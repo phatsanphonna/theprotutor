@@ -8,14 +8,18 @@ export const fileRoutes = t.router({
   getFiles: teacherProcedure.query(async ({ ctx }) => {
     const { db } = ctx;
 
-    const files = await db.file.findMany();
+    const files = await db.material.findMany({
+      include: {
+        file: true,
+      }
+    });
 
     return { success: true, payload: files };
   }),
   getFileById: teacherProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const { db } = ctx;
 
-    const file = await db.file.findUnique({
+    const file = await db.material.findUnique({
       where: {
         id: input
       }
@@ -26,15 +30,11 @@ export const fileRoutes = t.router({
   deleteFileById: teacherProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
     const { db } = ctx;
 
-    const file = await db.file.delete({
+    const file = await db.material.delete({
       where: {
         id: input
       }
     });
-
-    if (file.type === FileType.FILE) {
-      await deleteFile(file.location);
-    }
 
     return { success: true, payload: file };
   }),
@@ -56,4 +56,22 @@ export const fileRoutes = t.router({
 
     return { success: true, payload: file };
   }),
+  uploadFile: teacherProcedure.input(z.object({
+    name: z.string(),
+    type: z.enum([FileType.FILE, FileType.VIDEO]),
+    location: z.string()
+  })).mutation(async ({ ctx, input }) => {
+    const { db } = ctx;
+    const { name, type, location } = input;
+
+    const newFile = await db.material.create({
+      data: {
+        name,
+        location,
+        type
+      }
+    });
+
+    return { success: true, payload: newFile };
+  })
 });

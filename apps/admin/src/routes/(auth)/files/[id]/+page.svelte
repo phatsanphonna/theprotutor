@@ -12,7 +12,7 @@
 	const toastStore = getToastStore();
 
 	$: busy = false;
-	let id = data.files.name || '';
+	let id = data.files.id || '';
 	let name = data.files?.name || '';
 	let type: FileType = data.files?.type || 'FILE';
 	let location = data.files?.location || '';
@@ -85,7 +85,7 @@
 </script>
 
 <svelte:head>
-	<title>แก้ไขไฟล์ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>แก้ไขไฟล์ | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขไฟล์</h2>

@@ -11,7 +11,7 @@
 	let q = '';
 
 	const tableSource: TableSource = {
-		head: ['ไอดี', 'ชื่อไฟล์', 'ประเภท'],
+		head: ['ไอดี', 'ชื่อไฟล์', 'ประเภท', 'วันที่อัพโหลด'],
 		meta: tableSourceValues(data.ids),
 		body: tableSourceValues(data.files)
 	};
@@ -19,7 +19,6 @@
 	const handleSelect = async (row: CustomEvent<string[]>) => {
 		goto(`/files/${row.detail[0]}`);
 	};
-
 </script>
 
 <svelte:head>
