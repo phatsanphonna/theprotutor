@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
+import { TRPCError } from '@trpc/server';
 
 export const studentRoutes = t.router({
 	getStudents: teacherProcedure.query(async ({ ctx }) => {
@@ -33,6 +34,13 @@ export const studentRoutes = t.router({
 				}
 			}
 		});
+
+		if (!student) {
+			throw new TRPCError({
+				code: 'NOT_FOUND',
+				message: 'Student not found'
+			});
+		}
 
 		return { success: true, payload: student };
 	}),

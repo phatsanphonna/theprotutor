@@ -1,8 +1,8 @@
+import { TRPCError } from '@trpc/server';
+import { FileType, prisma } from 'database';
 import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
-import { deleteFile } from "storage";
-import { FileType } from 'database';
 
 export const fileRoutes = t.router({
   getFiles: teacherProcedure.query(async ({ ctx }) => {
@@ -30,13 +30,33 @@ export const fileRoutes = t.router({
   deleteFileById: teacherProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
     const { db } = ctx;
 
-    const file = await db.material.delete({
+    const material = await db.material.findUnique({
       where: {
         id: input
       }
     });
 
-    return { success: true, payload: file };
+    if (!material) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        message: 'File not found'
+      });
+    }
+
+    await prisma.$transaction([
+      db.material.delete({
+        where: {
+          id: input,
+        }
+      }),
+      db.file.delete({
+        where: {
+          id: material?.fileId || ''
+        },
+      }),
+    ]);
+
+    return { success: true, payload: material };
   }),
   editFileById: teacherProcedure.input(z.object({
     id: z.string(),
