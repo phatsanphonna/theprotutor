@@ -51,19 +51,19 @@ export const meRoutes = t.router({
               },
             },
           },
-        }
-      }
-    })
+        },
+      },
+    });
 
     const assignments = studentAssignments?.assignment.map((assignment) => {
       return {
         ...assignment,
         lesson: {
           ...assignment.lesson,
-          materials: assignment.lesson.materials
-        }
-      }
-    })
+          materials: assignment.lesson.materials,
+        },
+      };
+    });
 
     return { success: true, payload: assignments };
   }),

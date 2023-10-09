@@ -2,7 +2,9 @@
   <title>นโยบายความเป็นส่วนตัว | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 min-h-screen flex flex-col gap-4 font-sans">
+<div
+  class="container mx-auto px-4 py-8 min-h-screen flex flex-col gap-4 font-sans"
+>
   <h1 class="h1">นโยบายความเป็นส่วนตัวสำหรับลูกค้า</h1>
   <p>
     บริษัท เดอะโปร ติวเตอร์ จำกัด

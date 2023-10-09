@@ -10,6 +10,7 @@
 	import { page } from '$app/stores';
 	import { signOut } from '@auth/sveltekit/client';
 	import { goto } from '$app/navigation';
+	import { isAuthenticated } from '$lib/stores/is-authenticated';
 
 	const routes = [
 		{
@@ -38,7 +39,8 @@
 
 	const handleSignOut = async () => {
 		await signOut();
-		goto('/')
+		isAuthenticated.set(false);
+		goto('/');
 	};
 </script>
 

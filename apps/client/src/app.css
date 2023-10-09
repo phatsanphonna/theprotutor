@@ -6,6 +6,10 @@ body {
     @apply h-full overflow-hidden;
 }
 
+input {
+    @apply outline-none;
+}
+
 #nprogress .bar {
     background: #ffcd64 !important;
 }

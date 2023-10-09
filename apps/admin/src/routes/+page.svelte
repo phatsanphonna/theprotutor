@@ -11,7 +11,6 @@
 	<title>ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-
 <div class="flex flex-col justify-center items-center gap-4">
 	<h2 class="font-bold text-2xl">ระบบจัดการหลังบ้าน THE PRO TUTOR</h2>
 	{#if $page.data.session}

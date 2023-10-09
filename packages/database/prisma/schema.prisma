@@ -119,7 +119,7 @@ model Teacher {
 }
 
 model File {
-  id String @id @default(cuid()) @map("_id")
+  id String @id @default(cuid())
 
   name     String
   type     FileType
@@ -135,7 +135,7 @@ model Lesson {
   description String?
   lastUpdated DateTime @default(now())
 
-  materials  File[]
+  materials   File[]
   assignments Assignment[]
 
   teacher   Teacher @relation(fields: [teacherId], references: [id])
@@ -150,7 +150,7 @@ model Assignment {
 
   isFinished Boolean @default(false)
 
-  assignTo  Student @relation(fields: [assignToId], references: [id])
+  assignTo   Student @relation(fields: [assignToId], references: [id])
   assignToId String
 
   lesson   Lesson @relation(fields: [lessonId], references: [id])

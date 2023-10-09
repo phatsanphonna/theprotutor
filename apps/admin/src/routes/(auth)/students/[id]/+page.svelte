@@ -9,7 +9,7 @@
 	export let data: PageData;
 	const toastStore = getToastStore();
 
-	let busy = true;
+	$: busy = false;
 
 	let firstname = data.student?.firstname || '';
 	let lastname = data.student?.lastname || '';

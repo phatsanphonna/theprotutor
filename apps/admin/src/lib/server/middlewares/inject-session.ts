@@ -1,27 +1,27 @@
-import type { Handle } from "@sveltejs/kit";
+import type { Handle } from '@sveltejs/kit';
 
 export const injectSession: Handle = async ({ event, resolve }) => {
-  const { locals } = event;
-  const session = await locals.getSession();
+	const { locals } = event;
+	const session = await locals.getSession();
 
-  if (session?.user?.email) {
-    const user = await locals.db.user.findUnique({
-      where: {
-        email: session.user.email,
-      },
-    });
+	if (session?.user?.email) {
+		const user = await locals.db.user.findUnique({
+			where: {
+				email: session.user.email
+			}
+		});
 
-    locals.user = user;
+		locals.user = user;
 
-    const teacher = await locals.db.student.findUnique({
-      where: {
-        userId: user?.id,
-      },
-    });
+		const teacher = await locals.db.student.findUnique({
+			where: {
+				userId: user?.id
+			}
+		});
 
-    locals.teacher = teacher;
-  }
+		locals.teacher = teacher;
+	}
 
-  const response = await resolve(event);
-  return response;
+	const response = await resolve(event);
+	return response;
 };
