@@ -3,6 +3,7 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { AppShell, Toast, initializeStores } from '@skeletonlabs/skeleton';
+	import 'bytemd/dist/index.css';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
 	import '../app.css';
@@ -31,8 +32,10 @@
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+		rel="stylesheet"
+	/>
 	<meta itemProp="image" content="/thumbnail.jpg" />
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="twitter:image" content="/thumbnail.jpg" />

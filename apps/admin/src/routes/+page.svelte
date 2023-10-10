@@ -12,7 +12,7 @@
 </svelte:head>
 
 <div class="flex flex-col justify-center items-center gap-4">
-	<h2 class="font-bold text-2xl">ระบบจัดการหลังบ้าน THE PRO TUTOR</h2>
+	<h2 class="font-bold text-center text-2xl">ระบบจัดการหลังบ้าน THE PRO TUTOR</h2>
 	{#if $page.data.session}
 		<a href="/dashboard" class="btn variant-filled-primary">ไปยังหน้าแดชบอร์ด</a>
 	{:else}

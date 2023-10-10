@@ -21,7 +21,7 @@
 		</div>
 	</svelte:fragment>
 
-	<h1 class="hidden md:block md:text-2xl font-bold">ระบบจัดการหลังบ้าน THE PRO TUTOR</h1>
+	<h1 class="hidden md:block md:text-xl font-bold">ระบบจัดการหลังบ้าน THE PRO TUTOR</h1>
 
 	<svelte:fragment slot="trail">
 		<UserCard />

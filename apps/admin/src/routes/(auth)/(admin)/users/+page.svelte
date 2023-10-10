@@ -30,18 +30,22 @@
 <Header>รายชื่อผู้ใช้งาน</Header>
 
 <div class="flex gap-2 pb-2">
-	<input
-		type="text"
-		placeholder="ไอดีผู้ใช้งานหรืออีเมล"
-		class="input p-2 w-full"
-		bind:value={q}
-		disabled={busy}
-		on:keydown={(e) => {
-			if (e.key === 'Enter') {
-				handleQuery();
-			}
-		}}
-	/>
+	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+		<div class="input-group-shim">คำค้นหา</div>
+		<input
+			type="text"
+			placeholder="ไอดีผู้ใช้งาน หรือ อีเมล"
+			class="input p-2 w-full"
+			bind:value={q}
+			disabled={busy}
+			on:keydown={(e) => {
+				if (e.key === 'Enter') {
+					handleQuery();
+				}
+			}}
+		/>
+	</div>
+
 	<Button class="variant-filled-primary" isLoading={busy} on:click={handleQuery}>ค้นหา</Button>
 </div>
 

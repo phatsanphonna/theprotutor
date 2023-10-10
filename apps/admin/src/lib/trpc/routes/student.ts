@@ -8,48 +8,49 @@ export const studentRoutes = t.router({
 		const { db } = ctx;
 
 		const students = await db.student.findMany({
+			take: 20,
 			where: {
 				OR: [
 					{
 						studentId: {
-							contains: input,
+							contains: input
 						}
 					},
 					{
 						firstname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						lastname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						nickname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						guardianTelephoneNumber: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						telephoneNumber: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						user: {
 							email: {
 								contains: input,
-								mode: 'insensitive',
+								mode: 'insensitive'
 							}
 						}
 					}
@@ -72,6 +73,31 @@ export const studentRoutes = t.router({
 		const student = await db.student.findUnique({
 			where: {
 				id: input
+			},
+			include: {
+				user: {
+					select: {
+						email: true
+					}
+				}
+			}
+		});
+
+		if (!student) {
+			throw new TRPCError({
+				code: 'NOT_FOUND',
+				message: 'Student not found'
+			});
+		}
+
+		return { success: true, payload: student };
+	}),
+	getStudentByStudentId: teacherProcedure.input(z.string()).query(async ({ ctx, input }) => {
+		const { db } = ctx;
+
+		const student = await db.student.findUnique({
+			where: {
+				studentId: input
 			},
 			include: {
 				user: {

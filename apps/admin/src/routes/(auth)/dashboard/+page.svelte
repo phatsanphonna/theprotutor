@@ -5,6 +5,10 @@
 	export let data: PageData;
 </script>
 
+<svelte:head>
+	<title>แดชบอร์ด | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+</svelte:head>
+
 <div class="card variant-ghost-success mb-4">
 	<header class="card-header font-bold text-4xl">
 		สวัสดี, คุณ {$page.data.user.name}

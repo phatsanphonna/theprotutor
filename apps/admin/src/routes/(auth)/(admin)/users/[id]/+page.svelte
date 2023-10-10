@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
-	import { trpc } from '$lib/trpc/client';
 	import { InputChip, getToastStore } from '@skeletonlabs/skeleton';
 
 	import type { PageData } from './$types';

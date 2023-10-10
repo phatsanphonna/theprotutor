@@ -39,21 +39,24 @@
 	<title>ไฟล์ทั้งหมด | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<Header>ไฟล์</Header>
+<Header>ไฟล์ทั้งหมด</Header>
 
 <div class="flex gap-2 pb-2">
-	<input
-		disabled={busy}
-		type="text"
-		class="input p-2 w-full"
-		placeholder="ไอดีไฟล์หรือชื่อไฟล์"
-		bind:value={q}
-		on:keydown={(e) => {
-			if (e.key === 'Enter') {
-				handleQuery();
-			}
-		}}
-	/>
+	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+		<div class="input-group-shim">คำค้นหา</div>
+		<input
+			disabled={busy}
+			type="text"
+			class="input p-2 w-full"
+			placeholder="ไอดีไฟล์หรือชื่อไฟล์"
+			bind:value={q}
+			on:keydown={(e) => {
+				if (e.key === 'Enter') {
+					handleQuery();
+				}
+			}}
+		/>
+	</div>
 
 	<Button class="variant-filled-primary" isLoading={busy} on:click={handleQuery}>ค้นหา</Button>
 	<a href="/files/create" class="btn variant-filled">
