@@ -7,7 +7,8 @@ body {
     @apply h-full overflow-hidden;
 }
 
-input, select {
+input,
+select {
     @apply outline-none;
 }
 
@@ -22,6 +23,7 @@ input, select {
 }
 
 body {
-    font-family: "Sarabun", sans-serif;
+    /* font-family: "Noto Sans Thai Looped", sans-serif; */
+    font-family: 'IBM Plex Sans Thai', sans-serif;
     scroll-behavior: smooth;
 }

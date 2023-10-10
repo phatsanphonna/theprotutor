@@ -1,6 +1,7 @@
 import { redirect, type Actions } from '@sveltejs/kit';
 import { FileType } from 'database';
 import { uploadFile } from 'storage'
+import JSZip from 'jszip'
 
 export const actions: Actions = {
   create: async ({ request, locals }) => {
@@ -12,28 +13,38 @@ export const actions: Actions = {
     const file = form.get("file") as File;
     let location = form.get("location") as string;
 
+    const fileBuffer = await file.arrayBuffer();
+
+    const ext = file.name.split('.').pop() || '';
+    const contentType = file.type;
+
     if (type === FileType.FILE) {
-      const { url } = await uploadFile(name, file);
-
-      const newFile = await db.file.create({
+      const material = await db.material.create({
         data: {
+          file: {
+            create: {
+              data: Buffer.from(fileBuffer),
+              name: name,
+              contentType: contentType,
+              ext,
+            }
+          },
           name,
-          location: url,
-          type
+          type: type,
         }
-      });
+      })
 
-      throw redirect(303, `/files/${newFile.id}`);
+      throw redirect(303, `/files/${material.id}?redirected=1`);
     } else {
-      const newFile = await db.file.create({
+      const material = await db.material.create({
         data: {
+          location: location,
           name,
-          location: location!,
-          type
+          type: type,
         }
-      });
+      })
 
-      throw redirect(303, `/files/${newFile.id}`);
+      throw redirect(303, `/files/${material.id}?redirected=1`);
     }
   }
 };

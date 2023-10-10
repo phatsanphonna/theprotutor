@@ -2,11 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
-	import { trpc } from '$lib/trpc/client';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { FileType } from 'database';
-
-	const toastStore = getToastStore();
 
 	$: busy = false;
 
@@ -14,12 +11,17 @@
 </script>
 
 <svelte:head>
-	<title>สร้างไฟล์ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>อัพโหลดไฟล์ | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขไฟล์</h2>
 
-<form class="grid grid-cols-1 gap-2" action="?/create" method="POST" enctype="multipart/form-data">
+<form
+	class="grid grid-cols-1 gap-2"
+	action="?/create"
+	method="POST"
+	enctype="multipart/form-data"
+>
 	<label class="label">
 		<span>ชื่อไฟล์<span class="text-red-500">*</span></span>
 		<input
@@ -35,7 +37,7 @@
 	<div class="grid grid-cols-2 gap-2">
 		<label class="label">
 			<span>ประเภทของไฟล์<span class="text-red-500">*</span></span>
-			<select id="type" name="type" class="select" value={type} required>
+			<select name="type" id="type" class="select" bind:value={type} required>
 				<option value="FILE">ไฟล์</option>
 				<option value="VIDEO">วิดีโอ</option>
 			</select>
@@ -56,7 +58,13 @@
 		{:else}
 			<label>
 				<span>ไฟล์<span class="text-red-500">*</span></span>
-				<input type="file" name="file" id="file" class="input px-4 py-2" accept="application/pdf" />
+				<input
+					type="file"
+					name="file"
+					id="file"
+					class="input px-4 py-2"
+					accept="application/pdf"
+				/>
 			</label>
 		{/if}
 	</div>

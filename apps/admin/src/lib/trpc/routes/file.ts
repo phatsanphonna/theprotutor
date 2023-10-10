@@ -1,21 +1,46 @@
+import { TRPCError } from '@trpc/server';
+import { FileType, prisma } from 'database';
 import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
-import { deleteFile } from "storage";
-import { FileType } from 'database';
 
 export const fileRoutes = t.router({
-  getFiles: teacherProcedure.query(async ({ ctx }) => {
+  getFiles: teacherProcedure.input(z.object({
+    q: z.string().optional().default(''),
+    queryBy: z.enum(['name', 'id']).optional(),
+  })).query(async ({ ctx, input }) => {
     const { db } = ctx;
+    const { q } = input;
 
-    const files = await db.file.findMany();
+
+    const files = await db.material.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: q,
+              mode: 'insensitive',
+            }
+          },
+          {
+            id: {
+              contains: q,
+              mode: 'insensitive',
+            }
+          }
+        ]
+      },
+      include: {
+        file: true,
+      }
+    });
 
     return { success: true, payload: files };
   }),
   getFileById: teacherProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const { db } = ctx;
 
-    const file = await db.file.findUnique({
+    const file = await db.material.findUnique({
       where: {
         id: input
       }
@@ -26,17 +51,33 @@ export const fileRoutes = t.router({
   deleteFileById: teacherProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
     const { db } = ctx;
 
-    const file = await db.file.delete({
+    const material = await db.material.findUnique({
       where: {
         id: input
       }
     });
 
-    if (file.type === FileType.FILE) {
-      await deleteFile(file.location);
+    if (!material) {
+      throw new TRPCError({
+        code: 'NOT_FOUND',
+        message: 'File not found'
+      });
     }
 
-    return { success: true, payload: file };
+    await prisma.$transaction([
+      db.material.delete({
+        where: {
+          id: input,
+        }
+      }),
+      db.file.delete({
+        where: {
+          id: material?.fileId || ''
+        },
+      }),
+    ]);
+
+    return { success: true, payload: material };
   }),
   editFileById: teacherProcedure.input(z.object({
     id: z.string(),
@@ -56,4 +97,22 @@ export const fileRoutes = t.router({
 
     return { success: true, payload: file };
   }),
+  uploadFile: teacherProcedure.input(z.object({
+    name: z.string(),
+    type: z.enum([FileType.FILE, FileType.VIDEO]),
+    location: z.string()
+  })).mutation(async ({ ctx, input }) => {
+    const { db } = ctx;
+    const { name, type, location } = input;
+
+    const newFile = await db.material.create({
+      data: {
+        name,
+        location,
+        type
+      }
+    });
+
+    return { success: true, payload: newFile };
+  })
 });

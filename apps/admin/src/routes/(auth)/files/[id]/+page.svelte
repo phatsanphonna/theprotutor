@@ -6,13 +6,13 @@
 	import type { FileType } from 'database';
 	import type { PageData } from './$types';
 	import Button from '$lib/components/Button.svelte';
-	import { IconDownload } from '@tabler/icons-svelte';
+	import { IconCheck, IconDownload } from '@tabler/icons-svelte';
 
 	export let data: PageData;
 	const toastStore = getToastStore();
 
 	$: busy = false;
-	let id = data.files.name || '';
+	let id = data.files.id || '';
 	let name = data.files?.name || '';
 	let type: FileType = data.files?.type || 'FILE';
 	let location = data.files?.location || '';
@@ -85,10 +85,19 @@
 </script>
 
 <svelte:head>
-	<title>แก้ไขไฟล์ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>แก้ไขไฟล์ | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขไฟล์</h2>
+
+{#if data.redirected}
+	<aside class="alert variant-soft-success mb-4">
+		<div><IconCheck /></div>
+		<div class="alert-message">
+			<p>สร้างไฟล์สำเร็จ</p>
+		</div>
+	</aside>
+{/if}
 
 <form class="grid grid-cols-1 gap-2" on:submit|preventDefault={editFile}>
 	<label class="label">
@@ -123,14 +132,16 @@
 					<input type="url" value={data.files?.id} class="input px-4 py-2" readonly />
 
 					<Button class="variant-ghost" type="button" on:click={copyLink}>คัดลอกลิงก์</Button>
-					<a class="btn variant-filled" href={data.files?.location}><IconDownload /></a>
+					<a class="btn variant-filled" target="_blank" href={data.files?.location}
+						><IconDownload /></a
+					>
 				</div>
 			</label>
 		{/if}
 	</div>
 
-	<div class="grid grid-cols-2 gap-2">
-		<Button class="btn variant-ghost-error" isLoading={busy} on:click={deleteFile}>ลบไฟล์</Button>
+	<div class="flex justify-end gap-2">
+		<Button class="btn variant-soft-error" isLoading={busy} on:click={deleteFile}>ลบไฟล์</Button>
 		<Button class="btn variant-filled-primary" isLoading={busy} type="submit">แก้ไขข้อมูล</Button>
 	</div>
 </form>

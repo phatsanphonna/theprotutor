@@ -1,12 +1,60 @@
 import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
+import { TRPCError } from '@trpc/server';
 
 export const studentRoutes = t.router({
-	getStudents: teacherProcedure.query(async ({ ctx }) => {
+	getStudents: teacherProcedure.input(z.string().default('')).query(async ({ ctx, input }) => {
 		const { db } = ctx;
 
 		const students = await db.student.findMany({
+			where: {
+				OR: [
+					{
+						studentId: {
+							contains: input,
+						}
+					},
+					{
+						firstname: {
+							contains: input,
+							mode: 'insensitive',
+						}
+					},
+					{
+						lastname: {
+							contains: input,
+							mode: 'insensitive',
+						}
+					},
+					{
+						nickname: {
+							contains: input,
+							mode: 'insensitive',
+						}
+					},
+					{
+						guardianTelephoneNumber: {
+							contains: input,
+							mode: 'insensitive',
+						}
+					},
+					{
+						telephoneNumber: {
+							contains: input,
+							mode: 'insensitive',
+						}
+					},
+					{
+						user: {
+							email: {
+								contains: input,
+								mode: 'insensitive',
+							}
+						}
+					}
+				]
+			},
 			include: {
 				user: {
 					select: {
@@ -33,6 +81,13 @@ export const studentRoutes = t.router({
 				}
 			}
 		});
+
+		if (!student) {
+			throw new TRPCError({
+				code: 'NOT_FOUND',
+				message: 'Student not found'
+			});
+		}
 
 		return { success: true, payload: student };
 	}),
@@ -61,6 +116,9 @@ export const studentRoutes = t.router({
 					nickname,
 					guardianTelephoneNumber,
 					telephoneNumber
+				},
+				include: {
+					user: true
 				}
 			});
 
