@@ -92,6 +92,31 @@ export const studentRoutes = t.router({
 
 		return { success: true, payload: student };
 	}),
+	getStudentByStudentId: teacherProcedure.input(z.string()).query(async ({ ctx, input }) => {
+		const { db } = ctx;
+
+		const student = await db.student.findUnique({
+			where: {
+				studentId: input
+			},
+			include: {
+				user: {
+					select: {
+						email: true
+					}
+				}
+			}
+		});
+
+		if (!student) {
+			throw new TRPCError({
+				code: 'NOT_FOUND',
+				message: 'Student not found'
+			});
+		}
+
+		return { success: true, payload: student };
+	}),
 	editStudent: teacherProcedure
 		.input(
 			z.object({
@@ -124,5 +149,5 @@ export const studentRoutes = t.router({
 			});
 
 			return { success: true, payload: student };
-		})
+		}),
 });

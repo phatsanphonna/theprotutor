@@ -6,12 +6,14 @@
 	import { trpc } from '$lib/trpc/client';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { Material } from 'database';
+	import type { PageData } from './$types';
 
+	export let data: PageData;
 	const toastStore = getToastStore();
 
 	$: busy = false;
-	let title = '';
-	let description = '';
+	let title = data.lesson?.title || '';
+	let description = data.lesson?.description || '';
 	let materials: Array<Material> = [];
 
 	const createLesson = async () => {
@@ -47,11 +49,11 @@
 </script>
 
 <svelte:head>
-	<title>สร้างบทเรียนใหม่ | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>แก้ไขบทเรียนของ {data.lesson?.title} | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <form on:submit|preventDefault={createLesson}>
-	<h2 class="font-bold text-2xl md:text-4xl mb-4">สร้างบทเรียนใหม่</h2>
+	<h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขบทเรียนของ {data.lesson?.title}</h2>
 
 	<div class="grid grid-cols-1 gap-2">
 		<label class="label">
@@ -66,23 +68,19 @@
 		</label>
 
 		<label class="label">
-			<span
-				>รายละเอียดของบทเรียน (สามารถใช้ภาษา Markdown เขียนได้)<span class="text-red-500">*</span
-				></span
-			>
+			<span>รายละเอียดของบทเรียน (สามารถใช้ภาษา Markdown เขียนได้)</span>
 			<textarea
 				bind:value={description}
 				class="textarea px-4 py-2"
 				rows="4"
 				placeholder="รายละเอียดของบทเรียน"
-				required
 			/>
 		</label>
 	</div>
 
 	<hr class="!border-t-2 my-4" />
 
-	<h3 class="font-bold text-2xl md:text-4xl my-4">ไฟล์ที่อยู่ในบทเรียน</h3>
+	<h2 class="font-bold text-2xl md:text-4xl my-4">ไฟล์ที่อยู่ในบทเรียน</h2>
 
 	<div class="table-container mb-4">
 		<table class="table table-compact">
@@ -95,13 +93,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each materials as { name, type, id }}
+				{#each data.lesson.materials as { name, type, id }}
 					<tr>
 						<td>{id}</td>
 						<td>{name}</td>
 						<td><FileTypeBadge {type} /></td>
 						<td>
-							<button class="anchor text-error-500">ลบ</button>
+							<button type="button" class="anchor text-error-500">ลบ</button>
 						</td>
 					</tr>
 				{/each}
@@ -118,6 +116,6 @@
 	</div>
 
 	<div class="flex justify-end gap-2">
-		<Button class="variant-filled-primary" isLoading={busy} type="submit">สร้างบทเรียน</Button>
+		<Button class="variant-filled-primary" isLoading={busy} type="submit">อัพเดทข้อมูล</Button>
 	</div>
 </form>

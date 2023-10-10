@@ -5,7 +5,12 @@ import type { PageLoad } from "./$types";
 export const load: PageLoad = async (event) => {
   const { payload } = await trpc(event).score.getOwnScores.query();
 
-  console.log(payload[0].scoreboard.mean);
+  if (!payload) {
+    return {
+      scores: [],
+      ids: [],
+    };
+  }
 
   const scores = payload.map(({ scoreboard, score }) => [
     new Intl.DateTimeFormat("th-Th").format(new Date(scoreboard.timestamp)),

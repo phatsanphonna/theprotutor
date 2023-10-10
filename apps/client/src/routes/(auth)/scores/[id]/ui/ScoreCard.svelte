@@ -11,7 +11,11 @@
 
   <section class="grid place-items-center">
     <p class="text-6xl font-bold">
-      {score}
+      {#if score.toString().split(".").length > 1}
+        {score.toFixed(2)}
+      {:else}
+        {score}
+      {/if}
     </p>
   </section>
 </div>

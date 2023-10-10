@@ -36,6 +36,10 @@ export const lessonRoutes = t.router({
     const lesson = await db.lesson.findUnique({
       where: {
         id: input
+      },
+      include: {
+        teacher: true,
+        materials: true
       }
     });
 

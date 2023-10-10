@@ -9,7 +9,7 @@ export const globalRoutes = t.router({
 				expires: {
 					gt: new Date(),
 				},
-			}
+			},
 		});
 
 		return { success: true, payload: sessions };
