@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { PrismaClient, Student, Teacher } from 'database';
+import type { PrismaClient, Student, Teacher, User } from 'database';
 
 // for information about these interfaces
 declare global {

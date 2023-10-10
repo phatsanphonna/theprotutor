@@ -5,10 +5,31 @@ import { teacherProcedure } from '../procedures';
 import { t } from '../t';
 
 export const fileRoutes = t.router({
-  getFiles: teacherProcedure.query(async ({ ctx }) => {
+  getFiles: teacherProcedure.input(z.object({
+    q: z.string().optional().default(''),
+    queryBy: z.enum(['name', 'id']).optional(),
+  })).query(async ({ ctx, input }) => {
     const { db } = ctx;
+    const { q } = input;
+
 
     const files = await db.material.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: q,
+              mode: 'insensitive',
+            }
+          },
+          {
+            id: {
+              contains: q,
+              mode: 'insensitive',
+            }
+          }
+        ]
+      },
       include: {
         file: true,
       }

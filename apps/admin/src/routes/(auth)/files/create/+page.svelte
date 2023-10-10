@@ -5,15 +5,13 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { FileType } from 'database';
 
-	const toastStore = getToastStore();
-
 	$: busy = false;
 
 	let type: FileType = 'FILE';
 </script>
 
 <svelte:head>
-	<title>อัพโหลดไฟล์ | สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>อัพโหลดไฟล์ | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขไฟล์</h2>
@@ -39,7 +37,7 @@
 	<div class="grid grid-cols-2 gap-2">
 		<label class="label">
 			<span>ประเภทของไฟล์<span class="text-red-500">*</span></span>
-			<select name="type" id="type" class="select" value={type} required>
+			<select name="type" id="type" class="select" bind:value={type} required>
 				<option value="FILE">ไฟล์</option>
 				<option value="VIDEO">วิดีโอ</option>
 			</select>

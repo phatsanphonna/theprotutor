@@ -17,10 +17,13 @@ export const load: PageServerLoad = async (event) => {
   const { params, url } = event;
   const { payload } = await router.createCaller(await createContext(event)).file.getFileById(params.id);
 
+  const redirected = url.searchParams.get('redirected');
+
   return {
     files: {
       ...payload,
-      location: `${getClientHost(url.host)}/files/${payload?.id}`
-    }
+      location: `${getClientHost(url.host)}/files/${payload?.id}`,
+    },
+    redirected: redirected == '1',
   }
 };

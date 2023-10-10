@@ -122,7 +122,7 @@ model Material {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
-  name String
+  name String   @unique
   tags String[]
 
   lessons Lesson[]

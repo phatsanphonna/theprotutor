@@ -5,7 +5,7 @@
 </script>
 
 {#if type === 'VIDEO'}
-	<span class="badge variant-filled-surface">วิดีโอ</span>
+	<span class="badge variant-filled-warning">วิดีโอ</span>
 {:else}
-	<span class="badge variant-filled">ไฟล์</span>
+	<span class="badge variant-soft-success">ไฟล์</span>
 {/if}

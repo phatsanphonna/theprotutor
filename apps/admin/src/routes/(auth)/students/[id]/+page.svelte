@@ -21,7 +21,7 @@
 		busy = true;
 
 		try {
-			const { success } = await trpc($page).student.editStudent.mutate({
+			const { success, payload } = await trpc($page).student.editStudent.mutate({
 				id: data.student!.id,
 				firstname,
 				lastname,
@@ -37,6 +37,8 @@
 					autohide: true,
 					timeout: 3000
 				});
+
+				data.student = payload
 			}
 		} catch (error) {
 			toastStore.trigger({
@@ -147,7 +149,9 @@
 		</label>
 	</div>
 
-	<Button type="submit" isLoading={busy} class="variant-filled">แก้ไขข้อมูล</Button>
+	<div class="flex justify-end">
+		<Button type="submit" isLoading={busy} class="variant-filled">แก้ไขข้อมูล</Button>
+	</div>
 </form>
 
 <hr class="!border-t-2 my-4" />

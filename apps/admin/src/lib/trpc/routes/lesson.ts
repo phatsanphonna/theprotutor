@@ -35,12 +35,12 @@ export const lessonRoutes = t.router({
   }),
   editLessonById: teacherProcedure.input(z.object({
     id: z.string(),
-    name: z.string(),
     title: z.string(),
     description: z.string(),
+    materials: z.array(z.string()),
   })).mutation(async ({ ctx, input }) => {
     const { db } = ctx;
-    const { id, title, description } = input;
+    const { id, title, description, materials } = input;
 
     const lesson = await db.lesson.update({
       where: {
@@ -49,6 +49,11 @@ export const lessonRoutes = t.router({
       data: {
         title,
         description,
+        materials: {
+          connect: materials.map((id) => ({
+            id
+          }))
+        }
       }
     });
 
@@ -73,6 +78,29 @@ export const lessonRoutes = t.router({
     await db.lesson.delete({
       where: {
         id: input,
+      }
+    });
+
+    return { success: true, payload: lesson };
+  }),
+  createLesson: teacherProcedure.input(z.object({
+    title: z.string(),
+    description: z.string(),
+    materials: z.array(z.string()),
+  })).mutation(async ({ ctx, input }) => {
+    const { db, teacher } = ctx;
+    const { title, description, materials } = input;
+
+    const lesson = await db.lesson.create({
+      data: {
+        title,
+        description,
+        materials: {
+          connect: materials.map((id) => ({
+            id
+          }))
+        },
+        teacherId: teacher?.id || '',
       }
     });
 

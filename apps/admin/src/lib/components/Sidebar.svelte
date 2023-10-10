@@ -3,9 +3,11 @@
 	import {
 		IconArchive,
 		IconDoorExit,
-		IconFile,
+		IconFiles,
 		IconNotebook,
-		IconUser
+		IconSchool,
+		IconUser,
+		IconUsers
 	} from '@tabler/icons-svelte';
 	import { page } from '$app/stores';
 	import { signOut } from '@auth/sveltekit/client';
@@ -21,7 +23,7 @@
 		{
 			href: '/assignments',
 			Icon: IconNotebook,
-			label: 'งานที่มอบหมาย'
+			label: 'งานมอบหมาย'
 		},
 		{
 			href: '/lessons',
@@ -30,8 +32,21 @@
 		},
 		{
 			href: '/files',
-			Icon: IconFile,
+			Icon: IconFiles,
 			label: 'ไฟล์'
+		}
+	];
+
+	const adminRoutes = [
+		{
+			href: '/teachers',
+			Icon: IconSchool,
+			label: 'ผู้สอน'
+		},
+		{
+			href: '/users',
+			Icon: IconUsers,
+			label: 'ผู้ใช้งาน'
 		}
 	];
 
@@ -53,6 +68,17 @@
 			<span>{label}</span>
 		</AppRailAnchor>
 	{/each}
+
+	{#if $page.data.user?.roles?.includes('ADMIN')}
+		{#each adminRoutes as { href, Icon, label }}
+			<AppRailAnchor {href} selected={$page.url.pathname.startsWith(href)}>
+				<svelte:fragment slot="lead">
+					<Icon />
+				</svelte:fragment>
+				<span>{label}</span>
+			</AppRailAnchor>
+		{/each}
+	{/if}
 
 	<svelte:fragment slot="trail">
 		<AppRailTile

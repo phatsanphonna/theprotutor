@@ -34,7 +34,7 @@ export const actions: Actions = {
         }
       })
 
-      throw redirect(303, `/files/${material.id}`);
+      throw redirect(303, `/files/${material.id}?redirected=1`);
     } else {
       const material = await db.material.create({
         data: {
@@ -44,7 +44,7 @@ export const actions: Actions = {
         }
       })
 
-      throw redirect(303, `/files/${material.id}`);
+      throw redirect(303, `/files/${material.id}?redirected=1`);
     }
   }
 };
