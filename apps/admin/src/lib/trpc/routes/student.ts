@@ -8,6 +8,7 @@ export const studentRoutes = t.router({
 		const { db } = ctx;
 
 		const students = await db.student.findMany({
+			take: 20,
 			where: {
 				OR: [
 					{

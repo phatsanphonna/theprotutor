@@ -4,12 +4,27 @@ import { t } from '../t';
 import { TRPCError } from '@trpc/server';
 
 export const lessonRoutes = t.router({
-  getLessons: teacherProcedure.query(async ({ ctx }) => {
+  getLessons: teacherProcedure.input(z.string().default('')).query(async ({ ctx, input }) => {
     const { db } = ctx;
 
     const lessons = await db.lesson.findMany({
+      where: {
+        title: {
+          contains: input,
+          mode: 'insensitive',
+        },
+        id: {
+          contains: input,
+          mode: 'insensitive',
+        },
+      },
       include: {
         teacher: true,
+        materials: {
+          select: {
+            _count: true,
+          }
+        }
       }
     });
 

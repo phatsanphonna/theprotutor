@@ -1,11 +1,19 @@
 <script lang="ts">
 	import { AppRail, AppRailAnchor, AppRailTile } from '@skeletonlabs/skeleton';
 	import {
+		IconAlarm,
 		IconArchive,
+		IconCalendar,
+		IconDashboard,
 		IconDoorExit,
 		IconFiles,
+		IconGridPattern,
+		IconLayoutDashboard,
+		IconMenu2,
 		IconNotebook,
 		IconSchool,
+		IconTestPipe,
+		IconTestPipe2,
 		IconUser,
 		IconUsers
 	} from '@tabler/icons-svelte';
@@ -15,6 +23,11 @@
 	import { isAuthenticated } from '$lib/stores/is-authenticated';
 
 	const routes = [
+		{
+			href: '/dashboard',
+			Icon: IconLayoutDashboard,
+			label: 'แดชบอร์ด'
+		},
 		{
 			href: '/students',
 			Icon: IconUser,
@@ -34,6 +47,16 @@
 			href: '/files',
 			Icon: IconFiles,
 			label: 'ไฟล์'
+		},
+		{
+			href: '/scores',
+			Icon: IconTestPipe,
+			label: 'คะแนน'
+		},
+		{
+			href: '/appointments',
+			Icon: IconCalendar,
+			label: 'นัดเรียนชดเชย'
 		}
 	];
 
