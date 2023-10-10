@@ -13,44 +13,44 @@ export const studentRoutes = t.router({
 				OR: [
 					{
 						studentId: {
-							contains: input,
+							contains: input
 						}
 					},
 					{
 						firstname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						lastname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						nickname: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						guardianTelephoneNumber: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						telephoneNumber: {
 							contains: input,
-							mode: 'insensitive',
+							mode: 'insensitive'
 						}
 					},
 					{
 						user: {
 							email: {
 								contains: input,
-								mode: 'insensitive',
+								mode: 'insensitive'
 							}
 						}
 					}
@@ -149,5 +149,5 @@ export const studentRoutes = t.router({
 			});
 
 			return { success: true, payload: student };
-		}),
+		})
 });

@@ -38,7 +38,7 @@
 					timeout: 3000
 				});
 
-				data.student = payload
+				data.student = payload;
 			}
 		} catch (error) {
 			toastStore.trigger({

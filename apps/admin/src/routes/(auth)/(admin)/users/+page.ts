@@ -5,6 +5,6 @@ export const load: PageLoad = async (event) => {
 	const { payload } = await trpc(event).user.getUsers.query();
 
 	return {
-		users: payload,
+		users: payload
 	};
 };

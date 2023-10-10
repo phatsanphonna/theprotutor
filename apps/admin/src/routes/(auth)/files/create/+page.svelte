@@ -16,12 +16,7 @@
 
 <h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขไฟล์</h2>
 
-<form
-	class="grid grid-cols-1 gap-2"
-	action="?/create"
-	method="POST"
-	enctype="multipart/form-data"
->
+<form class="grid grid-cols-1 gap-2" action="?/create" method="POST" enctype="multipart/form-data">
 	<label class="label">
 		<span>ชื่อไฟล์<span class="text-red-500">*</span></span>
 		<input
@@ -58,13 +53,7 @@
 		{:else}
 			<label>
 				<span>ไฟล์<span class="text-red-500">*</span></span>
-				<input
-					type="file"
-					name="file"
-					id="file"
-					class="input px-4 py-2"
-					accept="application/pdf"
-				/>
+				<input type="file" name="file" id="file" class="input px-4 py-2" accept="application/pdf" />
 			</label>
 		{/if}
 	</div>

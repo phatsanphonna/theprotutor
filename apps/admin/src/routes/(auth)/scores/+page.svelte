@@ -11,11 +11,11 @@
 	let q = '';
 
 	const handleQuery = async () => {
-    busy = true
-    const { payload } = await trpc($page).score.getScoreboards.query(q);
-    data.scoreboards = payload;
-    busy = false
-  };
+		busy = true;
+		const { payload } = await trpc($page).score.getScoreboards.query(q);
+		data.scoreboards = payload;
+		busy = false;
+	};
 </script>
 
 <svelte:head>

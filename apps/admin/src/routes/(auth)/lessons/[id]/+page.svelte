@@ -49,7 +49,9 @@
 </script>
 
 <svelte:head>
-	<title>แก้ไขบทเรียนของ {data.lesson?.title} | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title
+		>แก้ไขบทเรียนของ {data.lesson?.title} | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title
+	>
 </svelte:head>
 
 <form on:submit|preventDefault={createLesson}>

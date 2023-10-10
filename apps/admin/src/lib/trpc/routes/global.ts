@@ -7,9 +7,9 @@ export const globalRoutes = t.router({
 		const sessions = await db.session.count({
 			where: {
 				expires: {
-					gt: new Date(),
-				},
-			},
+					gt: new Date()
+				}
+			}
 		});
 
 		return { success: true, payload: sessions };

@@ -14,7 +14,7 @@ export const router = t.router({
 	user: userRoutes,
 	lesson: lessonRoutes,
 	assignment: assignmentRoutes,
-	score: scoreRoutes,
+	score: scoreRoutes
 });
 
 export type Router = typeof router;
