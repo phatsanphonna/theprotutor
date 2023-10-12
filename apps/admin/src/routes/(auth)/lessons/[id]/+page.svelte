@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
 	import FileTypeBadge from '$lib/components/FileTypeBadge.svelte';
@@ -40,12 +39,11 @@
 
 			if (success) {
 				toastStore.trigger({
-					message: 'สร้างบทเรียนสำเร็จ',
+					message: 'อัพเดทข้อมูลสำเร็จ',
 					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
-				goto('/files');
 			}
 		} catch (error) {
 			toastStore.trigger({

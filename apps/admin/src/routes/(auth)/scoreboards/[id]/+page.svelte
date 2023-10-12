@@ -86,7 +86,7 @@
 
 			return toastStore.trigger({
 				message: 'นักเรียนคนนี้ถูกเพิ่มเข้าระบบแล้ว',
-				background: 'variant-ghost-error',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});
@@ -326,15 +326,7 @@
 					<td>{i + 1}</td>
 					<td>{score.student.studentId}</td>
 					<td>{score.student.firstname} {score.student.lastname} ({score.student.nickname})</td>
-					<td>
-						<input
-							class="input p-1"
-							type="number"
-							inputmode="numeric"
-							value={score.score}
-							on:input={(e) => updateInlineScore(score.studentId, Number(e.currentTarget.value))}
-						/>
-					</td>
+					<td>{score.score}</td>
 					<td>
 						<button
 							type="button"

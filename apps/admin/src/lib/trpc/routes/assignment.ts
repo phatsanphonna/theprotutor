@@ -10,7 +10,11 @@ export const assignmentRoutes = t.router({
 		const assignments = await db.assignment.findMany({
 			include: {
 				assignTo: true,
-				lesson: true
+				lesson: {
+					include: {
+						teacher: true
+					}
+				}
 			}
 		});
 
