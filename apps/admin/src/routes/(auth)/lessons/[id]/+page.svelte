@@ -80,7 +80,8 @@
 					}
 				];
 
-				await trpc($page).lesson.createLesson.mutate({
+				await trpc($page).lesson.editLessonById.mutate({
+					id: data.lesson?.id,
 					title,
 					description,
 					materials: materials.map((material) => material.id)
@@ -88,7 +89,7 @@
 
 				toastStore.trigger({
 					message: 'เพิ่มไฟล์สำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -96,7 +97,7 @@
 		} catch (error) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการค้นหาข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-				background: 'variant-ghost-error',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});

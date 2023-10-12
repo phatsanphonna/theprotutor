@@ -345,7 +345,7 @@
 				</tr>
 			{/each}
 			<tr>
-				<td></td>
+				<th colspan="1">เพิ่มนักเรียน</th>
 				<td
 					><input
 						class="input p-1"
