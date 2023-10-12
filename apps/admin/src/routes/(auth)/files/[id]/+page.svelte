@@ -142,6 +142,6 @@
 
 	<div class="flex justify-end gap-2">
 		<Button class="btn variant-soft-error" isLoading={busy} on:click={deleteFile}>ลบไฟล์</Button>
-		<Button class="btn variant-filled-primary" isLoading={busy} type="submit">แก้ไขข้อมูล</Button>
+		<Button class="btn variant-filled" isLoading={busy} type="submit">แก้ไขข้อมูล</Button>
 	</div>
 </form>

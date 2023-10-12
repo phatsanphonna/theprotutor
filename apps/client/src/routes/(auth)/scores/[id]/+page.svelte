@@ -100,10 +100,10 @@
         </tr>
       </thead>
       <tbody>
-        {#each data.ownScore?.scoreboard.scores || [] as score, i}
+        {#each data.leaderboard || [] as score, i}
           {#if score.student.id === data.ownScore?.student.id}
-            <tr class="variant-ghost-primary">
-              <td>{i + 1}</td>
+            <tr class="bg-warning-200">
+              <td>{i + 1} (คุณ)</td>
               <td>{score.student.studentId}</td>
               <td
                 >{score.student.firstname}

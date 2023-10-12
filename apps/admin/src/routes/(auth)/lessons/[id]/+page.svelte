@@ -14,13 +14,25 @@
 	$: busy = false;
 	let title = data.lesson?.title || '';
 	let description = data.lesson?.description || '';
-	let materials: Array<Material> = [];
+	let materials: Array<Material> =
+		data.lesson.materials.map((material) => ({
+			id: material.id,
+			name: material.name,
+			type: material.type,
+			createdAt: new Date(material.createdAt),
+			fileId: material.fileId,
+			location: material.location,
+			tags: material.tags
+		})) || [];
 
-	const createLesson = async () => {
+	let findFileId = '';
+
+	const editLesson = async () => {
 		busy = true;
 
 		try {
-			const { success } = await trpc($page).lesson.createLesson.mutate({
+			const { success } = await trpc($page).lesson.editLessonById.mutate({
+				id: data.lesson?.id,
 				title,
 				description,
 				materials: materials.map((material) => material.id)
@@ -29,7 +41,7 @@
 			if (success) {
 				toastStore.trigger({
 					message: 'สร้างบทเรียนสำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -38,6 +50,52 @@
 		} catch (error) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
+				background: 'variant-filled-error',
+				autohide: true,
+				timeout: 3000
+			});
+		} finally {
+			busy = false;
+		}
+	};
+
+	const addFile = async () => {
+		busy = true;
+
+		try {
+			const { success, payload } = await trpc($page).file.getFileById.query(findFileId);
+
+			if (success) {
+				findFileId = '';
+				materials = [
+					...materials,
+					{
+						id: payload!.id,
+						name: payload!.name,
+						type: payload!.type,
+						createdAt: new Date(payload!.createdAt),
+						fileId: payload!.fileId,
+						location: payload!.location,
+						tags: payload!.tags
+					}
+				];
+
+				await trpc($page).lesson.createLesson.mutate({
+					title,
+					description,
+					materials: materials.map((material) => material.id)
+				});
+
+				toastStore.trigger({
+					message: 'เพิ่มไฟล์สำเร็จ',
+					background: 'variant-ghost-success',
+					autohide: true,
+					timeout: 3000
+				});
+			}
+		} catch (error) {
+			toastStore.trigger({
+				message: 'เกิดข้อผิดพลาดในการค้นหาข้อมูล โปรดติดต่อผู้ดูแลระบบ',
 				background: 'variant-ghost-error',
 				autohide: true,
 				timeout: 3000
@@ -54,7 +112,7 @@
 	>
 </svelte:head>
 
-<form on:submit|preventDefault={createLesson}>
+<form on:submit|preventDefault={editLesson}>
 	<h2 class="font-bold text-2xl md:text-4xl mb-4">แก้ไขบทเรียนของ {data.lesson?.title}</h2>
 
 	<div class="grid grid-cols-1 gap-2">
@@ -78,6 +136,10 @@
 				placeholder="รายละเอียดของบทเรียน"
 			/>
 		</label>
+
+		<div class="flex justify-end gap-2">
+			<Button class="variant-filled-primary" isLoading={busy} type="submit">อัพเดทข้อมูล</Button>
+		</div>
 	</div>
 
 	<hr class="!border-t-2 my-4" />
@@ -95,7 +157,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each data.lesson.materials as { name, type, id }}
+				{#each materials as { name, type, id }}
 					<tr>
 						<td>{id}</td>
 						<td>{name}</td>
@@ -108,16 +170,15 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th colspan="3">เพิ่มไฟล์</th>
+					<th colspan="1">เพิ่มไฟล์</th>
+					<td colspan="2">
+						<input class="input p-1" type="text" bind:value={findFileId} placeholder="ไอดีไฟล์" />
+					</td>
 					<td>
-						<Button class="btn-sm variant-filled-success">เพิ่มไฟล์</Button>
+						<Button class="btn-sm variant-filled-success" on:click={addFile}>เพิ่มไฟล์</Button>
 					</td>
 				</tr>
 			</tfoot>
 		</table>
-	</div>
-
-	<div class="flex justify-end gap-2">
-		<Button class="variant-filled-primary" isLoading={busy} type="submit">อัพเดทข้อมูล</Button>
 	</div>
 </form>

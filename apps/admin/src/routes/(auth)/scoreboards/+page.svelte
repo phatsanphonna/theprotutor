@@ -42,7 +42,7 @@
 	</div>
 
 	<Button class="variant-filled-primary" isLoading={busy} on:click={handleQuery}>ค้นหา</Button>
-	<a href="/scores/create" class="btn variant-filled">
+	<a href="/scoreboards/create" class="btn variant-filled">
 		<span><IconFilePlus /></span>
 		<span>ประกาศคะแนน</span>
 	</a>
@@ -71,7 +71,7 @@
 					<td>{scoreboard.mean}</td>
 					<td>
 						<div class="flex gap-2">
-							<a href={`/scores/${scoreboard.id}`} class="anchor">จัดการคะแนนสอบ</a>
+							<a href={`/scoreboards/${scoreboard.id}`} class="anchor">จัดการคะแนนสอบ</a>
 						</div>
 					</td>
 				</tr>

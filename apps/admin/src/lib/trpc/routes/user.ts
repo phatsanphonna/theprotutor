@@ -44,5 +44,22 @@ export const userRoutes = t.router({
 		}
 
 		return { success: true, payload: user };
-	})
+	}),
+	updateUserById: adminProcedure.input(z.object({
+		id: z.string(),
+		roles: z.array(z.enum(['ADMIN', 'TEACHER', 'STUDENT'])),
+	})).mutation(async ({ ctx, input }) => {
+		const { db } = ctx;
+		const { roles } = input;
+		const user = await db.user.update({
+			where: {
+				id: input.id
+			},
+			data: {
+				roles: roles
+			}
+		});
+
+		return { success: true, payload: user };
+	}),
 });

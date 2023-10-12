@@ -62,6 +62,9 @@ export const studentRoutes = t.router({
 						email: true
 					}
 				}
+			},
+			orderBy: {
+				studentId: 'desc'
 			}
 		});
 

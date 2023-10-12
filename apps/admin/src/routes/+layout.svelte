@@ -2,7 +2,8 @@
 	import { navigating } from '$app/stores';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
-	import { AppShell, Toast, initializeStores } from '@skeletonlabs/skeleton';
+	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+	import { AppShell, Toast, initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import 'bytemd/dist/index.css';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
@@ -12,6 +13,8 @@
 	export let data: LayoutData;
 
 	initializeStores();
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	NProgress.configure({
 		minimum: 0.16,
@@ -36,7 +39,7 @@
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
 		rel="stylesheet"
 	/>
-	<meta itemProp="image" content="/thumbnail.jpg" />
+	<meta itemprop="image" content="/thumbnail.jpg" />
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="twitter:image" content="/thumbnail.jpg" />
 	<meta property="og:image" content="/thumbnail.jpg" />
