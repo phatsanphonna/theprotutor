@@ -101,16 +101,16 @@
 					{
 						student: payload,
 						score: newStudentScore,
-						studentId: newStudentId,
+						studentId: payload.id,
 						scoreboardId: data.scoreboard.id
 					}
 				];
 
 				const { payload: updatedPayload } = await trpc($page).score.updateStudentScore.mutate({
 					id: data.scoreboard.id,
-					students: scores.map((score) => ({
-						studentId: score.studentId,
-						score: score.score
+					scores: scores.map(({ studentId, score }) => ({
+						studentId: studentId,
+						score: score
 					}))
 				});
 
@@ -203,7 +203,7 @@
 		try {
 			const { success, payload } = await trpc($page).score.updateStudentScore.mutate({
 				id: data.scoreboard.id,
-				students: scores.map((score) => ({
+				scores: scores.map((score) => ({
 					studentId: score.studentId,
 					score: score.score
 				}))
@@ -249,7 +249,7 @@
 		<input class="input px-4 py-2" type="text" bind:value={name} required />
 	</label>
 
-	<div class="grid grid-cols-5 gap-2">
+	<div class="grid grid-cols-1 lg:grid-cols-5 gap-2">
 		<label class="label">
 			<span>คะแนนเต็ม<span class="text-red-500">*</span></span>
 			<input
@@ -292,7 +292,7 @@
 		</label>
 	</div>
 
-	<div class="flex justify-end gap-2">
+	<div class="flex flex-col md:flex-row justify-end gap-2">
 		<Button isLoading={busy} class="variant-soft-error" on:click={deleteScoreboard}
 			>ลบการประกาศคะแนน</Button
 		>
@@ -345,7 +345,7 @@
 				</tr>
 			{/each}
 			<tr>
-				<td></td>
+				<th colspan="1">เพิ่มนักเรียน</th>
 				<td
 					><input
 						class="input p-1"

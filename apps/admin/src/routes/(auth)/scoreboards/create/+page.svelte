@@ -37,7 +37,7 @@
 					timeout: 3000
 				});
 
-				goto(`/scores/${payload.id}`);
+				goto(`/scoreboards/${payload.id}`);
 			}
 		} catch (err) {
 			toastStore.trigger({
@@ -108,6 +108,8 @@
 	</div>
 
 	<div class="flex justify-end">
-		<Button type="submit" isLoading={busy} class="variant-filled">สร้างการประกาศคะแนน</Button>
+		<Button type="submit" isLoading={busy} class="variant-filled-primary"
+			>สร้างการประกาศคะแนน</Button
+		>
 	</div>
 </form>

@@ -207,7 +207,7 @@ export const scoreRoutes = t.router({
 		.input(
 			z.object({
 				id: z.number(),
-				students: z.array(
+				scores: z.array(
 					z.object({
 						score: z.number(),
 						studentId: z.string()
@@ -217,23 +217,20 @@ export const scoreRoutes = t.router({
 		)
 		.mutation(async ({ ctx, input }) => {
 			const { db } = ctx;
-			const { id, students } = input;
+			const { id, scores } = input;
 
 			const mean =
-				students.length === 0
-					? 0
-					: students.reduce((acc, curr) => acc + curr.score, 0) / students.length;
-			const max = students.length === 0 ? 0 : Math.max(...students.map((student) => student.score));
-			const min = students.length === 0 ? 0 : Math.min(...students.map((student) => student.score));
+				scores.length === 0 ? 0 : scores.reduce((acc, curr) => acc + curr.score, 0) / scores.length;
+			const max = scores.length === 0 ? 0 : Math.max(...scores.map((student) => student.score));
+			const min = scores.length === 0 ? 0 : Math.min(...scores.map((student) => student.score));
 			const sd =
-				students.length === 0
+				scores.length === 0
 					? 0
 					: Math.sqrt(
-							students.reduce((acc, curr) => acc + Math.pow(curr.score - mean, 2), 0) /
-								students.length
+							scores.reduce((acc, curr) => acc + Math.pow(curr.score - mean, 2), 0) / scores.length
 					  );
 
-			const student = await db.scoreboard.update({
+			const students = await db.scoreboard.update({
 				where: {
 					id
 				},
@@ -243,20 +240,16 @@ export const scoreRoutes = t.router({
 					min,
 					sd,
 					scores: {
-						connectOrCreate: students.map((student) => ({
+						connectOrCreate: scores.map((student) => ({
 							where: {
 								scoreboardId_studentId: {
-									studentId: student.studentId,
-									scoreboardId: id
+									scoreboardId: id,
+									studentId: student.studentId
 								}
 							},
 							create: {
 								score: student.score,
-								student: {
-									connect: {
-										studentId: student.studentId
-									}
-								}
+								studentId: student.studentId
 							}
 						}))
 					}
@@ -270,7 +263,7 @@ export const scoreRoutes = t.router({
 				}
 			});
 
-			return { success: true, payload: student };
+			return { success: true, payload: students };
 		}),
 	deleteStudentScore: teacherProcedure
 		.input(

@@ -19,7 +19,7 @@
     <IconTestPipe class="inline-block" size={32} /> รายงานคะแนนสอบ
   </Header>
 
-  <div class="pb-4">
+  <div class="mb-4">
     <ul class="list text-lg">
       <li class="flex">
         <span class="font-medium">ชื่อแบบทดสอบ:</span>
@@ -54,7 +54,7 @@
     </ul>
   </div>
 
-  <div class="grid grid-cols-1 gap-4 pb-4">
+  <div class="grid grid-cols-1 gap-4 mb-4">
     <div class="grid grid-cols-2 gap-4">
       <ScoreCard
         name="คะแนนของคุณ"
@@ -85,5 +85,45 @@
         score={Number(data.ownScore?.scoreboard.max)}
       />
     </div>
+  </div>
+
+  <hr class="!border-t-2 mb-4" />
+
+  <div class="table-container">
+    <table class="table table-compact">
+      <thead>
+        <tr>
+          <th>ลำดับ</th>
+          <th>รหัสนักเรียน</th>
+          <th>ชื่อ-นามสกุล</th>
+          <th>คะแนน</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each data.leaderboard || [] as score, i}
+          {#if score.student.id === data.ownScore?.student.id}
+            <tr class="bg-warning-200">
+              <td>{i + 1} (คุณ)</td>
+              <td>{score.student.studentId}</td>
+              <td
+                >{score.student.firstname}
+                {score.student.lastname} ({score.student.nickname})</td
+              >
+              <td>{score.score} / {data.ownScore?.scoreboard.total}</td>
+            </tr>
+          {:else}
+            <tr>
+              <td>{i + 1}</td>
+              <td>{score.student.studentId}</td>
+              <td
+                >{score.student.firstname}
+                {score.student.lastname} ({score.student.nickname})</td
+              >
+              <td>{score.score} / {data.ownScore?.scoreboard.total}</td>
+            </tr>
+          {/if}
+        {/each}
+      </tbody>
+    </table>
   </div>
 </div>

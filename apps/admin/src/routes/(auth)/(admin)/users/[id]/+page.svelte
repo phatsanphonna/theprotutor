@@ -3,6 +3,8 @@
 	import { InputChip, getToastStore } from '@skeletonlabs/skeleton';
 
 	import type { PageData } from './$types';
+	import { page } from '$app/stores';
+	import { trpc } from '$lib/trpc/client';
 
 	export let data: PageData;
 	const toastStore = getToastStore();
@@ -17,7 +19,14 @@
 		busy = true;
 
 		try {
-			if (true) {
+			const { success, payload } = await trpc($page).user.updateUserById.mutate({
+				id: data.qUser.id,
+				roles
+			});
+
+			if (success) {
+				data.qUser = payload;
+
 				toastStore.trigger({
 					message: 'อัพเดทข้อมูลสำเร็จ',
 					background: 'variant-ghost-success',

@@ -182,7 +182,7 @@ model Score {
   student   Student @relation(fields: [studentId], references: [id])
   studentId String
 
-  score Int
+  score Float
 
   @@id([scoreboardId, studentId])
 }

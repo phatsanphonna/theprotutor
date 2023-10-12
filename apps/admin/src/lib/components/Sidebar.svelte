@@ -49,7 +49,7 @@
 			label: 'ไฟล์'
 		},
 		{
-			href: '/scores',
+			href: '/scoreboards',
 			Icon: IconTestPipe,
 			label: 'คะแนน'
 		},

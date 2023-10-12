@@ -4,6 +4,7 @@ import { globalRoutes } from './routes/global';
 import { lessonRoutes } from './routes/lesson';
 import { scoreRoutes } from './routes/score';
 import { studentRoutes } from './routes/student';
+import { teacherRoutes } from './routes/teacher';
 import { userRoutes } from './routes/user';
 import { t } from './t';
 
@@ -14,7 +15,8 @@ export const router = t.router({
 	user: userRoutes,
 	lesson: lessonRoutes,
 	assignment: assignmentRoutes,
-	score: scoreRoutes
+	score: scoreRoutes,
+	teacher: teacherRoutes
 });
 
 export type Router = typeof router;

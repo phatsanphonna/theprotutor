@@ -15,6 +15,7 @@
 		"@auth/prisma-adapter": "^1.0.3",
 		"@auth/sveltekit": "^0.3.9",
 		"@bytemd/plugin-gfm": "^1.21.0",
+		"@floating-ui/dom": "^1.5.3",
 		"@tabler/icons-svelte": "2.31.0",
 		"@trpc/client": "^10.38.2",
 		"@trpc/server": "^10.38.2",

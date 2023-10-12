@@ -58,11 +58,13 @@
 		{/if}
 	</div>
 
-	<Button class="btn variant-filled-primary" isLoading={busy} type="submit">
-		{#if type === 'VIDEO'}
-			บันทึกข้อมูล
-		{:else}
-			อัพโหลด
-		{/if}
-	</Button>
+	<div class="flex justify-end gap-2">
+		<Button class="btn variant-filled-primary" isLoading={busy} type="submit">
+			{#if type === 'VIDEO'}
+				บันทึกข้อมูล
+			{:else}
+				อัพโหลด
+			{/if}
+		</Button>
+	</div>
 </form>

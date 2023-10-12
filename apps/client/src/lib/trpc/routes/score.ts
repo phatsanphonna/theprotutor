@@ -32,7 +32,15 @@ export const scoreRoutes = t.router({
         },
         include: {
           student: true,
-          scoreboard: true,
+          scoreboard: {
+            include: {
+              scores: {
+                include: {
+                  student: true,
+                },
+              },
+            },
+          },
         },
       });
 
