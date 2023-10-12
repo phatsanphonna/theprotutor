@@ -5,7 +5,7 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
-  const toastStore = getToastStore()
+	const toastStore = getToastStore();
 
 	export let data: PageData;
 	$: busy = false;
@@ -15,37 +15,37 @@
 	let nickname = data.qTeacher?.nickname || '';
 
 	const editTeacher = async () => {
-    busy = true;
+		busy = true;
 
-    try {
-      const { success, payload } = await trpc($page).teacher.updateTeacherById.mutate({
-        id: data.qTeacher!.id,
-        firstname,
-        lastname,
-        nickname
-      });
+		try {
+			const { success, payload } = await trpc($page).teacher.updateTeacherById.mutate({
+				id: data.qTeacher!.id,
+				firstname,
+				lastname,
+				nickname
+			});
 
-      if (success) {
-        data.qTeacher = payload;
+			if (success) {
+				data.qTeacher = payload;
 
-        toastStore.trigger({
-        message: 'อัพเดทข้อมูลสำเร็จ',
-        background: 'variant-filled-success',
-        autohide: true,
-        timeout: 3000
-      });
-      }
-    } catch (error) {
-      toastStore.trigger({
-        message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-        background: 'variant-filled-error',
-        autohide: true,
-        timeout: 3000
-      });
-    } finally {
-      busy = false;
-    }
-  };
+				toastStore.trigger({
+					message: 'อัพเดทข้อมูลสำเร็จ',
+					background: 'variant-filled-success',
+					autohide: true,
+					timeout: 3000
+				});
+			}
+		} catch (error) {
+			toastStore.trigger({
+				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
+				background: 'variant-filled-error',
+				autohide: true,
+				timeout: 3000
+			});
+		} finally {
+			busy = false;
+		}
+	};
 </script>
 
 <svelte:head>

@@ -3,11 +3,7 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
 	import { trpc } from '$lib/trpc/client';
-	import {
-		Autocomplete,
-		getToastStore,
-		type AutocompleteOption
-	} from '@skeletonlabs/skeleton';
+	import { Autocomplete, getToastStore, type AutocompleteOption } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
 	const toastStore = getToastStore();
@@ -79,10 +75,7 @@
 			bind:value={userEmail}
 			placeholder="ใช้อีเมลในการค้นหาเท่านั้น"
 		/>
-		<div
-			class="card w-full max-h-48 p-2 overflow-y-auto"
-			tabindex="-1"
-		>
+		<div class="card w-full max-h-48 p-2 overflow-y-auto" tabindex="-1">
 			<Autocomplete
 				emptyState={'ไม่พบผู้ใช้งานที่มีสถานะเป็นผู้่สอน'}
 				bind:input={userEmail}

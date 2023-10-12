@@ -37,9 +37,9 @@ export const scoreRoutes = t.router({
               scores: {
                 include: {
                   student: true,
-                }
-              }
-            }
+                },
+              },
+            },
           },
         },
       });

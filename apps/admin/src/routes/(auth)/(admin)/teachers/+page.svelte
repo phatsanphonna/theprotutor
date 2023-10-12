@@ -3,20 +3,20 @@
 	import { IconFilePlus } from '@tabler/icons-svelte';
 	import type { PageData } from './$types';
 	import Button from '$lib/components/Button.svelte';
-  import { page } from '$app/stores';
+	import { page } from '$app/stores';
 	import { trpc } from '$lib/trpc/client';
 
 	export let data: PageData;
 
 	$: busy = false;
-  let q = '';
+	let q = '';
 
 	const handleQuery = async () => {
-    busy = true;
-    
-    const { payload } = await trpc($page).teacher.getTeachers.query(q);
-    data.teachers = payload;
-  };
+		busy = true;
+
+		const { payload } = await trpc($page).teacher.getTeachers.query(q);
+		data.teachers = payload;
+	};
 </script>
 
 <svelte:head>

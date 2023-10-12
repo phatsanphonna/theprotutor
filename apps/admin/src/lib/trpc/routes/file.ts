@@ -46,7 +46,7 @@ export const fileRoutes = t.router({
 		const file = await db.material.findUnique({
 			where: {
 				id: input
-			},
+			}
 		});
 
 		return { success: true, payload: file };

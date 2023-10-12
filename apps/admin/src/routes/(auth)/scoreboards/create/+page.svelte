@@ -108,6 +108,8 @@
 	</div>
 
 	<div class="flex justify-end">
-		<Button type="submit" isLoading={busy} class="variant-filled-primary">สร้างการประกาศคะแนน</Button>
+		<Button type="submit" isLoading={busy} class="variant-filled-primary"
+			>สร้างการประกาศคะแนน</Button
+		>
 	</div>
 </form>
