@@ -57,6 +57,45 @@
 		}
 	};
 
+	const deleteFile = async (id: string) => {
+		busy = true;
+
+		try {
+			const { success, payload } = await trpc($page).lesson.deleteFileFromLesson.mutate({
+				lessonId: data.lesson?.id,
+				fileId: id
+			});
+
+			if (success) {
+				materials = payload.materials.map((material) => ({
+					id: material.id,
+					name: material.name,
+					type: material.type,
+					createdAt: new Date(material.createdAt),
+					fileId: material.fileId,
+					location: material.location,
+					tags: material.tags
+				}));
+
+				toastStore.trigger({
+					message: 'ลบไฟล์สำเร็จ',
+					background: 'variant-filled-success',
+					autohide: true,
+					timeout: 3000
+				});
+			}
+		} catch (err) {
+			toastStore.trigger({
+				message: 'เกิดข้อผิดพลาดในการลบไฟล์ โปรดติดต่อผู้ดูแลระบบ',
+				background: 'variant-filled-error',
+				autohide: true,
+				timeout: 3000
+			});
+		} finally {
+			busy = false;
+		}
+	};
+
 	const addFile = async () => {
 		busy = true;
 
@@ -162,7 +201,9 @@
 						<td>{name}</td>
 						<td><FileTypeBadge {type} /></td>
 						<td>
-							<button type="button" class="anchor text-error-500">ลบ</button>
+							<button type="button" class="anchor text-error-500" on:click={() => deleteFile(id)}
+								>ลบ</button
+							>
 						</td>
 					</tr>
 				{/each}

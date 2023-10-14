@@ -73,9 +73,11 @@
 			class="input autocomplete px-4 py-2"
 			type="search"
 			bind:value={userEmail}
+			name="autocomplete-search"
 			placeholder="ใช้อีเมลในการค้นหาเท่านั้น"
 		/>
-		<div class="card w-full max-h-48 p-2 overflow-y-auto" tabindex="-1">
+		<div class="card max-h-48 p-2 overflow-y-auto">
+			<header class="px-4 text-lg font-medium">ผลลัพธ์การค้นหา</header>
 			<Autocomplete
 				emptyState={'ไม่พบผู้ใช้งานที่มีสถานะเป็นผู้่สอน'}
 				bind:input={userEmail}

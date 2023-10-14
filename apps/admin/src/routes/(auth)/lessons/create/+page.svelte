@@ -18,7 +18,7 @@
 		busy = true;
 
 		try {
-			const { success } = await trpc($page).lesson.createLesson.mutate({
+			const { success, payload } = await trpc($page).lesson.createLesson.mutate({
 				title,
 				description,
 				materials: materials.map((material) => material.id)
@@ -31,7 +31,7 @@
 					autohide: true,
 					timeout: 3000
 				});
-				goto('/files');
+				goto(`/lessons/${payload.id}`);
 			}
 		} catch (error) {
 			toastStore.trigger({
@@ -80,11 +80,11 @@
 		</label>
 	</div>
 
-	<hr class="!border-t-2 my-4" />
+	<!-- <hr class="!border-t-2 my-4" /> -->
 
-	<h3 class="font-bold text-2xl md:text-4xl my-4">ไฟล์ที่อยู่ในบทเรียน</h3>
+	<!-- <h3 class="font-bold text-2xl md:text-4xl my-4">ไฟล์ที่อยู่ในบทเรียน</h3> -->
 
-	<div class="table-container mb-4">
+	<!-- <div class="table-container mb-4">
 		<table class="table table-compact">
 			<thead>
 				<tr>
@@ -115,7 +115,7 @@
 				</tr>
 			</tfoot>
 		</table>
-	</div>
+	</div> -->
 
 	<div class="flex justify-end gap-2">
 		<Button class="variant-filled-primary" isLoading={busy} type="submit">สร้างบทเรียน</Button>

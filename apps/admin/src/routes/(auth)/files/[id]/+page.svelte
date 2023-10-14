@@ -56,7 +56,7 @@
 			if (success) {
 				toastStore.trigger({
 					message: 'แก้ไขข้อมูลสำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -64,7 +64,7 @@
 		} catch (error) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-				background: 'variant-ghost-error',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});
@@ -77,7 +77,7 @@
 		navigator.clipboard.writeText(location);
 		toastStore.trigger({
 			message: 'คัดลอกลิงก์สำเร็จ',
-			background: 'variant-ghost-success',
+			background: 'variant-filled',
 			autohide: true,
 			timeout: 3000
 		});

@@ -13,7 +13,7 @@ export const injectSession: Handle = async ({ event, resolve }) => {
 
 		locals.user = user;
 
-		const teacher = await locals.db.student.findUnique({
+		const teacher = await locals.db.teacher.findUnique({
 			where: {
 				userId: user?.id
 			}

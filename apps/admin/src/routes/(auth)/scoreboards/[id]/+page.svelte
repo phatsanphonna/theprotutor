@@ -27,7 +27,7 @@
 			if (success) {
 				toastStore.trigger({
 					message: 'ลบการประกาศคะแนนสำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -37,7 +37,7 @@
 		} catch (err) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการลบข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-				background: 'variant-ghost-error',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});
@@ -359,16 +359,12 @@
 						required
 					/></td
 				>
-				<td
-					><button type="button" class="anchor text-success-500" on:click={addStudent}>เพิ่ม</button
-					></td
-				>
+				<td>
+					<button type="button" class="anchor text-success-500" on:click={addStudent}>
+						เพิ่ม
+					</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-</div>
-
-<div class="flex justify-end gap-2">
-	<Button class="variant-filled-primary" isLoading={busy} on:click={updateScore}>อัพเดทคะแนน</Button
-	>
 </div>

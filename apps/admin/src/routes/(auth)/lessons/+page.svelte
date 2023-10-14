@@ -46,10 +46,12 @@
 	</div>
 
 	<Button class="variant-filled-primary" isLoading={busy} on:click={handleQuery}>ค้นหา</Button>
-	<a href="/lessons/create" class="btn variant-filled">
-		<span><IconArchiveFilled /></span>
-		<span>สร้างบทเรียนใหม่</span>
-	</a>
+	{#if $page.data.teacher}
+		<a href="/lessons/create" class="btn variant-filled">
+			<span><IconArchiveFilled /></span>
+			<span>สร้างบทเรียนใหม่</span>
+		</a>
+	{/if}
 </div>
 
 <div class="table-container">

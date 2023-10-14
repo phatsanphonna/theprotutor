@@ -44,7 +44,6 @@
 
 	<Button class="variant-filled-primary" isLoading={busy} on:click={handleQuery}>ค้นหา</Button>
 	<a href="/teachers/create" class="btn variant-filled">
-		<span><IconFilePlus /></span>
 		<span>เพิ่มผู้สอน</span>
 	</a>
 </div>
