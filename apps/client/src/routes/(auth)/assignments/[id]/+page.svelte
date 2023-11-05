@@ -9,7 +9,7 @@
   $: isLoading = false;
   export let data: PageData;
   const { assignment } = data;
-  $: src = assignment.lesson.materials[0].id;
+  $: src = assignment.lesson.materials[0].location || "";
 
   let passcode = "";
   $: passcode = passcode.replace(/[^0-9]/g, "");
@@ -28,7 +28,7 @@
   >
 </svelte:head>
 
-{#if !isVerified}
+{#if isVerified}
   <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row gap-2">
       <VideoPlayer
@@ -44,18 +44,11 @@
 
         <section class="p-4 h-full w-full">
           <ListBox>
-            <ListBoxItem bind:group={src} name="medium" value="Tuhi5rSr3WBo"
-              >Tuhi5rSr3WBo</ListBoxItem
-            >
-            <ListBoxItem bind:group={src} name="medium" value="Tuhi5srYISKn"
-              >Tuhi5srYISKn</ListBoxItem
-            >
-            <ListBoxItem bind:group={src} name="medium" value="Tuhi5s887OUC"
-              >Tuhi5s887OUC</ListBoxItem
-            >
-            <ListBoxItem bind:group={src} name="medium" value="Tuhi5qbV2l3m"
-              >Tuhi5qbV2l3m</ListBoxItem
-            >
+            {#each assignment.lesson.materials as { location, name }}
+              <ListBoxItem bind:group={src} name="medium" value={location}
+                >{name}</ListBoxItem
+              >
+            {/each}
           </ListBox>
         </section>
       </div>
@@ -72,8 +65,9 @@
     </div>
   </div>
 {:else}
-  <div
+  <form
     class="container md:w-2/5 mx-auto px-4 py-8 text-center flex flex-col gap-4 h-full justify-center"
+    on:submit|preventDefault={verifyPasscode}
   >
     <div>
       <h1 class="h1 text-6xl font-bold">ยืนยันตัวตน</h1>
@@ -84,15 +78,15 @@
     <input
       type="text"
       class="input px-4 py-2"
+      required
       bind:value={passcode}
+      disabled={isLoading}
       maxlength="4"
       placeholder="ตัวเลข 4 ตัว"
     />
 
-    <Button
-      class="btn variant-filled-primary"
-      {isLoading}
-      on:click={verifyPasscode}>ยืนยันตัวตน</Button
+    <Button class="btn variant-filled-primary" {isLoading} type="submit"
+      >ยืนยันตัวตน</Button
     >
-  </div>
+  </form>
 {/if}
