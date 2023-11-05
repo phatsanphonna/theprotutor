@@ -67,4 +67,9 @@ export const meRoutes = t.router({
 
     return { success: true, payload: assignments };
   }),
+  verifyPasscode: authProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
+    const { db, student } = ctx;
+
+    return { success: true, payload: true };
+  })
 });

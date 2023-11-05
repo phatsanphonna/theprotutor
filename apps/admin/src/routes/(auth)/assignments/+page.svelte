@@ -71,17 +71,18 @@
 						>{assignment.assignTo.firstname}
 						{assignment.assignTo.lastname} ({assignment.assignTo.nickname})</td
 					>
+					<td>{assignment.lesson.title}</td>
 					<td>{assignment.lesson.teacher.firstname} {assignment.lesson.teacher.lastname}</td>
 					<td>
 						{dateTimeFormatter.format(new Date(assignment.assignDate))}
 					</td>
 					<td>
-						{assignment.assignDate
+						{assignment.expireDate
 							? dateTimeFormatter.format(new Date(String(assignment.expireDate)))
 							: 'ไม่มีกำหนด'}
 					</td>
 					<td>
-						<a href={`/assignments/${assignment.id}`} class="anchor"> จัดการงานที่มอบหมาย </a>
+						<a href={`/assignments/${assignment.id}`} class="anchor">จัดการงานที่มอบหมาย</a>
 					</td>
 				</tr>
 			{/each}

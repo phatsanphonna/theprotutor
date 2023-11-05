@@ -119,7 +119,8 @@
         <span>เบอร์โทรศัพท์<span class="text-red-500">*</span></span>
         <input
           class="input px-4 py-2"
-          type="text"
+          type="tel"
+          pattern="[0-9]{10}"
           placeholder="0987654321"
           bind:value={telephoneNumber}
           required
@@ -131,6 +132,7 @@
         <input
           class="input px-4 py-2"
           type="tel"
+          pattern="[0-9]{10}"
           placeholder="0987654321"
           bind:value={guardianTelephoneNumber}
           required
