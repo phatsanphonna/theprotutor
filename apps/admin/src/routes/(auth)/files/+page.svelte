@@ -41,7 +41,7 @@
 
 <Header>ไฟล์ทั้งหมด</Header>
 
-<div class="flex gap-2 pb-2">
+<div class="flex flex-col md:flex-row gap-2 pb-2">
 	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 		<div class="input-group-shim">คำค้นหา</div>
 		<input

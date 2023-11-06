@@ -2,6 +2,7 @@ import { assignmentRoutes } from './routes/assignment';
 import { fileRoutes } from './routes/file';
 import { globalRoutes } from './routes/global';
 import { lessonRoutes } from './routes/lesson';
+import { passcodeRoutes } from './routes/passcode';
 import { scoreRoutes } from './routes/score';
 import { studentRoutes } from './routes/student';
 import { teacherRoutes } from './routes/teacher';
@@ -16,7 +17,8 @@ export const router = t.router({
 	lesson: lessonRoutes,
 	assignment: assignmentRoutes,
 	score: scoreRoutes,
-	teacher: teacherRoutes
+	teacher: teacherRoutes,
+	passcode: passcodeRoutes
 });
 
 export type Router = typeof router;

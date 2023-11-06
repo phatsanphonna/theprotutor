@@ -9,6 +9,7 @@
 	import 'nprogress/nprogress.css';
 	import '../app.css';
 	import type { LayoutData } from './$types';
+	import { isSidebarOpen } from '$lib/stores/toggle-sidebar';
 
 	export let data: LayoutData;
 
@@ -54,7 +55,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		{#if data.session}
+		{#if data.session && $isSidebarOpen}
 			<Sidebar />
 		{/if}
 	</svelte:fragment>

@@ -10,7 +10,11 @@ export const assignmentRoutes = t.router({
 		const assignments = await db.assignment.findMany({
 			include: {
 				assignTo: true,
-				lesson: true
+				lesson: {
+					include: {
+						teacher: true
+					}
+				}
 			}
 		});
 
@@ -27,14 +31,18 @@ export const assignmentRoutes = t.router({
 			const { db } = ctx;
 			const { studentId, lessonId } = input;
 
-			const assignment = await db.assignment.createMany({
+			// set expired date to 4 hours from now
+			const expireDate = new Date(new Date().getTime() + 4 * 60 * 60 * 1000);
+
+			const assignments = await db.assignment.createMany({
 				data: studentId.map((id) => ({
 					lessonId,
-					assignToId: id
+					assignToId: id,
+					expireDate
 				}))
 			});
 
-			return { success: true, payload: assignment };
+			return { success: true, payload: assignments };
 		}),
 	getAssignmentById: teacherProcedure.input(z.string()).query(async ({ ctx, input }) => {
 		const { db } = ctx;

@@ -32,7 +32,7 @@
 			if (success) {
 				toastStore.trigger({
 					message: 'สร้างแบบทดสอบสำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -41,8 +41,8 @@
 			}
 		} catch (err) {
 			toastStore.trigger({
-				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-				background: 'variant-ghost-error',
+				message: 'เกิดข้อผิดพลาดในการสร้างแบบทดสอบ โปรดติดต่อผู้ดูแลระบบ',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});

@@ -118,19 +118,71 @@ export const lessonRoutes = t.router({
 			const { db, teacher } = ctx;
 			const { title, description, materials } = input;
 
+			console.log(teacher);
+
 			const lesson = await db.lesson.create({
 				data: {
 					title,
 					description,
+					teacherId: teacher?.id || '',
 					materials: {
 						connect: materials.map((id) => ({
 							id
 						}))
-					},
-					teacherId: teacher?.id || ''
+					}
 				}
 			});
 
 			return { success: true, payload: lesson };
+		}),
+	deleteFileFromLesson: teacherProcedure
+		.input(z.object({ lessonId: z.string(), fileId: z.string() }))
+		.mutation(async ({ ctx, input }) => {
+			const { db } = ctx;
+			const { lessonId, fileId } = input;
+
+			const lesson = await db.lesson.findUnique({
+				where: {
+					id: lessonId
+				}
+			});
+
+			if (!lesson) {
+				throw new TRPCError({
+					code: 'NOT_FOUND',
+					message: 'Lesson not found'
+				});
+			}
+
+			const file = await db.material.findUnique({
+				where: {
+					id: fileId
+				}
+			});
+
+			if (!file) {
+				throw new TRPCError({
+					code: 'NOT_FOUND',
+					message: 'Material not found'
+				});
+			}
+
+			const updatedLesson = await db.lesson.update({
+				where: {
+					id: lessonId
+				},
+				data: {
+					materials: {
+						disconnect: {
+							id: fileId
+						}
+					}
+				},
+				include: {
+					materials: true
+				}
+			});
+
+			return { success: true, payload: updatedLesson };
 		})
 });

@@ -13,6 +13,18 @@ export const actions: Actions = {
 		const file = form.get('file') as File;
 		let location = form.get('location') as string;
 
+		if (type === FileType.VIDEO) {
+			const material = await db.material.create({
+				data: {
+					location: location,
+					name,
+					type: type
+				}
+			});
+
+			throw redirect(303, `/files/${material.id}?redirected=1`);
+		}
+	
 		const fileBuffer = await file.arrayBuffer();
 
 		const ext = file.name.split('.').pop() || '';

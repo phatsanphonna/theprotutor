@@ -5,6 +5,7 @@
   import Header from "$lib/components/Header.svelte";
   import { trpc } from "$lib/trpc/client";
   import { getToastStore } from "@skeletonlabs/skeleton";
+    import type { Grade } from 'database';
 
   const toastStore = getToastStore();
 
@@ -13,6 +14,8 @@
   let nickname = "";
   let telephoneNumber = "";
   let guardianTelephoneNumber = "";
+  let grade: Grade = "P1";
+  let school = "";
 
   let busy = false;
 
@@ -26,6 +29,8 @@
         nickname,
         telephoneNumber,
         guardianTelephoneNumber,
+        school,
+        grade
       });
 
       if (success) {
@@ -114,12 +119,43 @@
       />
     </label>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2gap-2">
+      <label class="label">
+        <span>ระดับชั้น<span class="text-red-500">*</span></span>
+        <select class="select" bind:value={grade}>
+          <option value="P1">ประถมศึกษาปีที่ 1</option>
+          <option value="P2">ประถมศึกษาปีที่ 2</option>
+          <option value="P3">ประถมศึกษาปีที่ 3</option>
+          <option value="P4">ประถมศึกษาปีที่ 4</option>
+          <option value="P5">ประถมศึกษาปีที่ 5</option>
+          <option value="P6">ประถมศึกษาปีที่ 6</option>
+          <option value="M1">มัธยมศึกษาปีที่ 1</option>
+          <option value="M2">มัธยมศึกษาปีที่ 2</option>
+          <option value="M3">มัธยมศึกษาปีที่ 3</option>
+          <option value="M4">มัธยมศึกษาปีที่ 4</option>
+          <option value="M5">มัธยมศึกษาปีที่ 5</option>
+          <option value="M6">มัธยมศึกษาปีที่ 6</option>
+        </select>
+      </label>
+
+      <label class="label">
+        <span>โรงเรียน<span class="text-red-500">*</span></span>
+        <input
+          class="input px-4 py-2"
+          type="text"
+          placeholder="ฤทธิยะวรรณาลัย"
+          bind:value={school}
+          required
+        />
+      </label>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       <label class="label">
         <span>เบอร์โทรศัพท์<span class="text-red-500">*</span></span>
         <input
           class="input px-4 py-2"
-          type="text"
+          type="tel"
           placeholder="0987654321"
           bind:value={telephoneNumber}
           required

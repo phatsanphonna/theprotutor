@@ -12,6 +12,8 @@ export const meRoutes = t.router({
         nickname: z.string(),
         telephoneNumber: z.string(),
         guardianTelephoneNumber: z.string(),
+        school: z.string(),
+        grade: z.enum(['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6']),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -67,4 +69,33 @@ export const meRoutes = t.router({
 
     return { success: true, payload: assignments };
   }),
+  verifyPasscode: authProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
+    const { db, student } = ctx;
+
+    const passcode = await db.passcode.findUnique({
+      where: {
+        passcode: input,
+      },
+    });
+
+    if (!passcode) {
+      return { success: false, payload: false };
+    }
+
+    await db.passcode.update({
+      where: {
+        id: passcode.id,
+      },
+      data: {
+        isUsed: true,
+        usedBy: {
+          connect: {
+            id: student!.id,
+          },
+        }
+      },
+    });
+
+    return { success: true, payload: true };
+  })
 });

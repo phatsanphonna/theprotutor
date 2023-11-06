@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
 	import FileTypeBadge from '$lib/components/FileTypeBadge.svelte';
@@ -40,16 +39,54 @@
 
 			if (success) {
 				toastStore.trigger({
-					message: 'สร้างบทเรียนสำเร็จ',
+					message: 'อัพเดทข้อมูลสำเร็จ',
 					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
-				goto('/files');
 			}
 		} catch (error) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
+				background: 'variant-filled-error',
+				autohide: true,
+				timeout: 3000
+			});
+		} finally {
+			busy = false;
+		}
+	};
+
+	const deleteFile = async (id: string) => {
+		busy = true;
+
+		try {
+			const { success, payload } = await trpc($page).lesson.deleteFileFromLesson.mutate({
+				lessonId: data.lesson?.id,
+				fileId: id
+			});
+
+			if (success) {
+				materials = payload.materials.map((material) => ({
+					id: material.id,
+					name: material.name,
+					type: material.type,
+					createdAt: new Date(material.createdAt),
+					fileId: material.fileId,
+					location: material.location,
+					tags: material.tags
+				}));
+
+				toastStore.trigger({
+					message: 'ลบไฟล์สำเร็จ',
+					background: 'variant-filled-success',
+					autohide: true,
+					timeout: 3000
+				});
+			}
+		} catch (err) {
+			toastStore.trigger({
+				message: 'เกิดข้อผิดพลาดในการลบไฟล์ โปรดติดต่อผู้ดูแลระบบ',
 				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
@@ -139,6 +176,7 @@
 		</label>
 
 		<div class="flex justify-end gap-2">
+			<!-- <Button class="variant-soft-error" isLoading={busy}>ลบบทเรียน</Button> -->
 			<Button class="variant-filled-primary" isLoading={busy} type="submit">อัพเดทข้อมูล</Button>
 		</div>
 	</div>
@@ -164,7 +202,9 @@
 						<td>{name}</td>
 						<td><FileTypeBadge {type} /></td>
 						<td>
-							<button type="button" class="anchor text-error-500">ลบ</button>
+							<button type="button" class="anchor text-error-500" on:click={() => deleteFile(id)}
+								>ลบ</button
+							>
 						</td>
 					</tr>
 				{/each}

@@ -29,7 +29,7 @@
 
 <Header>รายชื่อผู้ใช้งาน</Header>
 
-<div class="flex gap-2 pb-2">
+<div class="flex flex-col md:flex-row gap-2 pb-2">
 	<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 		<div class="input-group-shim">คำค้นหา</div>
 		<input
@@ -50,7 +50,6 @@
 </div>
 
 <div class="table-container">
-	<!-- Native Table Element -->
 	<table class="table table-compact">
 		<thead>
 			<tr>

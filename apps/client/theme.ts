@@ -4,8 +4,8 @@ export const theprotutorTheme: CustomThemeConfig = {
   name: "theprotutor-theme",
   properties: {
     // =~= Theme Properties =~=
-    "--theme-font-family-base": "system-ui",
-    "--theme-font-family-heading": "system-ui",
+    "--theme-font-family-base": '"Prompt"',
+    "--theme-font-family-heading": '"Prompt"',
     "--theme-font-color-base": "0 0 0",
     "--theme-font-color-dark": "255 255 255",
     "--theme-rounded-base": "4px",

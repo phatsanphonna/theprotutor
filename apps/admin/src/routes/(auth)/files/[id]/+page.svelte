@@ -56,7 +56,7 @@
 			if (success) {
 				toastStore.trigger({
 					message: 'แก้ไขข้อมูลสำเร็จ',
-					background: 'variant-ghost-success',
+					background: 'variant-filled-success',
 					autohide: true,
 					timeout: 3000
 				});
@@ -64,7 +64,7 @@
 		} catch (error) {
 			toastStore.trigger({
 				message: 'เกิดข้อผิดพลาดในการอัพเดทข้อมูล โปรดติดต่อผู้ดูแลระบบ',
-				background: 'variant-ghost-error',
+				background: 'variant-filled-error',
 				autohide: true,
 				timeout: 3000
 			});
@@ -77,7 +77,7 @@
 		navigator.clipboard.writeText(location);
 		toastStore.trigger({
 			message: 'คัดลอกลิงก์สำเร็จ',
-			background: 'variant-ghost-success',
+			background: 'variant-filled',
 			autohide: true,
 			timeout: 3000
 		});
@@ -121,7 +121,7 @@
 					class="input px-4 py-2"
 					type="text"
 					placeholder="ตำแหน่งไฟล์"
-					bind:value={location}
+					bind:value={data.files.id}
 					required
 				/>
 			</label>
@@ -130,6 +130,7 @@
 				<span>ไอดีไฟล์<span class="text-red-500">*</span></span>
 				<div class="flex gap-2">
 					<input type="url" value={data.files?.id} class="input px-4 py-2" readonly />
+
 
 					<Button class="variant-ghost" type="button" on:click={copyLink}>คัดลอกลิงก์</Button>
 					<a class="btn variant-filled" target="_blank" href={data.files?.location}
