@@ -4,21 +4,25 @@ import { t } from '../t';
 export const passcodeRoutes = t.router({
   getPasscode: authProcedure.query(async ({ ctx }) => {
     const { db, user } = ctx;
-
-    const passcode = await db.passcode.findUnique({
+  
+    // query passcode
+    const passcode = await db.passcode.findMany({
       where: {
-        ownerId: user!.id,
+        ownerId: user?.id,
         isUsed: false
       }
     });
-
-
-    if (!passcode) {
+  
+    if (passcode.length === 0) {
       const generatedPasscode = Math.round(Math.random() * 10000).toString().padStart(4, '0');
 
       const result = await db.passcode.create({
         data: {
-          ownerId: user!.id,
+          owner: {
+            connect: {
+              id: user?.id
+            }
+          },
           passcode: generatedPasscode
         }
       });
@@ -26,6 +30,6 @@ export const passcodeRoutes = t.router({
       return { success: true, payload: result };
     }
 
-    return { success: true, payload: passcode };
+    return { success: true, payload: passcode[0] };
   })
 })

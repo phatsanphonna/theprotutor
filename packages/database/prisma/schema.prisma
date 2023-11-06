@@ -93,7 +93,7 @@ model VerificationToken {
 model Passcode {
   id      String @id @default(cuid())
   owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId String @unique
+  ownerId String
 
   passcode String  @unique
   isUsed   Boolean @default(false)
