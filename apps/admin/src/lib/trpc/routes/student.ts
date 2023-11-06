@@ -128,12 +128,14 @@ export const studentRoutes = t.router({
 				lastname: z.string(),
 				nickname: z.string(),
 				guardianTelephoneNumber: z.string(),
-				telephoneNumber: z.string()
+				telephoneNumber: z.string(),
+				school: z.string(),
+				grade: z.enum(['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6'])
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
 			const { db } = ctx;
-			const { id, firstname, lastname, nickname, guardianTelephoneNumber, telephoneNumber } = input;
+			const { id, firstname, lastname, nickname, guardianTelephoneNumber, telephoneNumber, school, grade } = input;
 
 			const student = await db.student.update({
 				where: {
@@ -144,7 +146,9 @@ export const studentRoutes = t.router({
 					lastname,
 					nickname,
 					guardianTelephoneNumber,
-					telephoneNumber
+					telephoneNumber,
+					school,
+					grade
 				},
 				include: {
 					user: true

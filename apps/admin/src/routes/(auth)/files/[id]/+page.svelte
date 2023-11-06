@@ -121,7 +121,7 @@
 					class="input px-4 py-2"
 					type="text"
 					placeholder="ตำแหน่งไฟล์"
-					bind:value={location}
+					bind:value={data.files.id}
 					required
 				/>
 			</label>
@@ -130,6 +130,7 @@
 				<span>ไอดีไฟล์<span class="text-red-500">*</span></span>
 				<div class="flex gap-2">
 					<input type="url" value={data.files?.id} class="input px-4 py-2" readonly />
+
 
 					<Button class="variant-ghost" type="button" on:click={copyLink}>คัดลอกลิงก์</Button>
 					<a class="btn variant-filled" target="_blank" href={data.files?.location}

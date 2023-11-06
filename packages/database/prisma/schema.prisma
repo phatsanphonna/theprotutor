@@ -23,6 +23,21 @@ enum LogActivity {
   SIGN_IN
 }
 
+enum Grade {
+  P1
+  P2
+  P3
+  P4
+  P5
+  P6
+  M1
+  M2
+  M3
+  M4
+  M5
+  M6
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -64,6 +79,7 @@ model User {
   teacher Teacher?
 
   activities Log[]
+  passcode   Passcode[]
 }
 
 model VerificationToken {
@@ -72,6 +88,18 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Passcode {
+  id      String @id @default(cuid())
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId String @unique
+
+  passcode String  @unique
+  isUsed   Boolean @default(false)
+
+  usedBy    Student? @relation(fields: [studentId], references: [id])
+  studentId String?
 }
 
 // Log contains what is this person doing right now
@@ -99,9 +127,13 @@ model Student {
   telephoneNumber         String
   guardianTelephoneNumber String
 
-  assignment  Assignment[]
-  score       Score[]
-  appointment Appointment[]
+  school String
+  grade  Grade
+
+  assignment   Assignment[]
+  score        Score[]
+  appointment  Appointment[]
+  usedPasscode Passcode[]
 
   createdAt DateTime @default(now())
 }

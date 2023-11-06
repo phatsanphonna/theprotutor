@@ -1,10 +1,12 @@
 <script lang="ts">
   import VideoPlayer from "$lib/components/VideoPlayer.svelte";
-  import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton";
+  import { ListBox, ListBoxItem, getToastStore } from "@skeletonlabs/skeleton";
   import type { PageData } from "./$types";
   import { trpc } from "$lib/trpc/client";
   import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
+
+  const toastStore = getToastStore();
 
   $: isLoading = false;
   export let data: PageData;
@@ -18,6 +20,15 @@
   const verifyPasscode = async () => {
     isLoading = true;
     const { payload } = await trpc($page).me.verifyPasscode.mutate(passcode);
+
+    if (!payload) {
+      toastStore.trigger({
+        message: "รหัสผ่านไม่ถูกต้อง",
+        background: "variant-filled-error",
+        autohide: true,
+        timeout: 3000,
+      });
+    }
     isVerified = payload;
     isLoading = false;
   };

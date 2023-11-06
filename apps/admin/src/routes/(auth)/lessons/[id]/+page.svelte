@@ -176,6 +176,7 @@
 		</label>
 
 		<div class="flex justify-end gap-2">
+			<!-- <Button class="variant-soft-error" isLoading={busy}>ลบบทเรียน</Button> -->
 			<Button class="variant-filled-primary" isLoading={busy} type="submit">อัพเดทข้อมูล</Button>
 		</div>
 	</div>

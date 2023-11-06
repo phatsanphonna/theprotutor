@@ -5,6 +5,7 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 
 	import type { PageData } from './$types';
+	import type { Grade } from 'database';
 
 	export let data: PageData;
 	const toastStore = getToastStore();
@@ -16,6 +17,8 @@
 	let nickname = data.student?.nickname || '';
 	let telephoneNumber = data.student?.telephoneNumber || '';
 	let guardianTelephoneNumber = data.student?.guardianTelephoneNumber || '';
+	let school = data.student?.school || '';
+	let grade: Grade = data.student?.grade!;
 
 	const editStudent = async () => {
 		busy = true;
@@ -27,7 +30,9 @@
 				lastname,
 				nickname,
 				telephoneNumber,
-				guardianTelephoneNumber
+				guardianTelephoneNumber,
+				school,
+				grade
 			});
 
 			if (success) {
@@ -144,6 +149,35 @@
 				type="tel"
 				placeholder="เบอร์โทรศัพท์ผู้ปกครอง"
 				bind:value={guardianTelephoneNumber}
+				required
+			/>
+		</label>
+
+		<label class="label">
+			<span>ระดับชั้น<span class="text-red-500">*</span></span>
+			<select class="select" bind:value={grade}>
+				<option value="P1">ประถมศึกษาปีที่ 1</option>
+				<option value="P2">ประถมศึกษาปีที่ 2</option>
+				<option value="P3">ประถมศึกษาปีที่ 3</option>
+				<option value="P4">ประถมศึกษาปีที่ 4</option>
+				<option value="P5">ประถมศึกษาปีที่ 5</option>
+				<option value="P6">ประถมศึกษาปีที่ 6</option>
+				<option value="M1">มัธยมศึกษาปีที่ 1</option>
+				<option value="M2">มัธยมศึกษาปีที่ 2</option>
+				<option value="M3">มัธยมศึกษาปีที่ 3</option>
+				<option value="M4">มัธยมศึกษาปีที่ 4</option>
+				<option value="M5">มัธยมศึกษาปีที่ 5</option>
+				<option value="M6">มัธยมศึกษาปีที่ 6</option>
+			</select>
+		</label>
+
+		<label class="label">
+			<span>โรงเรียน<span class="text-red-500">*</span></span>
+			<input
+				class="input px-4 py-2"
+				type="tel"
+				placeholder="โรงเรียน"
+				bind:value={school}
 				required
 			/>
 		</label>

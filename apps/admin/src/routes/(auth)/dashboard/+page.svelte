@@ -20,13 +20,23 @@
 	</section>
 </div>
 
-<div class="grid grid-cols-2">
+<div class="grid grid-cols-2 gap-2">
 	<div class="card variant-ghost">
 		<header class="card-header font-bold text-2xl">จำนวนผู้ใช้งานในขณะนี้</header>
 
 		<section class="flex flex-col p-4">
 			<p class="text-lg">
 				{data.online} คน
+			</p>
+		</section>
+	</div>
+
+	<div class="card variant-ghost">
+		<header class="card-header font-bold text-2xl">รหัสผ่านเข้าคอร์สเรียน</header>
+
+		<section class="flex flex-col p-4">
+			<p class="text-lg">
+				{data.passcode}
 			</p>
 		</section>
 	</div>

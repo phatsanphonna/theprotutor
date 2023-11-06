@@ -9,14 +9,16 @@
   <h2 class="font-bold text-4xl mb-4">บทเรียน</h2>
 
   {#if data.assignments?.length !== 0}
-    {#each data.assignments as assignment}
-      <WorkCard
-        id={assignment.id}
-        name={assignment.lesson.title}
-        expireDate={assignment.expireDate}
-        totalFiles={assignment.lesson.materials.length}
-      />
-    {/each}
+    <div class="flex flex-col gap-2">
+      {#each data.assignments as assignment}
+        <WorkCard
+          id={assignment.id}
+          name={assignment.lesson.title}
+          expireDate={assignment.expireDate}
+          totalFiles={assignment.lesson.materials.length}
+        />
+      {/each}
+    </div>
   {:else}
     <div class="w-full grid place-items-center">
       <span

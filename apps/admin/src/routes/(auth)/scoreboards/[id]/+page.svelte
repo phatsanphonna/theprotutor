@@ -32,7 +32,7 @@
 					timeout: 3000
 				});
 
-				goto('/scores');
+				goto('/scoreboards');
 			}
 		} catch (err) {
 			toastStore.trigger({
