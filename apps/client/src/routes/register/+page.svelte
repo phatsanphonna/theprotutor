@@ -119,7 +119,7 @@
       />
     </label>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2gap-2">
       <label class="label">
         <span>ระดับชั้น<span class="text-red-500">*</span></span>
         <select class="select" bind:value={grade}>
@@ -150,7 +150,7 @@
       </label>
     </div>
 
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
       <label class="label">
         <span>เบอร์โทรศัพท์<span class="text-red-500">*</span></span>
         <input
