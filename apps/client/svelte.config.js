@@ -1,9 +1,18 @@
 import adapter from "@sveltejs/adapter-vercel";
 import { vitePreprocess } from "@sveltejs/kit/vite";
+import { imagePreprocessor } from 'svimg';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  preprocess: [vitePreprocess({})],
+  preprocess: [
+    imagePreprocessor({
+      inputDir: 'static',
+      outputDir: 'static/g',
+      webp: true,
+      avif: true
+    }),
+    vitePreprocess({})
+  ],
 
   kit: {
     adapter: adapter(),
