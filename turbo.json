@@ -31,6 +31,9 @@
     "db:force-push": {
       "cache": false
     },
+    "db:accept-data-loss": {
+      "cache": false
+    },
     "db:generate": {
       "cache": true
     },

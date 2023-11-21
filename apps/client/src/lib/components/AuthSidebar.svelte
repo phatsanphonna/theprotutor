@@ -59,11 +59,11 @@
         on:click={toggleDrawer}
       >
         <IconLayoutDashboard />
-        Dashboard
+        แดชบอร์ด
       </a>
     </li>
 
-    <li>
+    <!-- <li>
       <a
         href="/appointments"
         class="flex gap-2 items-center"
@@ -72,21 +72,21 @@
         <IconCalendar />
         ตารางการนัดเรียนชดเชย
       </a>
-    </li>
+    </li> -->
 
-    <li>
+    <!-- <li>
       <a href="/scores" class="flex gap-2 items-center" on:click={toggleDrawer}>
         <IconTestPipe />
         คะแนนสอบ
       </a>
-    </li>
+    </li> -->
 
-    <li>
+    <!-- <li>
       <a href="/me" class="flex gap-2 items-center" on:click={toggleDrawer}>
         <IconUser />
         บัญชีผู้ใช้งาน
       </a>
-    </li>
+    </li> -->
   </ul>
 
   <div class="mt-auto w-full">

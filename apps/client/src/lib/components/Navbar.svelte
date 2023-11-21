@@ -20,6 +20,12 @@
   };
 </script>
 
+<!-- <div class="h-9 variant-filled-secondary">
+  <div class="h-full container mx-auto flex items-center justify-center">
+    <p>เว็บไซต์นี้อยู่ในระหว่างการพัฒนา</p>
+  </div>
+</div> -->
+
 <AppBar padding="p-4 md:px-8" shadow="drop-shadow" background="bg-white">
   <svelte:fragment slot="lead">
     <div class="flex gap-8 items-center">
@@ -46,13 +52,13 @@
             >คอร์สเรียน</a
           >
         </li>
-        <li class="hover:underline">
+        <!-- <li class="hover:underline">
           <a
             href="/tutors"
             class={$page.url.pathname === "/tutors" ? "underline" : ""}
             >ติวเตอร์</a
           >
-        </li>
+        </li> -->
       </ul>
     </div>
   </svelte:fragment>
