@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Image from "svimg/Image.svelte";
-  const ambiances = ["ambiance1.jpg", "ambiance2.jpg", "ambiance3.jpg"];
+  const ambiances = ["ambiance1.webp", "ambiance2.webp", "ambiance3.webp"];
 </script>
 
 <div class="container mx-auto p-4">
