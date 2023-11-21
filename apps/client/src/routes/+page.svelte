@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import HomeAmbiance from "./home-ui/HomeAmbiance.svelte";
+  import HomeCourses from "./home-ui/HomeCourses.svelte";
 
-  let greetingMessage = "";
+  import HomeHeader from "./home-ui/HomeHeader.svelte";
 </script>
 
 <svelte:head>
   <title>สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="h-96 w-full grid place-items-center">
-  <p>{greetingMessage}</p>
-</div>
+<HomeHeader />
+
+<HomeCourses />
+<HomeAmbiance />

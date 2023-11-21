@@ -1,10 +1,12 @@
 <script lang="ts">
-  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
-  import { ListBox, ListBoxItem, getToastStore } from "@skeletonlabs/skeleton";
-  import type { PageData } from "./$types";
-  import { trpc } from "$lib/trpc/client";
+  import { goto } from '$app/navigation';
   import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
+  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
+  import { trpc } from "$lib/trpc/client";
+  import { ListBox, ListBoxItem, getToastStore } from "@skeletonlabs/skeleton";
+  import { onMount } from 'svelte';
+  import type { PageData } from "./$types";
 
   const toastStore = getToastStore();
 
@@ -16,6 +18,23 @@
   let passcode = "";
   $: passcode = passcode.replace(/[^0-9]/g, "");
   $: isVerified = false;
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      if (assignment.expireDate && new Date() > new Date(assignment.expireDate)) {
+        clearInterval(interval);
+        toastStore.trigger({
+          message: 'Assignment นี้หมดอายุแล้ว',
+          background: "variant-filled-error",
+          autohide: true,
+          timeout: 3000,
+        })
+        goto('/dashboard/assignments');
+      }
+    }, 1000);
+
+    return () => clearInterval(interval)
+  })
 
   const verifyPasscode = async () => {
     isLoading = true;

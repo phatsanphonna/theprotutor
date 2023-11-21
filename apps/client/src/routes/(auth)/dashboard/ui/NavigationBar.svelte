@@ -9,14 +9,14 @@
     selected={$page.url.pathname === "/dashboard/assignments"}
     >บทเรียน</TabAnchor
   >
-  <TabAnchor
+  <!-- <TabAnchor
     href="/dashboard/appointments"
     selected={$page.url.pathname === "/dashboard/appointments"}
   >
     เรียนชดเชย
-  </TabAnchor>
-  <TabAnchor
+  </TabAnchor> -->
+  <!-- <TabAnchor
     href="/dashboard/payment"
     selected={$page.url.pathname === "/dashboard/payment"}>ชำระเงิน</TabAnchor
-  >
+  > -->
 </TabGroup>
