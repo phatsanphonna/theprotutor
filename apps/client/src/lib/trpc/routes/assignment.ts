@@ -3,6 +3,7 @@ import { authProcedure } from '../procedures';
 import { t } from '../t';
 import { z } from 'zod';
 import { signURL } from '$lib/server/byteark';
+import { getVideoByKey } from '$lib/utils/byteark';
 
 export const assignmentRoutes = t.router({
   getAssignmentById: authProcedure.input(z.string()).query(async ({ ctx, input }) => {
@@ -17,7 +18,6 @@ export const assignmentRoutes = t.router({
         lesson: {
           include: {
             teacher: true,
-            materials: true
           }
         }
       }
@@ -30,7 +30,18 @@ export const assignmentRoutes = t.router({
       });
     }
 
-    return { success: true, payload: assignment };
+    const videos = await Promise.all(assignment.lesson.videos.map(async (id) => {
+      const video = await getVideoByKey(id);
+      return video;
+    }));
+
+    return { success: true, payload: {
+      ...assignment,
+      lesson: {
+        ...assignment.lesson,
+        videos
+      }
+    } };
   }),
   getSignedURL: authProcedure.input(z.string()).query(async ({ input }) => {
     const signedURL = signURL(input);

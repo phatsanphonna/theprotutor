@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Button from "$lib/components/Button.svelte";
   import VideoPlayer from "$lib/components/VideoPlayer.svelte";
   import { trpc } from "$lib/trpc/client";
   import { ListBox, ListBoxItem, getToastStore } from "@skeletonlabs/skeleton";
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
   import type { PageData } from "./$types";
 
   const toastStore = getToastStore();
@@ -13,7 +13,7 @@
   $: isLoading = false;
   export let data: PageData;
   const { assignment } = data;
-  $: src = assignment.lesson.materials[0].location || "";
+  $: src = assignment.lesson.videos[0].key;
 
   let passcode = "";
   $: passcode = passcode.replace(/[^0-9]/g, "");
@@ -21,20 +21,23 @@
 
   onMount(() => {
     const interval = setInterval(() => {
-      if (assignment.expireDate && new Date() > new Date(assignment.expireDate)) {
+      if (
+        assignment.expireDate &&
+        new Date() > new Date(assignment.expireDate)
+      ) {
         clearInterval(interval);
         toastStore.trigger({
-          message: 'Assignment นี้หมดอายุแล้ว',
+          message: "Assignment นี้หมดอายุแล้ว",
           background: "variant-filled-error",
           autohide: true,
           timeout: 3000,
-        })
-        goto('/dashboard/assignments');
+        });
+        goto("/dashboard/assignments");
       }
     }, 1000);
 
-    return () => clearInterval(interval)
-  })
+    return () => clearInterval(interval);
+  });
 
   const verifyPasscode = async () => {
     isLoading = true;
@@ -74,9 +77,9 @@
 
         <section class="p-4 h-full w-full">
           <ListBox>
-            {#each assignment.lesson.materials as { location, name }}
-              <ListBoxItem bind:group={src} name="medium" value={location}
-                >{name}</ListBoxItem
+            {#each assignment.lesson.videos as { title, key }}
+              <ListBoxItem bind:group={src} name="medium" value={key}
+                >{title}</ListBoxItem
               >
             {/each}
           </ListBox>
@@ -113,6 +116,7 @@
       disabled={isLoading}
       maxlength="4"
       placeholder="ตัวเลข 4 ตัว"
+      inputmode="numeric"
     />
 
     <Button class="btn variant-filled-primary" {isLoading} type="submit"

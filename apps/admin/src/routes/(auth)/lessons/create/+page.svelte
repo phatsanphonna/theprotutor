@@ -5,14 +5,12 @@
 	import FileTypeBadge from '$lib/components/FileTypeBadge.svelte';
 	import { trpc } from '$lib/trpc/client';
 	import { getToastStore } from '@skeletonlabs/skeleton';
-	import type { Material } from 'database';
 
 	const toastStore = getToastStore();
 
 	$: busy = false;
 	let title = '';
 	let description = '';
-	let materials: Array<Material> = [];
 
 	const createLesson = async () => {
 		busy = true;
@@ -20,8 +18,7 @@
 		try {
 			const { success, payload } = await trpc($page).lesson.createLesson.mutate({
 				title,
-				description,
-				materials: materials.map((material) => material.id)
+				description
 			});
 
 			if (success) {
@@ -66,16 +63,12 @@
 		</label>
 
 		<label class="label">
-			<span
-				>รายละเอียดของบทเรียน (สามารถใช้ภาษา Markdown เขียนได้)<span class="text-red-500">*</span
-				></span
-			>
+			<span>รายละเอียดของบทเรียน (สามารถใช้ภาษา Markdown เขียนได้)</span>
 			<textarea
 				bind:value={description}
 				class="textarea px-4 py-2"
 				rows="4"
 				placeholder="รายละเอียดของบทเรียน"
-				required
 			/>
 		</label>
 	</div>
