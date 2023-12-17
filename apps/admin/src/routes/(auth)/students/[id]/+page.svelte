@@ -187,9 +187,3 @@
 		<Button type="submit" isLoading={busy} class="variant-filled">แก้ไขข้อมูล</Button>
 	</div>
 </form>
-
-<hr class="!border-t-2 my-4" />
-
-<div>
-	<h3 class="font-bold text-2xl md:text-4xl mb-4">งานที่ได้รับมอบหมาย</h3>
-</div>

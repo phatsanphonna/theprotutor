@@ -9,7 +9,7 @@
 	<title>แดชบอร์ด | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
-<div class="card variant-ghost-success mb-4">
+<div class="card variant-ghost-success mb-2">
 	<header class="card-header font-bold text-4xl">
 		สวัสดี, คุณ {$page.data.user.name}
 	</header>
@@ -20,7 +20,7 @@
 	</section>
 </div>
 
-<div class="grid grid-cols-2 gap-2">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 	<div class="card variant-ghost">
 		<header class="card-header font-bold text-2xl">จำนวนผู้ใช้งานในขณะนี้</header>
 
