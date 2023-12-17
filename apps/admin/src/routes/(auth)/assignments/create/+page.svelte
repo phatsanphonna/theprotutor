@@ -2,16 +2,11 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
-	import FileTypeBadge from '$lib/components/FileTypeBadge.svelte';
 	import { trpc } from '$lib/trpc/client';
-	import type { Lesson, Material, Student, Teacher } from 'database';
+	import type { Student } from 'database';
 
-	interface FoundLesson extends Lesson {
-		teacher: Teacher;
-		materials: Material[];
-	}
 	let lessonId = '';
-	let foundLesson: FoundLesson | null = null;
+	let foundLesson: any = null;
 
 	let students: Array<Student> = [];
 	let studentId = '';
@@ -49,10 +44,6 @@
 			foundLesson = {
 				...payload,
 				lastUpdated: new Date(payload.lastUpdated),
-				materials: payload.materials.map((material) => ({
-					...material,
-					createdAt: new Date(material.createdAt)
-				}))
 			};
 		}
 	};

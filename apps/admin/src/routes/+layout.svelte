@@ -3,13 +3,14 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
-	import { AppShell, Toast, initializeStores, storePopup } from '@skeletonlabs/skeleton';
+	import { AppShell, Modal, Toast, initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import 'bytemd/dist/index.css';
 	import NProgress from 'nprogress';
 	import 'nprogress/nprogress.css';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { isSidebarOpen } from '$lib/stores/toggle-sidebar';
+	import { modalComponentRegistry } from '$lib/components/modals/registry';
 
 	export let data: LayoutData;
 
@@ -48,6 +49,7 @@
 </svelte:head>
 
 <Toast />
+<Modal components={modalComponentRegistry} />
 
 <AppShell>
 	<svelte:fragment slot="header">

@@ -15,7 +15,10 @@
 		IconTestPipe,
 		IconTestPipe2,
 		IconUser,
-		IconUsers
+		IconUsers,
+
+		IconVideo
+
 	} from '@tabler/icons-svelte';
 	import { page } from '$app/stores';
 	import { signOut } from '@auth/sveltekit/client';
@@ -44,9 +47,9 @@
 			label: 'บทเรียน'
 		},
 		{
-			href: '/files',
-			Icon: IconFiles,
-			label: 'ไฟล์'
+			href: '/videos',
+			Icon: IconVideo,
+			label: 'วิดีโอ'
 		},
 		{
 			href: '/scoreboards',

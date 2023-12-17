@@ -62,22 +62,22 @@
 				<th>ไอดี</th>
 				<th>ชื่อบทเรียน</th>
 				<th>ชื่อผู้สอน</th>
-				<th>จำนวนไฟล์</th>
+				<th>จำนวนวิดีโอ</th>
 				<th>จัดการ</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#each data.lessons as lesson}
+			{#each data.lessons as { id, title, teacher, videos }}
 				<tr>
-					<td>{lesson.id}</td>
-					<td>{lesson.title}</td>
+					<td>{id}</td>
+					<td>{title}</td>
 					<td>
-						{lesson.teacher.firstname}
-						{lesson.teacher.lastname}
+						{teacher.firstname}
+						{teacher.lastname}
 					</td>
-					<td>{lesson.materials.length} ไฟล์</td>
+					<td>{videos.length} วิดีโอ</td>
 					<td>
-						<a href={`/lessons/${lesson.id}`} class="anchor">จัดการบทเรียน</a>
+						<a href={`/lessons/${id}`} class="anchor">จัดการบทเรียน</a>
 					</td>
 				</tr>
 			{/each}

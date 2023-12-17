@@ -42,14 +42,13 @@ export const meRoutes = t.router({
       },
       select: {
         assignment: {
+          orderBy: {
+            assignDate: 'desc',
+          },
           include: {
             lesson: {
               include: {
-                materials: {
-                  select: {
-                    _count: true,
-                  },
-                },
+                
               },
             },
           },
@@ -62,7 +61,7 @@ export const meRoutes = t.router({
         ...assignment,
         lesson: {
           ...assignment.lesson,
-          materials: assignment.lesson.materials,
+          videos: assignment.lesson.videos,
         },
       };
     });

@@ -15,7 +15,7 @@
           id={assignment.id}
           name={assignment.lesson.title}
           expireDate={assignment.expireDate}
-          totalFiles={assignment.lesson.materials.length}
+          totalFiles={assignment.lesson.videos.length}
         />
       {/each}
     </div>

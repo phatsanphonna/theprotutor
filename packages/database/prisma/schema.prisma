@@ -150,34 +150,6 @@ model Teacher {
   lessons Lesson[]
 }
 
-model Material {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  name String   @unique
-  tags String[]
-
-  lessons Lesson[]
-
-  type FileType @default(FILE)
-
-  file   File?   @relation(fields: [fileId], references: [id], onDelete: Cascade)
-  fileId String? @unique
-
-  location String?
-}
-
-model File {
-  id   String @id @default(cuid())
-  data Bytes
-
-  name        String
-  ext         String
-  contentType String
-
-  Material Material?
-}
-
 model Lesson {
   id String @id @default(cuid())
 
@@ -185,8 +157,8 @@ model Lesson {
   description String?
   lastUpdated DateTime @default(now())
 
-  materials   Material[]
   assignments Assignment[]
+  videos      String[]
 
   teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String

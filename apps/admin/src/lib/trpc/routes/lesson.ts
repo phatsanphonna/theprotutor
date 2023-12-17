@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
 import { TRPCError } from '@trpc/server';
+import { getVideoByKey } from '$lib/utils/byteark';
 
 export const lessonRoutes = t.router({
 	getLessons: teacherProcedure.input(z.string().default('')).query(async ({ ctx, input }) => {
@@ -20,11 +21,6 @@ export const lessonRoutes = t.router({
 			},
 			include: {
 				teacher: true,
-				materials: {
-					select: {
-						_count: true
-					}
-				}
 			}
 		});
 
@@ -39,7 +35,6 @@ export const lessonRoutes = t.router({
 			},
 			include: {
 				teacher: true,
-				materials: true
 			}
 		});
 
@@ -50,7 +45,15 @@ export const lessonRoutes = t.router({
 			});
 		}
 
-		return { success: true, payload: lesson };
+		const videos = await Promise.all(lesson.videos.map(async (id) => {
+			const video = getVideoByKey(id);
+			return video;
+		}))
+
+		return { success: true, payload: {
+			...lesson,
+			videos
+		} };
 	}),
 	editLessonById: teacherProcedure
 		.input(
@@ -58,12 +61,11 @@ export const lessonRoutes = t.router({
 				id: z.string(),
 				title: z.string(),
 				description: z.string(),
-				materials: z.array(z.string())
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
 			const { db } = ctx;
-			const { id, title, description, materials } = input;
+			const { id, title, description } = input;
 
 			const lesson = await db.lesson.update({
 				where: {
@@ -72,11 +74,6 @@ export const lessonRoutes = t.router({
 				data: {
 					title,
 					description,
-					materials: {
-						connect: materials.map((id) => ({
-							id
-						}))
-					}
 				}
 			});
 
@@ -111,12 +108,11 @@ export const lessonRoutes = t.router({
 			z.object({
 				title: z.string(),
 				description: z.string(),
-				materials: z.array(z.string())
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
 			const { db, teacher } = ctx;
-			const { title, description, materials } = input;
+			const { title, description } = input;
 
 			console.log(teacher);
 
@@ -125,21 +121,16 @@ export const lessonRoutes = t.router({
 					title,
 					description,
 					teacherId: teacher?.id || '',
-					materials: {
-						connect: materials.map((id) => ({
-							id
-						}))
-					}
 				}
 			});
 
 			return { success: true, payload: lesson };
 		}),
-	deleteFileFromLesson: teacherProcedure
-		.input(z.object({ lessonId: z.string(), fileId: z.string() }))
+	deleteVideoFromLesson: teacherProcedure
+		.input(z.object({ lessonId: z.string(), videoId: z.string() }))
 		.mutation(async ({ ctx, input }) => {
 			const { db } = ctx;
-			const { lessonId, fileId } = input;
+			const { lessonId, videoId } = input;
 
 			const lesson = await db.lesson.findUnique({
 				where: {
@@ -154,35 +145,49 @@ export const lessonRoutes = t.router({
 				});
 			}
 
-			const file = await db.material.findUnique({
-				where: {
-					id: fileId
-				}
-			});
-
-			if (!file) {
-				throw new TRPCError({
-					code: 'NOT_FOUND',
-					message: 'Material not found'
-				});
-			}
-
 			const updatedLesson = await db.lesson.update({
 				where: {
 					id: lessonId
 				},
 				data: {
-					materials: {
-						disconnect: {
-							id: fileId
-						}
+					videos: {
+						set: lesson.videos.filter((id) => id !== videoId)
 					}
-				},
-				include: {
-					materials: true
 				}
 			});
 
 			return { success: true, payload: updatedLesson };
+		}),
+	addVideo: teacherProcedure.input(
+		z.object({ lessonId: z.string(), videoId: z.string() }))
+		.mutation(async ({ ctx, input }) => {
+			const { db } = ctx;
+			const { lessonId, videoId } = input;
+
+			const lesson = await db.lesson.findUnique({
+				where: {
+					id: lessonId
+				}
+			});
+
+			if (!lesson) {
+				throw new TRPCError({
+					code: 'NOT_FOUND',
+					message: 'Lesson not found'
+				});
+			}
+
+			const video = await db.lesson.update({
+				where: {
+					id: lessonId
+				},
+				data: {
+					videos: {
+						push: videoId
+					}
+				}
+			});
+
+			return { success: true, payload: video };
 		})
 });
