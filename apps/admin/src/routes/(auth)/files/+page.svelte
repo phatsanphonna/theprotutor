@@ -6,6 +6,7 @@
 	import { trpc } from '$lib/trpc/client';
 	import { IconFilePlus } from '@tabler/icons-svelte';
 	import type { PageData } from './$types';
+	import { getBytearkVideoUrl } from '$lib/utils/byteark';
 
 	export let data: PageData;
 	$: busy = false;
@@ -20,19 +21,6 @@
 		minute: '2-digit',
 		year: 'numeric'
 	});
-
-	const handleQuery = async () => {
-		busy = true;
-
-		const { payload } = await trpc($page).file.getFiles.query({
-			queryBy: key,
-			q
-		});
-
-		data.files = payload;
-
-		busy = false;
-	};
 </script>
 
 <svelte:head>
@@ -50,11 +38,7 @@
 			class="input p-2 w-full"
 			placeholder="ไอดีไฟล์หรือชื่อไฟล์"
 			bind:value={q}
-			on:keydown={(e) => {
-				if (e.key === 'Enter') {
-					handleQuery();
-				}
-			}}
+			on:keydown={(e) => {}}
 		/>
 	</div>
 
@@ -72,24 +56,17 @@
 			<tr>
 				<th>ไอดีไฟล์</th>
 				<th>ชื่อไฟล์</th>
-				<th>ประเภท</th>
-				<th>วันที่อัพโหลด</th>
 				<th>จัดการ</th>
 			</tr>
 		</thead>
 		<tbody>
-			{#each data.files as file}
+			{#each data.files.data as video}
 				<tr>
-					<td>{file.id}</td>
-					<td>{file.name}</td>
+					<td>{video.key}</td>
+					<td>{video.title}</td>
 					<td>
-						<FileTypeBadge type={file.type} />
-					</td>
-					<td>
-						{dateTimeFormatter.format(new Date(file.createdAt))}
-					</td>
-					<td>
-						<a href={`/files/${file.id}`} class="anchor">จัดการไฟล์</a>
+						<a class="anchor">เพิ่มเข้าบทเรียน</a>
+						<a href={getBytearkVideoUrl(video.key)} class="anchor">จัดการไฟล์</a>
 					</td>
 				</tr>
 			{/each}

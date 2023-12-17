@@ -3,8 +3,14 @@ import { FileType, prisma } from 'database';
 import { z } from 'zod';
 import { teacherProcedure } from '../procedures';
 import { t } from '../t';
+import { getVideos } from '$lib/utils/byteark';
 
 export const fileRoutes = t.router({
+	getVideosFromByteark: teacherProcedure.query(async ({ ctx, input }) => {
+		const videos = await getVideos();
+
+		return { success: true, payload: videos };
+	}),
 	getFiles: teacherProcedure
 		.input(
 			z.object({
