@@ -8,6 +8,9 @@ export const assignmentRoutes = t.router({
 		const { db } = ctx;
 
 		const assignments = await db.assignment.findMany({
+			orderBy: {
+				assignDate: 'desc'
+			},
 			include: {
 				assignTo: true,
 				lesson: {

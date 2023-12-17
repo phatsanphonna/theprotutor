@@ -60,7 +60,7 @@
 				<th>ชื่อผู้สอน</th>
 				<th>วันที่มอบหมาย</th>
 				<th>วันหมดอายุ</th>
-				<th>จัดการ</th>
+				<!-- <th>จัดการ</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -81,9 +81,9 @@
 							? dateTimeFormatter.format(new Date(String(assignment.expireDate)))
 							: 'ไม่มีกำหนด'}
 					</td>
-					<td>
+					<!-- <td>
 						<a href={`/assignments/${assignment.id}`} class="anchor">จัดการงานที่มอบหมาย</a>
-					</td>
+					</td> -->
 				</tr>
 			{/each}
 		</tbody>
