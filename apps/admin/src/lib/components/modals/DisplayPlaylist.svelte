@@ -19,6 +19,7 @@
 	});
 
 	const addVideoToLesson = async (lessonId: string) => {
+		try {
 		const { payload } = await trpc($page).lesson.addVideo.mutate({
 			lessonId,
 			videoId: $modalStore[0].value.id
@@ -30,6 +31,14 @@
 			timeout: 3000
 		});
 		modalStore.close();
+	} catch (error: any) {
+		toastStore.trigger({
+			message: error.message,
+			background: 'variant-filled-error',
+			autohide: true,
+			timeout: 3000
+		});
+	}
 	};
 </script>
 

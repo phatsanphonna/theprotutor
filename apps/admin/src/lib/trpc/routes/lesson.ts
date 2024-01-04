@@ -177,6 +177,13 @@ export const lessonRoutes = t.router({
 				});
 			}
 
+			if (lesson.videos.includes(videoId)) {
+				throw new TRPCError({
+					code: 'BAD_REQUEST',
+					message: 'Video already exists'
+				});
+			}
+
 			const video = await db.lesson.update({
 				where: {
 					id: lessonId

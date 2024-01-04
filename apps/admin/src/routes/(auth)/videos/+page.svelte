@@ -36,7 +36,7 @@
 </script>
 
 <svelte:head>
-	<title>วิดีโอทั้งหมด | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
+	<title>วิดีโอทั้งหมด ({data.videos.data.length} วิดีโอ) | ระบบจัดการหลังบ้าน สถาบันกวดวิชาเดอะโปร - THE PRO TUTOR</title>
 </svelte:head>
 
 <Header>วิดีโอทั้งหมด</Header>
@@ -50,14 +50,13 @@
 			class="input p-2 w-full"
 			placeholder="ไอดีไฟล์หรือชื่อไฟล์"
 			bind:value={q}
-			on:keydown={(e) => {}}
 		/>
 	</div>
 
 	<Button class="variant-filled-primary" on:click={handleQuery} isLoading={busy}>ค้นหา</Button>
 	<a
 		target="_blank"
-		href="https://stream.byteark.com/phatsanphon/projects/theprotutor-iqlmr7/upload"
+		href="https://stream.byteark.com/the-pro-tutor/projects/theprotutor-iqlmr7/upload"
 		class="btn variant-filled"
 	>
 		<span><IconVideoPlus /></span>
