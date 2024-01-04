@@ -7,7 +7,7 @@
 
 <iframe
   class={className}
-  src={`https://stream-player.byteark.com/players/65467fc8cc35c2062ae96ee5/videos/${src}`}
+  src={`https://stream-player.byteark.com/players/6579df2a69291334bbd0abf0/videos/${src}`}
   {title}
   frameborder="0"
   allowfullscreen
