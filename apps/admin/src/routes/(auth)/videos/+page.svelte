@@ -56,7 +56,7 @@
 	<Button class="variant-filled-primary" on:click={handleQuery} isLoading={busy}>ค้นหา</Button>
 	<a
 		target="_blank"
-		href="https://stream.byteark.com/the-pro-tutor/projects/theprotutor-iqlmr7/upload"
+		href="https://stream.byteark.com/the-pro-tutor/projects/the-pro-tutor-j8zncu/upload"
 		class="btn variant-filled"
 	>
 		<span><IconVideoPlus /></span>
