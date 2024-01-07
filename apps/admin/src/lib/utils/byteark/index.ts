@@ -13,7 +13,7 @@ export const getVideos = async () => {
 }
 
 export const getBytearkVideoUrl = (videoId: string) => {
-  return `https://stream.byteark.com/the-pro-tutor/projects/theprotutor-iqlmr7/videos/${videoId}/information`;
+  return `https://stream.byteark.com/the-pro-tutor/projects/the-pro-tutor-j8zncu/videos/${videoId}/information`;
 }
 
 export const getVideoByKey = async (key: string) => {
